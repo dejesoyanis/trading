@@ -1,0 +1,47 @@
+# Trading platform workspace.
+# M0-01 establishes the software foundation only. No trading behavior is implemented.
+
+[workspace]
+resolver = "3"
+members = [
+    "apps/trading-api",
+    "crates/trading-common",
+    "crates/trading-domain",
+    "crates/trading-application",
+    "crates/trading-oms",
+    "crates/trading-risk",
+    "crates/trading-broker",
+    "crates/trading-ibkr",
+    "crates/trading-persistence",
+]
+default-members = ["apps/trading-api"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+license = "UNLICENSED"
+publish = false
+rust-version = "1.99"
+repository = "https://github.com/dejesoyanis/trading"
+
+[workspace.dependencies]
+trading-common = { path = "crates/trading-common" }
+trading-application = { path = "crates/trading-application" }
+trading-persistence = { path = "crates/trading-persistence" }
+axum = "0.8"
+dotenvy = "0.15"
+serde = { version = "1", features = ["derive"] }
+sqlx = { version = "0.9", default-features = false, features = ["macros", "migrate", "postgres", "runtime-tokio", "tls-rustls"] }
+thiserror = "2"
+tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-thread", "signal", "sync", "time"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+url = "2"
+uuid = { version = "1", features = ["v4"] }
+
+[workspace.lints.rust]
+missing_docs = "warn"
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+dbg_macro = "warn"
