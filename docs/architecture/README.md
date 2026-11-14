@@ -46,14 +46,14 @@ The process waits until Ctrl-C or, on Unix, SIGTERM. Windows builds install the 
 
 `Drop` on the server handle sends the stop signal and aborts the task immediately. It does not wait. It is a best-effort fallback, not a graceful shutdown.
 
-There is no orchestration framework and no trading-readiness state machine.
+There is no orchestration framework and no trading-readiness state machine. M0-02A defines `TradingReadinessState` as a label. It does not decide readiness and it does not read HTTP status.
 
 ## Module responsibilities
 
 | Crate | Responsibility now | Explicitly absent |
 | --- | --- | --- |
 | `trading-common` | `SecretString`, `CorrelationId`, and `error_chain` | General-purpose utility collection |
-| `trading-domain` | Boundary for future types and invariants | Order state machine and DET implementations |
+| `trading-domain` | Draft identifiers, state labels, decimal shells, and timestamps | State transitions, risk evaluation, broker dispatch, and DET transition tables |
 | `trading-application` | `Application` holding the deployment environment | Order submission workflows |
 | `trading-oms` | Reserved package | Order processing |
 | `trading-risk` | Reserved package | Risk policies and reservations |
@@ -86,6 +86,10 @@ trading-persistence
 └── url
 
 trading-domain
+├── serde
+├── thiserror
+└── uuid
+
 trading-application
 trading-oms
 trading-risk
@@ -93,7 +97,7 @@ trading-broker
 trading-ibkr
 ```
 
-The last six crates have no workspace dependencies. `trading-api` is the only crate that depends on another workspace crate. The graph has no cycles.
+`trading-domain` depends only on `serde`, `thiserror`, and `uuid`. The other five crates have no workspace dependencies. `trading-api` is the only crate that depends on another workspace crate. The graph has no cycles. `trading-domain` does not depend on `trading-api`, `trading-common`, or `trading-persistence`.
 
 Domain and application crates do not depend on axum, sqlx, NATS, Interactive Brokers libraries, or frontend types. `trading-persistence` does not depend on domain types. `trading-ibkr` does not depend on `trading-broker` because that crate does not yet define a contract.
 
@@ -117,4 +121,4 @@ These identifiers were supplied as binding architecture decisions. Their bodies 
 
 ## Outstanding technical contracts
 
-DET-01 through DET-10 are conceptually approved and still need implementation-level specification. This milestone does not invent those contracts, and it does not implement order, risk, execution, or broker behavior against them. Safety-critical trading behavior stays absent until those contracts are specified.
+DET-01 through DET-10 are conceptually approved and still need implementation-level specification. Their bodies are not in this repository. M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. Safety-critical trading behavior stays absent until those contracts are specified.

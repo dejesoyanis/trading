@@ -5,6 +5,8 @@ use uuid::Uuid;
 /// Identifier attached to one inbound HTTP request.
 ///
 /// This is a process-local correlation handle. It is not a distributed trace.
+/// It is also not the domain correlation id in `trading-domain`. That type is
+/// separate, and neither crate converts one into the other.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct CorrelationId(Uuid);
 

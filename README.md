@@ -2,7 +2,7 @@
 
 Private foundation for a safety-critical, AI-assisted trading platform.
 
-**Trading functionality is not implemented.** This repository is the M0-01 software foundation, hardened by M0-01A. It does not submit orders, connect to a broker, run strategies, authorize trades, or enable live trading.
+**Trading functionality is not implemented.** This repository is the M0-01 software foundation, hardened by M0-01A, with a draft domain vocabulary added in M0-02A. It does not submit orders, connect to a broker, run strategies, authorize trades, or enable live trading.
 
 **HTTP readiness is not Trading Readiness and grants no submission authority.**
 
@@ -17,7 +17,7 @@ The Cargo workspace is the git repository root. `trading-api` is the only proces
 ```text
 apps/trading-api            HTTP process, migration command, and composition root
 crates/trading-common       redacted secrets, correlation ids, error chains
-crates/trading-domain       future domain types; no order state machine
+crates/trading-domain       draft domain vocabulary; no order state machine
 crates/trading-application  deployment-environment context; no order workflows
 crates/trading-oms          reserved; no order processing
 crates/trading-risk         reserved; no risk policies
@@ -127,6 +127,7 @@ GitHub Actions is the CI provider. The workflow checks formatting, Clippy, locke
 | Explicit infrastructure migration and read-only readiness | Implemented |
 | PostgreSQL integration test in GitHub Actions | Implemented in the workflow; remote run pending |
 | Docker Compose startup | Not verified |
+| Canonical domain vocabulary | Draft types and glossary; no transitions or trading behavior |
 | Order management, risk, broker, execution, trading readiness | Not implemented |
 | Paper trading and live trading | Not implemented |
 
@@ -138,3 +139,5 @@ GitHub Actions is the CI provider. The workflow checks formatting, Clippy, locke
 - [M0-01A implementation report](docs/development/reports/M0-01A-implementation-report.md)
 - [M0-01 prompt](docs/cursor-prompts/M0-01-rust-trading-platform-foundation.md)
 - [M0-01A prompt](docs/cursor-prompts/M0-01A-foundation-verification-hardening.md)
+- [Domain glossary](contracts/domain/glossary.md)
+- [M0-02A implementation report](docs/reports/TRD-M002A-implementation-report.md)

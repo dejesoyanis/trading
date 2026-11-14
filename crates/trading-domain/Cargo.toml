@@ -1,12 +1,20 @@
 [package]
 name = "trading-domain"
-description = "Foundation for future domain types and invariants."
+description = "Draft domain vocabulary. No state transitions, risk evaluation, or broker dispatch."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
 publish.workspace = true
 rust-version.workspace = true
 repository.workspace = true
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+serde_json = "1.0.154"
 
 [lints]
 workspace = true

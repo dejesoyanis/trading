@@ -1,8 +1,9 @@
 //! Technical primitives shared by the trading platform.
 //!
 //! This crate is not a general utility collection. It holds the process
-//! primitives used by the foundation: redacted secrets, correlation
-//! identifiers, and error-chain rendering.
+//! primitives used by the foundation: redacted secrets, an HTTP request
+//! correlation handle, and error-chain rendering. Domain identifiers live in
+//! `trading-domain`.
 
 mod correlation;
 mod error_chain;

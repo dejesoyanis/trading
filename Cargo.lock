@@ -1659,6 +1659,12 @@ dependencies = [
 [[package]]
 name = "trading-domain"
 version = "0.1.0"
+dependencies = [
+ "serde",
+ "serde_json",
+ "thiserror",
+ "uuid",
+]
 
 [[package]]
 name = "trading-ibkr"
