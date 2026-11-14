@@ -127,7 +127,7 @@ GitHub Actions is the CI provider. The workflow checks formatting, Clippy, locke
 | Explicit infrastructure migration and read-only readiness | Implemented |
 | PostgreSQL integration test in GitHub Actions | Implemented in the workflow; remote run pending |
 | Docker Compose startup | Not verified |
-| Canonical domain vocabulary | Draft types and glossary; no transitions or trading behavior |
+| Canonical domain vocabulary | Draft shell. UD-01..UD-09 are design-resolved and implementation-pending. Canonical schemas are not published. |
 | Order management, risk, broker, execution, trading readiness | Not implemented |
 | Paper trading and live trading | Not implemented |
 
@@ -140,4 +140,8 @@ GitHub Actions is the CI provider. The workflow checks formatting, Clippy, locke
 - [M0-01 prompt](docs/cursor-prompts/M0-01-rust-trading-platform-foundation.md)
 - [M0-01A prompt](docs/cursor-prompts/M0-01A-foundation-verification-hardening.md)
 - [Domain glossary](contracts/domain/glossary.md)
+- [Domain decisions](contracts/domain/unresolved-decisions.md)
+- [Traceability index](contracts/traceability-index.md)
+- [Schema registry skeleton](contracts/registry/README.md)
 - [M0-02A implementation report](docs/reports/TRD-M002A-implementation-report.md)
+- [UD-01..UD-09 resolution prompt](docs/cursor-prompts/trading/M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md)

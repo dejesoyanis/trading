@@ -53,7 +53,7 @@ There is no orchestration framework and no trading-readiness state machine. M0-0
 | Crate | Responsibility now | Explicitly absent |
 | --- | --- | --- |
 | `trading-common` | `SecretString`, `CorrelationId`, and `error_chain` | General-purpose utility collection |
-| `trading-domain` | Draft identifiers, state labels, decimal shells, and timestamps | State transitions, risk evaluation, broker dispatch, and DET transition tables |
+| `trading-domain` | Draft identifiers, state labels, decimal shells, and timestamps. UD-01..UD-09 are design-resolved and implementation-pending. | State transitions, risk evaluation, broker dispatch, DET transition tables, and canonical wire schemas |
 | `trading-application` | `Application` holding the deployment environment | Order submission workflows |
 | `trading-oms` | Reserved package | Order processing |
 | `trading-risk` | Reserved package | Risk policies and reservations |
@@ -121,4 +121,8 @@ These identifiers were supplied as binding architecture decisions. Their bodies 
 
 ## Outstanding technical contracts
 
-DET-01 through DET-10 are conceptually approved and still need implementation-level specification. Their bodies are not in this repository. M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. Safety-critical trading behavior stays absent until those contracts are specified.
+DET-01 through DET-10 are conceptually approved and still need implementation-level specification. Their bodies are not in this repository and were not reviewed. CR-B01 through CR-B09 and the Architecture Decision and Foundations Register are also absent. The index is [contracts/traceability-index.md](../../contracts/traceability-index.md).
+
+CR-B10 v1.0-draft is copied at `contracts/sources/CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md`. Its enum names stay draft. The architecture resolution for UD-01 through UD-09 is copied beside it. That resolution is DESIGN_RESOLVED / IMPLEMENTATION_PENDING. It refines provisional CR-B10 details and does not replace a DET invariant. Broker uniqueness stays EVIDENCE_PENDING.
+
+M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. M0-02B-a adds a registry skeleton that cannot publish canonical schemas. M0-02B-b, the canonical schemas and fixtures, is NO-GO until the resolution's type adjustments are implemented and tested. Safety-critical trading behavior stays absent until the missing contracts are specified. Live trading is not authorized.
