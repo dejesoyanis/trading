@@ -5,9 +5,9 @@
 //! through DET-10 were not in this repository and their transition tables are
 //! not invented here.
 //!
-//! `trading_common::CorrelationId` remains the HTTP request handle. The
+//! `trading_common::HttpRequestId` is the HTTP request identifier. The
 //! [`CorrelationId`] in this crate is the domain correlation id. Neither crate
-//! converts one into the other.
+//! converts one into the other. The HTTP header remains `x-correlation-id`.
 //!
 //! UUID generation is version 4. Bit order is not event order. Timestamp order
 //! is not event order.
@@ -31,6 +31,23 @@
 //! use trading_domain::{CausationId, CorrelationId};
 //! let id = uuid::Uuid::nil();
 //! let _same = CorrelationId::from_uuid(id) == CausationId::from_uuid(id);
+//! ```
+//!
+//! ```compile_fail,E0308
+//! use trading_common::HttpRequestId;
+//! use trading_domain::CorrelationId;
+//! let http = HttpRequestId::generate();
+//! let domain = CorrelationId::from_uuid(uuid::Uuid::nil());
+//! let _same = http == domain;
+//! ```
+//!
+//! ```compile_fail,E0308
+//! use trading_common::HttpRequestId;
+//! use trading_domain::CorrelationId;
+//! fn accepts(id: CorrelationId) -> CorrelationId {
+//!     id
+//! }
+//! accepts(HttpRequestId::generate());
 //! ```
 //!
 //! ```compile_fail,E0308
@@ -123,6 +140,51 @@
 //! let recorded = ExecutionIdentity::new(account, scope, external);
 //! accepts(recorded.quarantine());
 //! ```
+//!
+//! ```compile_fail,E0308
+//! use trading_domain::{BrokerClientId, BrokerSessionId};
+//! fn accepts(id: BrokerSessionId) -> BrokerSessionId {
+//!     id
+//! }
+//! accepts(BrokerClientId::new("client-1").unwrap());
+//! ```
+//!
+//! ```compile_fail,E0599
+//! use trading_domain::BrokerIdentityContext;
+//! let _verified = BrokerIdentityContext::verified();
+//! ```
+//!
+//! ```compile_fail,E0599
+//! use trading_domain::BrokerIdentityContext;
+//! let _merged = BrokerIdentityContext::merge();
+//! ```
+//!
+//! ```compile_fail,E0308
+//! use trading_domain::{AdapterSessionEpoch, WriterEpoch};
+//! let _same = AdapterSessionEpoch::new(1) == WriterEpoch::new(1);
+//! ```
+//!
+//! ```compile_fail,E0599
+//! use trading_domain::AdapterSessionEpoch;
+//! let _next = AdapterSessionEpoch::new(1).checked_next();
+//! ```
+//!
+//! ```compile_fail,E0369
+//! use trading_domain::RiskPolicyVersion;
+//! let left = RiskPolicyVersion::new("v1").unwrap();
+//! let right = RiskPolicyVersion::new("v2").unwrap();
+//! let _order = left < right;
+//! ```
+//!
+//! ```compile_fail,E0599
+//! use trading_domain::OccurredAt;
+//! let _quality = OccurredAt::from_unix_microseconds(0).clock_quality();
+//! ```
+//!
+//! ```compile_fail,E0432
+//! use trading_domain::OrderClosure;
+//! let _closure = OrderClosure::new();
+//! ```
 
 mod amount;
 mod error;
@@ -135,6 +197,7 @@ mod version;
 
 pub use amount::{
     CurrencyCode, DecimalAmount, InstrumentId, MAX_DECIMAL_SCALE, Money, Price, Quantity,
+    RoundingPolicy,
 };
 pub use error::{
     DecimalError, FinancialGap, IdParseError, IdentityParseError, IntegerParseError, MoneyError,
@@ -147,8 +210,9 @@ pub use identifier::{
     ValuationSnapshotId,
 };
 pub use identity::{
-    BrokerAccountCode, BrokerAccountKey, BrokerAliasScope, BrokerEnvironmentLabel, BrokerName,
-    BrokerOrderAlias, BrokerPermIdAlias, ExecutionIdentity, ExternalBrokerId,
+    AdapterSessionEpoch, BrokerAccountCode, BrokerAccountKey, BrokerAliasScope, BrokerClientId,
+    BrokerEnvironmentLabel, BrokerIdentityContext, BrokerName, BrokerOrderAlias, BrokerPermIdAlias,
+    ExecutionIdentity, ExternalAliasKind, ExternalBrokerId, IdentityEvidenceId,
     QuarantinedExecutionIdentity, UnverifiedSessionScope,
 };
 pub use state::{
@@ -199,5 +263,14 @@ mod tests {
         const { assert!(!FINANCIAL_ROUNDING_IMPLEMENTED) };
         const { assert!(!BROKER_DISPATCH_IMPLEMENTED) };
         const { assert!(!RISK_EVALUATION_IMPLEMENTED) };
+    }
+
+    #[test]
+    fn http_request_id_is_a_different_type_from_domain_correlation() {
+        let http = std::any::type_name::<trading_common::HttpRequestId>();
+        let domain = std::any::type_name::<crate::CorrelationId>();
+        assert!(http.ends_with("HttpRequestId"));
+        assert!(domain.ends_with("CorrelationId"));
+        assert_ne!(http, domain);
     }
 }

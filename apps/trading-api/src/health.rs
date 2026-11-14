@@ -8,7 +8,7 @@ use axum::routing::get;
 use axum::{Json, Router};
 use serde::Serialize;
 use tracing::Instrument;
-use trading_common::CorrelationId;
+use trading_common::HttpRequestId;
 use trading_persistence::{Database, PersistenceError};
 
 use crate::logging::{ReadinessSnapshot, log_readiness_transition};
@@ -78,7 +78,7 @@ pub(crate) fn router(state: AppState) -> Router {
     Router::new()
         .route("/health/live", get(live))
         .route("/health/ready", get(ready))
-        .layer(middleware::from_fn(attach_correlation_id))
+        .layer(middleware::from_fn(attach_request_id))
         .with_state(state)
 }
 
@@ -119,16 +119,19 @@ async fn ready(State(state): State<AppState>) -> Response {
     }
 }
 
-async fn attach_correlation_id(request: Request, next: Next) -> Response {
-    let correlation_id = CorrelationId::generate();
+async fn attach_request_id(request: Request, next: Next) -> Response {
+    let request_id = HttpRequestId::generate();
+    // The span field and the header keep their existing names. Those names are
+    // the wire and log format. They do not make `request_id` a domain
+    // correlation id or a distributed span.
     let span = tracing::info_span!(
         "http_request",
-        correlation_id = %correlation_id,
+        correlation_id = %request_id,
         method = %request.method(),
         path = %request.uri().path(),
     );
     let mut response = next.run(request).instrument(span).await;
-    match HeaderValue::from_str(&correlation_id.to_string()) {
+    match HeaderValue::from_str(&request_id.to_string()) {
         Ok(value) => {
             response
                 .headers_mut()
@@ -137,7 +140,7 @@ async fn attach_correlation_id(request: Request, next: Next) -> Response {
         Err(error) => {
             tracing::error!(
                 error = %error,
-                "correlation id was not valid as an http header"
+                "request id was not valid as an http header"
             );
         }
     }

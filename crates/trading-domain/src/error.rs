@@ -7,6 +7,10 @@
 pub enum FinancialGap {
     /// Changing decimal scale, including any rounding.
     Rescale,
+    /// Dividing one decimal by another.
+    Division,
+    /// Quantizing an amount to a tick.
+    TickQuantization,
     /// Converting an amount from one currency to another.
     CurrencyConversion,
     /// Replacing the instrument on a quantity or price.
@@ -18,8 +22,6 @@ pub enum FinancialGap {
 pub enum TimeGap {
     /// Converting nanoseconds, including exact multiples of 1_000.
     NanosecondConversion,
-    /// Parsing or formatting a civil or RFC 3339 timestamp.
-    Rfc3339,
 }
 
 /// A decoded label is not one of the known variants of a state enum.
@@ -173,6 +175,22 @@ pub enum TimeError {
     /// The conversion or calendar operation is not implemented.
     #[error("time operation is not implemented")]
     NotImplemented(TimeGap),
+    /// The text is not an accepted RFC 3339 timestamp.
+    ///
+    /// The rejected text is not stored.
+    #[error("timestamp text is malformed")]
+    Malformed,
+    /// The calendar date does not exist.
+    #[error("timestamp date is invalid")]
+    InvalidDate,
+    /// Digits after microseconds were not all zero.
+    ///
+    /// Those digits are rejected instead of being truncated.
+    #[error("timestamp has nonzero sub-microsecond precision")]
+    SubMicrosecondPrecision,
+    /// The instant does not fit in signed Unix microseconds.
+    #[error("timestamp is outside the microsecond range")]
+    Overflow,
 }
 
 /// A broker alias or execution identity document was rejected.
@@ -196,6 +214,12 @@ pub enum IdentityParseError {
     /// The session scope was not the only accepted label, `unverified`.
     #[error("session scope must be unverified")]
     SessionScopeNotUnverified,
+    /// The external alias kind is not one of the draft context labels.
+    #[error("external alias kind is not recognized")]
+    ExternalAliasKindUnrecognized,
+    /// An adapter session epoch was not a canonical integer.
+    #[error("adapter session epoch is not a canonical integer")]
+    InvalidEpoch,
     /// The alias kind does not match the destination type.
     #[error("alias kind does not match the destination type")]
     AliasKindMismatch,

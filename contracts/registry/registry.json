@@ -246,20 +246,6 @@
     },
     {
       "name": "trading_common::CorrelationId",
-      "kind": "http_handle",
-      "owner": "HTTP",
-      "status": "INTERNAL_DRAFT_SHELL",
-      "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
-      "source_section": "UD-01",
-      "schema_path": null,
-      "canonical_wire": false,
-      "public_schema": false,
-      "transitions_implemented": false,
-      "uniqueness_verified": false,
-      "note": "Existing process-local HTTP request id. Not a domain correlation id. Rename is pending."
-    },
-    {
-      "name": "trading_common::HttpRequestId",
       "kind": "absent_type",
       "owner": "HTTP",
       "status": "NOT_IMPLEMENTED",
@@ -270,7 +256,21 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Decided rename target for the HTTP request id. Not introduced in this change."
+      "note": "Retired HTTP type name. The request id is trading_common::HttpRequestId. This row is not a second identifier."
+    },
+    {
+      "name": "trading_common::HttpRequestId",
+      "kind": "http_handle",
+      "owner": "HTTP",
+      "status": "INTERNAL_DRAFT_SHELL",
+      "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
+      "source_section": "UD-01",
+      "schema_path": null,
+      "canonical_wire": false,
+      "public_schema": false,
+      "transitions_implemented": false,
+      "uniqueness_verified": false,
+      "note": "Process-local HTTP request id. Response header remains x-correlation-id. Not a domain correlation id and not a distributed span."
     },
     {
       "name": "trading_domain::OrderVersion",
@@ -480,7 +480,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Scoped orderId alias. Not an OrderId. Client id is not modeled. EVIDENCE_PENDING."
+      "note": "Scoped orderId alias. Not an OrderId. Client id is BrokerClientId and is not part of this alias. EVIDENCE_PENDING."
     },
     {
       "name": "trading_domain::BrokerPermIdAlias",
@@ -525,10 +525,10 @@
       "note": "Held for ambiguity. No conversion back to ExecutionIdentity. EVIDENCE_PENDING."
     },
     {
-      "name": "BrokerIdentityContext",
-      "kind": "absent_type",
+      "name": "trading_domain::BrokerClientId",
+      "kind": "identity",
       "owner": "Broker identity",
-      "status": "NOT_IMPLEMENTED",
+      "status": "INTERNAL_DRAFT_SHELL",
       "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
       "source_section": "UD-02",
       "schema_path": null,
@@ -536,7 +536,63 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Future context. Kind-specific uniqueness rules are EVIDENCE_PENDING. Not a verified scope."
+      "note": "Broker client text. Not BrokerSessionId. Equal text is not one client. EVIDENCE_PENDING."
+    },
+    {
+      "name": "trading_domain::AdapterSessionEpoch",
+      "kind": "identity",
+      "owner": "Broker identity",
+      "status": "INTERNAL_DRAFT_SHELL",
+      "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
+      "source_section": "UD-02",
+      "schema_path": null,
+      "canonical_wire": false,
+      "public_schema": false,
+      "transitions_implemented": false,
+      "uniqueness_verified": false,
+      "note": "Caller-supplied adapter epoch. Not WriterEpoch and not a database fence."
+    },
+    {
+      "name": "trading_domain::ExternalAliasKind",
+      "kind": "identity",
+      "owner": "Broker identity",
+      "status": "INTERNAL_DRAFT_SHELL",
+      "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
+      "source_section": "UD-02",
+      "schema_path": null,
+      "canonical_wire": false,
+      "public_schema": false,
+      "transitions_implemented": false,
+      "uniqueness_verified": false,
+      "note": "Draft order_id, perm_id, or exec_id label. Not a uniqueness rule. EVIDENCE_PENDING."
+    },
+    {
+      "name": "trading_domain::IdentityEvidenceId",
+      "kind": "identity",
+      "owner": "Broker identity",
+      "status": "INTERNAL_DRAFT_SHELL",
+      "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
+      "source_section": "UD-02",
+      "schema_path": null,
+      "canonical_wire": false,
+      "public_schema": false,
+      "transitions_implemented": false,
+      "uniqueness_verified": false,
+      "note": "Evidence token. Presence does not verify identity. EVIDENCE_PENDING."
+    },
+    {
+      "name": "trading_domain::BrokerIdentityContext",
+      "kind": "identity",
+      "owner": "Broker identity",
+      "status": "INTERNAL_DRAFT_SHELL",
+      "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
+      "source_section": "UD-02",
+      "schema_path": null,
+      "canonical_wire": false,
+      "public_schema": false,
+      "transitions_implemented": false,
+      "uniqueness_verified": false,
+      "note": "Unverified component record. Not a verified scope and not a merge. Kind-specific uniqueness is EVIDENCE_PENDING."
     },
     {
       "name": "trading_domain::OrderWorkflowState",
@@ -676,7 +732,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "i128 coefficient and scale 0 through 38. Scale is not a tick. Shell equality is structural. Numeric equality is not implemented."
+      "note": "i128 coefficient and scale 0 through 38. Scale is not a tick. Eq and Hash are structural. numeric_eq is mathematical and overflow-safe."
     },
     {
       "name": "trading_domain::CurrencyCode",
@@ -718,7 +774,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Amount plus currency. Exact arithmetic only. Foreign exchange and RoundingPolicy are not implemented."
+      "note": "Amount plus currency. Exact arithmetic only. Numeric comparison rejects a different currency. Foreign exchange is NotImplemented."
     },
     {
       "name": "trading_domain::Price",
@@ -760,7 +816,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Signed i64 Unix microseconds. Zero is present. RFC 3339 encoding is not implemented."
+      "note": "Signed i64 Unix microseconds. Zero is present. Opt-in RFC 3339 is not the draft JSON integer. Not canonical wire."
     },
     {
       "name": "trading_domain::ReceivedAt",
@@ -791,10 +847,10 @@
       "note": "Shell only. The persistence boundary does not assign it yet. Not proof of a broker order."
     },
     {
-      "name": "RoundingPolicy",
-      "kind": "absent_type",
+      "name": "trading_domain::RoundingPolicy",
+      "kind": "value",
       "owner": "Shared value",
-      "status": "NOT_IMPLEMENTED",
+      "status": "INTERNAL_DRAFT_SHELL",
       "source_contract": "M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md",
       "source_section": "UD-03",
       "schema_path": null,
@@ -802,7 +858,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Decided modes are not implemented. Inexact arithmetic continues to fail closed."
+      "note": "Vocabulary only. RejectInexact is the vocabulary default and is not applied. Rescale, division, and tick quantization stay NotImplemented."
     },
     {
       "name": "ClockQuality",
@@ -816,7 +872,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Separate metadata. Must not be inferred from the timestamp."
+      "note": "Named by UD-05. No variant list was supplied, so the type was not invented. Not inferred from the timestamp."
     },
     {
       "name": "TimestampProvenance",
@@ -830,7 +886,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "Separate metadata. Must not be inferred from the timestamp."
+      "note": "Named by UD-05. No variant list was supplied, so the type was not invented. Not inferred from the timestamp."
     },
     {
       "name": "OrderClosure",
@@ -1096,7 +1152,7 @@
       "public_schema": false,
       "transitions_implemented": false,
       "uniqueness_verified": false,
-      "note": "The constant is false. RoundingPolicy is not implemented."
+      "note": "The constant is false. RoundingPolicy is vocabulary only and is not applied."
     },
     {
       "name": "trading_domain::BROKER_DISPATCH_IMPLEMENTED",

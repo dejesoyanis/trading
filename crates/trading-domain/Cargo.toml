@@ -11,6 +11,7 @@ repository.workspace = true
 [dependencies]
 serde.workspace = true
 thiserror.workspace = true
+trading-common.workspace = true
 uuid.workspace = true
 
 [dev-dependencies]

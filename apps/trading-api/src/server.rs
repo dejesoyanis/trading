@@ -267,6 +267,20 @@ mod tests {
         response
     }
 
+    fn header_value<'a>(response: &'a str, name: &str) -> &'a str {
+        response
+            .lines()
+            .find_map(|line| {
+                let (key, value) = line.split_once(':')?;
+                if key.eq_ignore_ascii_case(name) {
+                    Some(value.trim())
+                } else {
+                    None
+                }
+            })
+            .unwrap_or_else(|| panic!("missing header {name} in {response}"))
+    }
+
     fn status_code(response: &str) -> u16 {
         response
             .split_whitespace()
@@ -295,11 +309,30 @@ mod tests {
         let live = http_request(address, "GET", "/health/live").await;
         assert_eq!(status_code(&live), 200, "{live}");
         assert!(live.contains("\"status\":\"ok\""));
-        assert!(live.to_ascii_lowercase().contains("x-correlation-id"));
+        let first_request_id = header_value(&live, "x-correlation-id");
+        assert_eq!(first_request_id.len(), 36, "{live}");
+        assert_eq!(first_request_id.as_bytes()[8], b'-');
+        assert_eq!(first_request_id.as_bytes()[13], b'-');
+        assert_eq!(first_request_id.as_bytes()[18], b'-');
+        assert_eq!(first_request_id.as_bytes()[23], b'-');
+        assert!(
+            first_request_id
+                .bytes()
+                .all(|byte| byte.is_ascii_hexdigit() || byte == b'-'),
+            "{live}"
+        );
+        let body = live.split("\r\n\r\n").nth(1).unwrap_or("");
+        assert!(!body.contains("correlation"));
+        assert!(!body.contains("HttpRequestId"));
+
+        let live_again = http_request(address, "GET", "/health/live").await;
+        let second_request_id = header_value(&live_again, "x-correlation-id");
+        assert_ne!(first_request_id, second_request_id);
 
         let ready = http_request(address, "GET", "/health/ready").await;
         assert_eq!(status_code(&ready), 503, "{ready}");
         assert!(ready.contains("\"status\":\"not_ready\""));
+        assert_eq!(header_value(&ready, "x-correlation-id").len(), 36);
         assert!(ready.contains("\"postgres\":\"unavailable\""));
 
         let orders = http_request(address, "GET", "/orders").await;

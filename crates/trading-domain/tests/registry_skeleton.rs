@@ -70,8 +70,8 @@ const EXPECTED: &[(&str, &str)] = &[
     ("trading_domain::ValuationSnapshotId", "identifier"),
     ("trading_domain::AuditRecordId", "identifier"),
     ("trading_domain::ExecutionCorrectionId", "identifier"),
-    ("trading_common::CorrelationId", "http_handle"),
-    ("trading_common::HttpRequestId", "absent_type"),
+    ("trading_common::CorrelationId", "absent_type"),
+    ("trading_common::HttpRequestId", "http_handle"),
     ("trading_domain::OrderVersion", "version"),
     ("trading_domain::WriterEpoch", "version"),
     ("trading_domain::SchemaVersion", "version"),
@@ -86,11 +86,15 @@ const EXPECTED: &[(&str, &str)] = &[
     ("trading_domain::UnverifiedSessionScope", "identity"),
     ("trading_domain::BrokerAliasScope", "identity"),
     ("trading_domain::ExternalBrokerId", "identity"),
+    ("trading_domain::BrokerClientId", "identity"),
+    ("trading_domain::AdapterSessionEpoch", "identity"),
+    ("trading_domain::ExternalAliasKind", "identity"),
+    ("trading_domain::IdentityEvidenceId", "identity"),
     ("trading_domain::BrokerOrderAlias", "identity"),
     ("trading_domain::BrokerPermIdAlias", "identity"),
     ("trading_domain::ExecutionIdentity", "identity"),
     ("trading_domain::QuarantinedExecutionIdentity", "identity"),
-    ("BrokerIdentityContext", "absent_type"),
+    ("trading_domain::BrokerIdentityContext", "identity"),
     ("trading_domain::OrderWorkflowState", "state_label"),
     ("trading_domain::BrokerLifecycleState", "state_label"),
     ("trading_domain::ExecutionState", "state_label"),
@@ -109,7 +113,7 @@ const EXPECTED: &[(&str, &str)] = &[
     ("trading_domain::OccurredAt", "value"),
     ("trading_domain::ReceivedAt", "value"),
     ("trading_domain::PersistedAt", "value"),
-    ("RoundingPolicy", "absent_type"),
+    ("trading_domain::RoundingPolicy", "value"),
     ("ClockQuality", "absent_type"),
     ("TimestampProvenance", "absent_type"),
     ("OrderClosure", "absent_type"),
@@ -246,6 +250,16 @@ fn assert_entries_fail_closed(entries: &[Entry]) {
 
     let closure = find(entries, "OrderClosure");
     assert!(closure.note.contains("Not a canonical wire schema"));
+
+    let http = find(entries, "trading_common::HttpRequestId");
+    assert!(http.note.contains("x-correlation-id"));
+    let retired = find(entries, "trading_common::CorrelationId");
+    assert!(retired.note.contains("not a second identifier"));
+    let rounding = find(entries, "trading_domain::RoundingPolicy");
+    assert!(rounding.note.contains("not applied"));
+    let context = find(entries, "trading_domain::BrokerIdentityContext");
+    assert!(context.note.contains("EVIDENCE_PENDING"));
+    assert!(context.note.contains("Not a verified"));
 }
 
 fn expected_status(kind: &str) -> &'static str {

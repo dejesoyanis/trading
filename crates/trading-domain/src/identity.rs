@@ -4,6 +4,12 @@
 //! unique. IBKR client and session scope is unverified. Every alias records
 //! that fact. This module does not resolve, merge, or submit identities.
 //!
+//! [`BrokerClientId`] is the broker's client text when a caller has it. It is
+//! not [`crate::BrokerSessionId`]. [`BrokerIdentityContext`] records the
+//! components that were supplied. It is not a verified scope, not a uniqueness
+//! key, and not a merge. Kind-specific rules for `orderId`, `permId`, and
+//! `execId` stay evidence-pending. Not every component belongs in every key.
+//!
 //! The JSON object is a draft shell, not the M0-02B canonical envelope.
 //! `session_scope` must be `unverified`. A document cannot claim `verified`.
 
@@ -17,12 +23,14 @@ use serde::{Deserialize, Serialize, Serializer};
 
 use crate::error::{IdentityParseError, TokenError};
 use crate::identifier::BrokerSessionId;
-use crate::parse::{TokenClass, parse_token};
+use crate::parse::{TokenClass, parse_canonical_u64, parse_token};
 
 const NAME_MAX: usize = 32;
 const ACCOUNT_MAX: usize = 64;
 const ENVIRONMENT_MAX: usize = 32;
 const EXTERNAL_ID_MAX: usize = 128;
+const CLIENT_ID_MAX: usize = 64;
+const EVIDENCE_ID_MAX: usize = 128;
 
 const ORDER_ALIAS_KIND: &str = "broker_order";
 const PERM_ALIAS_KIND: &str = "broker_perm_id";
@@ -152,7 +160,7 @@ pub enum BrokerAliasScope {
     /// An internal session id was supplied.
     ///
     /// Whether the broker itself scopes the external id by this session is
-    /// unverified. A separate client id is not modeled.
+    /// unverified. A broker client id is [`BrokerClientId`], not this session.
     AccountAndSession {
         /// Internal session identifier.
         session_id: BrokerSessionId,
@@ -410,9 +418,237 @@ impl QuarantinedExecutionIdentity {
     }
 }
 
+token_type! {
+    /// Broker-supplied client identifier text.
+    ///
+    /// Owner: broker identity. Printable ASCII, 1 to 64 bytes. This is not an
+    /// internal [`crate::BrokerSessionId`] and it is not a UUID. Equal text in
+    /// two records is not proof of one client. No broker grammar is checked.
+    BrokerClientId,
+    CLIENT_ID_MAX
+}
+
+token_type! {
+    /// Evidence or provenance token recorded with a broker identity context.
+    ///
+    /// Owner: broker identity. Printable ASCII, 1 to 128 bytes. Presence does
+    /// not verify the identity. Absence does not invent a replacement token.
+    IdentityEvidenceId,
+    EVIDENCE_ID_MAX
+}
+
+/// Adapter session epoch recorded beside a broker context.
+///
+/// Owner: broker identity. This is not [`crate::WriterEpoch`] and it is not a
+/// database fence. The value is not allocated here. It has no successor method.
+#[must_use]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct AdapterSessionEpoch(u64);
+
+impl AdapterSessionEpoch {
+    /// Stores an epoch value supplied by the caller.
+    pub const fn new(value: u64) -> Self {
+        Self(value)
+    }
+
+    /// Returns the stored value.
+    pub const fn get(self) -> u64 {
+        self.0
+    }
+}
+
+impl fmt::Display for AdapterSessionEpoch {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(formatter, "{}", self.0)
+    }
+}
+
+impl FromStr for AdapterSessionEpoch {
+    type Err = IdentityParseError;
+
+    fn from_str(text: &str) -> Result<Self, Self::Err> {
+        parse_canonical_u64(text)
+            .map(Self)
+            .map_err(|_| IdentityParseError::InvalidEpoch)
+    }
+}
+
+/// Which external alias a context records.
+///
+/// Owner: broker identity. This is not a uniqueness rule. `perm_id` is not
+/// globally unique. The labels are an internal draft, not a broker protocol
+/// and not a canonical schema.
+#[must_use]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub enum ExternalAliasKind {
+    /// A broker order id alias.
+    Order,
+    /// A broker permanent id alias.
+    Perm,
+    /// A broker execution id alias.
+    Exec,
+}
+
+impl ExternalAliasKind {
+    const fn as_str(self) -> &'static str {
+        match self {
+            Self::Order => "order_id",
+            Self::Perm => "perm_id",
+            Self::Exec => "exec_id",
+        }
+    }
+
+    fn parse(text: &str) -> Result<Self, IdentityParseError> {
+        match text {
+            "order_id" => Ok(Self::Order),
+            "perm_id" => Ok(Self::Perm),
+            "exec_id" => Ok(Self::Exec),
+            _ => Err(IdentityParseError::ExternalAliasKindUnrecognized),
+        }
+    }
+}
+
+impl fmt::Display for ExternalAliasKind {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        formatter.write_str(self.as_str())
+    }
+}
+
+/// Record of the broker-identity components a caller was able to supply.
+///
+/// Owner: broker identity. Broker, account, environment, alias kind, and the
+/// raw external id are required to record a context at all. Client id,
+/// internal session id, adapter session epoch, and evidence id are optional.
+/// Optionality is not a rule about which of those fields form a uniqueness
+/// key. That rule is evidence-pending and is not decided here.
+///
+/// Equality is structural equality of the recorded fields. It is not a merge
+/// and it is not a broker-uniqueness proof. There is no verified constructor.
+/// Raw external id text is preserved unchanged.
+#[must_use]
+#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+pub struct BrokerIdentityContext {
+    account: BrokerAccountKey,
+    client_id: Option<BrokerClientId>,
+    session_id: Option<BrokerSessionId>,
+    adapter_session_epoch: Option<AdapterSessionEpoch>,
+    alias_kind: ExternalAliasKind,
+    external_id: ExternalBrokerId,
+    evidence_id: Option<IdentityEvidenceId>,
+    unverified: UnverifiedSessionScope,
+}
+
+impl BrokerIdentityContext {
+    /// Records a context that is explicitly unverified.
+    ///
+    /// Client, session, adapter epoch, and evidence start absent. Use the
+    /// `with_*` methods to attach values that were actually supplied.
+    pub fn record(
+        account: BrokerAccountKey,
+        alias_kind: ExternalAliasKind,
+        external_id: ExternalBrokerId,
+        unverified: UnverifiedSessionScope,
+    ) -> Self {
+        Self {
+            account,
+            client_id: None,
+            session_id: None,
+            adapter_session_epoch: None,
+            alias_kind,
+            external_id,
+            evidence_id: None,
+            unverified,
+        }
+    }
+
+    /// Attaches a broker client id. This does not verify the context.
+    pub fn with_client(mut self, client_id: BrokerClientId) -> Self {
+        self.client_id = Some(client_id);
+        self
+    }
+
+    /// Attaches an internal session id. This is not a client id.
+    pub fn with_session(mut self, session_id: BrokerSessionId) -> Self {
+        self.session_id = Some(session_id);
+        self
+    }
+
+    /// Attaches an adapter session epoch. This does not allocate a database epoch.
+    pub fn with_adapter_epoch(mut self, epoch: AdapterSessionEpoch) -> Self {
+        self.adapter_session_epoch = Some(epoch);
+        self
+    }
+
+    /// Attaches an evidence token. Presence is not verification.
+    pub fn with_evidence(mut self, evidence_id: IdentityEvidenceId) -> Self {
+        self.evidence_id = Some(evidence_id);
+        self
+    }
+
+    /// Returns the account key.
+    pub fn account(&self) -> &BrokerAccountKey {
+        &self.account
+    }
+
+    /// Returns the broker client id when one was supplied.
+    pub fn client_id(&self) -> Option<&BrokerClientId> {
+        self.client_id.as_ref()
+    }
+
+    /// Returns the internal session id when one was supplied.
+    pub const fn session_id(&self) -> Option<BrokerSessionId> {
+        self.session_id
+    }
+
+    /// Returns the adapter session epoch when one was supplied.
+    pub const fn adapter_session_epoch(&self) -> Option<AdapterSessionEpoch> {
+        self.adapter_session_epoch
+    }
+
+    /// Returns the alias kind. This is not a uniqueness class.
+    pub const fn alias_kind(&self) -> ExternalAliasKind {
+        self.alias_kind
+    }
+
+    /// Returns the raw external id. The text is not normalized.
+    pub fn external_id(&self) -> &ExternalBrokerId {
+        &self.external_id
+    }
+
+    /// Returns the evidence token when one was supplied.
+    pub fn evidence_id(&self) -> Option<&IdentityEvidenceId> {
+        self.evidence_id.as_ref()
+    }
+
+    /// Returns the unverified-scope marker.
+    ///
+    /// A fully populated context still returns this marker. Broker uniqueness
+    /// evidence is pending, so a complete record is not a verified scope.
+    pub const fn unverified(&self) -> UnverifiedSessionScope {
+        self.unverified
+    }
+}
+
+const CONTEXT_FIELDS: &[&str] = &[
+    "broker",
+    "account",
+    "environment",
+    "client_id",
+    "session_id",
+    "adapter_session_epoch",
+    "alias_kind",
+    "external_id",
+    "evidence_id",
+    "session_scope",
+];
+
 struct Fields(BTreeMap<String, String>);
 
 impl Fields {
+    fn optional(&mut self, key: &'static str) -> Option<String> {
+        self.0.remove(key)
+    }
+
     fn take(&mut self, key: &'static str) -> Result<String, IdentityParseError> {
         self.0
             .remove(key)
@@ -717,14 +953,105 @@ impl<'de> Deserialize<'de> for QuarantinedExecutionIdentity {
     }
 }
 
+fn parse_context(mut fields: Fields) -> Result<BrokerIdentityContext, IdentityParseError> {
+    let session_scope = fields.take("session_scope")?;
+    if session_scope != SESSION_UNVERIFIED {
+        return Err(IdentityParseError::SessionScopeNotUnverified);
+    }
+    let alias_kind = fields.take("alias_kind")?;
+    let alias_kind = ExternalAliasKind::parse(&alias_kind)?;
+    let account = parse_account(&mut fields)?;
+    let external_id = fields.take("external_id")?;
+    let external_id =
+        ExternalBrokerId::new(&external_id).map_err(IdentityParseError::InvalidToken)?;
+    let client_id = match fields.optional("client_id") {
+        Some(value) => Some(BrokerClientId::new(&value).map_err(IdentityParseError::InvalidToken)?),
+        None => None,
+    };
+    let session_id = match fields.optional("session_id") {
+        Some(value) => {
+            Some(BrokerSessionId::from_str(&value).map_err(IdentityParseError::InvalidIdentifier)?)
+        }
+        None => None,
+    };
+    let adapter_session_epoch = match fields.optional("adapter_session_epoch") {
+        Some(value) => Some(AdapterSessionEpoch::from_str(&value)?),
+        None => None,
+    };
+    let evidence_id = match fields.optional("evidence_id") {
+        Some(value) => {
+            Some(IdentityEvidenceId::new(&value).map_err(IdentityParseError::InvalidToken)?)
+        }
+        None => None,
+    };
+    fields.reject_unknown()?;
+    let mut context =
+        BrokerIdentityContext::record(account, alias_kind, external_id, UnverifiedSessionScope);
+    if let Some(client_id) = client_id {
+        context = context.with_client(client_id);
+    }
+    if let Some(session_id) = session_id {
+        context = context.with_session(session_id);
+    }
+    if let Some(epoch) = adapter_session_epoch {
+        context = context.with_adapter_epoch(epoch);
+    }
+    if let Some(evidence_id) = evidence_id {
+        context = context.with_evidence(evidence_id);
+    }
+    Ok(context)
+}
+
+impl Serialize for BrokerIdentityContext {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        let mut count = 6;
+        count += usize::from(self.client_id.is_some());
+        count += usize::from(self.session_id.is_some());
+        count += usize::from(self.adapter_session_epoch.is_some());
+        count += usize::from(self.evidence_id.is_some());
+        let mut map = serializer.serialize_map(Some(count))?;
+        serialize_account(&mut map, &self.account)?;
+        if let Some(client_id) = &self.client_id {
+            map.serialize_entry("client_id", client_id.as_str())?;
+        }
+        if let Some(session_id) = self.session_id {
+            map.serialize_entry("session_id", &session_id.to_string())?;
+        }
+        if let Some(epoch) = self.adapter_session_epoch {
+            map.serialize_entry("adapter_session_epoch", &epoch.to_string())?;
+        }
+        map.serialize_entry("alias_kind", self.alias_kind.as_str())?;
+        map.serialize_entry("external_id", self.external_id.as_str())?;
+        if let Some(evidence_id) = &self.evidence_id {
+            map.serialize_entry("evidence_id", evidence_id.as_str())?;
+        }
+        map.serialize_entry("session_scope", SESSION_UNVERIFIED)?;
+        map.end()
+    }
+}
+
+impl<'de> Deserialize<'de> for BrokerIdentityContext {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: Deserializer<'de>,
+    {
+        let fields = load_fields(deserializer, CONTEXT_FIELDS)?;
+        parse_context(fields).map_err(de::Error::custom)
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::str::FromStr;
 
     use super::{
-        BrokerAccountKey, BrokerAliasScope, BrokerEnvironmentLabel, BrokerOrderAlias,
-        BrokerPermIdAlias, ExecutionIdentity, ExternalBrokerId, QuarantinedExecutionIdentity,
-        UnverifiedSessionScope,
+        AdapterSessionEpoch, BrokerAccountKey, BrokerAliasScope, BrokerClientId,
+        BrokerEnvironmentLabel, BrokerIdentityContext, BrokerOrderAlias, BrokerPermIdAlias,
+        ExecutionIdentity, ExternalAliasKind, ExternalBrokerId, IdentityEvidenceId,
+        QuarantinedExecutionIdentity, UnverifiedSessionScope,
     };
     use crate::BROKER_DISPATCH_IMPLEMENTED;
     use crate::identifier::BrokerSessionId;
@@ -899,5 +1226,139 @@ mod tests {
             .to_ascii_uppercase();
         uppercase_session["session_id"] = serde_json::Value::String(uppercase);
         assert!(serde_json::from_value::<BrokerOrderAlias>(uppercase_session).is_err());
+    }
+
+    #[test]
+    fn identical_raw_ids_stay_distinct_across_client_context() {
+        let raw = external("1001");
+        let marker = UnverifiedSessionScope;
+        let base = BrokerIdentityContext::record(
+            account("paper-label"),
+            ExternalAliasKind::Order,
+            raw.clone(),
+            marker,
+        );
+        assert!(base.client_id().is_none());
+        assert!(base.evidence_id().is_none());
+        assert_eq!(base.unverified(), marker);
+        assert_eq!(base.external_id().as_str(), "1001");
+        assert_eq!(base.alias_kind(), ExternalAliasKind::Order);
+
+        let other_account = BrokerIdentityContext::record(
+            BrokerAccountKey::new("IBKR", "U2", "paper-label").unwrap(),
+            ExternalAliasKind::Order,
+            raw.clone(),
+            marker,
+        );
+        let other_environment = BrokerIdentityContext::record(
+            account("live"),
+            ExternalAliasKind::Order,
+            raw.clone(),
+            marker,
+        );
+        let with_client = base
+            .clone()
+            .with_client(BrokerClientId::new("client-a").unwrap());
+        let other_client = base
+            .clone()
+            .with_client(BrokerClientId::new("client-b").unwrap());
+        let with_session = base.clone().with_session(session('1'));
+        let other_session = base.clone().with_session(session('2'));
+        let perm = BrokerIdentityContext::record(
+            account("paper-label"),
+            ExternalAliasKind::Perm,
+            raw.clone(),
+            marker,
+        );
+        let exec = BrokerIdentityContext::record(
+            account("paper-label"),
+            ExternalAliasKind::Exec,
+            raw,
+            marker,
+        );
+        let with_evidence = base
+            .clone()
+            .with_evidence(IdentityEvidenceId::new("obs-1").unwrap());
+        let other_evidence = base
+            .clone()
+            .with_evidence(IdentityEvidenceId::new("obs-2").unwrap());
+
+        assert_ne!(base, other_account);
+        assert_ne!(base, other_environment);
+        assert_ne!(base, with_client);
+        assert_ne!(with_client, other_client);
+        assert_ne!(base, with_session);
+        assert_ne!(with_session, other_session);
+        assert_ne!(base, perm);
+        assert_ne!(perm, exec);
+        assert_ne!(with_evidence, other_evidence);
+        assert_eq!(with_evidence.unverified(), marker);
+        assert_ne!(
+            std::any::TypeId::of::<BrokerClientId>(),
+            std::any::TypeId::of::<BrokerSessionId>()
+        );
+        assert_ne!(
+            std::any::TypeId::of::<BrokerOrderAlias>(),
+            std::any::TypeId::of::<BrokerPermIdAlias>()
+        );
+        assert_ne!(
+            std::any::TypeId::of::<BrokerIdentityContext>(),
+            std::any::TypeId::of::<ExecutionIdentity>()
+        );
+        const { assert!(!crate::IDENTITY_RESOLVER_IMPLEMENTED) };
+        assert!(BrokerClientId::new("").is_err());
+        assert_ne!(AdapterSessionEpoch::new(1), AdapterSessionEpoch::new(2));
+    }
+
+    #[test]
+    fn context_documents_reject_verified_scope_and_do_not_promote_quarantine() {
+        let context = BrokerIdentityContext::record(
+            account("paper-label"),
+            ExternalAliasKind::Order,
+            external("1001"),
+            UnverifiedSessionScope,
+        )
+        .with_client(BrokerClientId::new("client-a").unwrap())
+        .with_session(session('4'))
+        .with_adapter_epoch(AdapterSessionEpoch::new(7))
+        .with_evidence(IdentityEvidenceId::new("obs-1").unwrap());
+        let json = serde_json::to_value(&context).unwrap();
+        assert_eq!(json.get("session_scope").unwrap(), "unverified");
+        assert_eq!(json.get("alias_kind").unwrap(), "order_id");
+        assert_eq!(json.get("external_id").unwrap(), "1001");
+        assert_eq!(json.get("client_id").unwrap(), "client-a");
+        assert_eq!(json.get("adapter_session_epoch").unwrap(), "7");
+        assert!(json.get("verified").is_none());
+        let restored: BrokerIdentityContext = serde_json::from_value(json.clone()).unwrap();
+        assert_eq!(restored, context);
+        assert_eq!(restored.unverified(), UnverifiedSessionScope);
+
+        let mut verified = json.clone();
+        verified["session_scope"] = serde_json::json!("verified");
+        assert!(serde_json::from_value::<BrokerIdentityContext>(verified).is_err());
+
+        let mut verified_field = json.clone();
+        verified_field["verified"] = serde_json::json!("true");
+        assert!(serde_json::from_value::<BrokerIdentityContext>(verified_field).is_err());
+
+        assert!(serde_json::from_value::<ExecutionIdentity>(json.clone()).is_err());
+        assert!(serde_json::from_value::<QuarantinedExecutionIdentity>(json).is_err());
+
+        let quarantined = ExecutionIdentity::new(
+            account("paper-label"),
+            BrokerAliasScope::account_only(UnverifiedSessionScope),
+            external("EXEC-9"),
+        )
+        .quarantine();
+        let quarantined_json = serde_json::to_value(&quarantined).unwrap();
+        assert!(serde_json::from_value::<ExecutionIdentity>(quarantined_json.clone()).is_err());
+        assert!(serde_json::from_value::<BrokerIdentityContext>(quarantined_json).is_err());
+
+        let mut missing_client = serde_json::to_value(&context).unwrap();
+        missing_client.as_object_mut().unwrap().remove("client_id");
+        let parsed: BrokerIdentityContext = serde_json::from_value(missing_client).unwrap();
+        assert!(parsed.client_id().is_none());
+        assert_eq!(parsed.unverified(), UnverifiedSessionScope);
+        assert_ne!(parsed, context);
     }
 }

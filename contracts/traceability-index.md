@@ -15,7 +15,7 @@ Where the resolution refines a detail CR-B10 marks as provisional, the resolutio
 | Document | Source name | Version | Status carried from the source | Repository |
 | --- | --- | --- | --- | --- |
 | CR-B10 | `CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md` | 1.0-draft | DESIGN_RESOLVED / IMPLEMENTATION_NOT_VERIFIED / LIVE_NOT_AUTHORIZED | Copied verbatim at `contracts/sources/`. Draft enum names. Not a transition model. |
-| M0-02A resolution UD-01..UD-09 | `M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md` | dated 2026-11-14; the document does not declare a separate version number | DESIGN_RESOLVED; IMPLEMENTATION_NOT_VERIFIED; BROKER_SEMANTICS_UNVERIFIED; LIVE_NOT_AUTHORIZED | Copied verbatim at `contracts/sources/` and archived at `docs/cursor-prompts/trading/`. Implementation is pending. |
+| M0-02A resolution UD-01..UD-09 | `M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md` | dated 2026-11-14; the document does not declare a separate version number | DESIGN_RESOLVED; IMPLEMENTATION_NOT_VERIFIED on the source; BROKER_SEMANTICS_UNVERIFIED; LIVE_NOT_AUTHORIZED | Copied verbatim at `contracts/sources/` and archived at `docs/cursor-prompts/trading/`. M0-02A.2 locally tested a subset. Per-UD status is in `contracts/domain/unresolved-decisions.md`. This row does not mark the source verified. |
 
 ## Not supplied
 
@@ -54,10 +54,10 @@ Kind-specific uniqueness for `orderId`, `permId`, and `execId` is **EVIDENCE_PEN
 
 Part (a), recorded with this index: the registry skeleton and its validator. See [contracts/registry/README.md](registry/README.md).
 
-Part (b), not recorded as done: canonical event and command schemas, golden bytes, and compatibility fixtures. Those wait until the type adjustments in the resolution are implemented and tested. **NO-GO.**
+Part (b), not recorded as done: canonical event and command schemas, golden bytes, and compatibility fixtures. M0-02A.2 implemented the HTTP id rename, numeric decimal comparison, the rounding-policy vocabulary, an opt-in RFC 3339 codec, and an unverified broker identity context. It did not implement applied rounding, verified broker scopes, `OrderClosure`, `IncidentState`, `ClockQuality`, `TimestampProvenance`, or canonical bytes. Authoritative DET and CR-B01..CR-B09 bodies are still absent. **NO-GO.**
 
 ## Shell records
 
 [contracts/domain/glossary.md](domain/glossary.md) is the type inventory of the fail-closed shell.
 
-[contracts/domain/unresolved-decisions.md](domain/unresolved-decisions.md) marks UD-01 through UD-09 **DESIGN_RESOLVED / IMPLEMENTATION_PENDING** and keeps the shell limitations. Broker uniqueness stays **EVIDENCE_PENDING**.
+[contracts/domain/unresolved-decisions.md](domain/unresolved-decisions.md) marks each of UD-01 through UD-09 **DESIGN_RESOLVED** and then either **IMPLEMENTED_AND_LOCALLY_TESTED** or **IMPLEMENTATION_PENDING** for the part that was delivered. Broker uniqueness stays **EVIDENCE_PENDING**.

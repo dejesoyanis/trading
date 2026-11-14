@@ -154,7 +154,7 @@ define_ids! {
     /// Internal broker-session identifier.
     ///
     /// Owner: broker integration. This does not prove how the broker scopes
-    /// its own ids.
+    /// its own ids. It is not [`crate::BrokerClientId`].
     BrokerSessionId,
     /// Dispatch submission-attempt identifier.
     ///
@@ -240,5 +240,21 @@ mod tests {
         let arbitrary = uuid::Uuid::from_u128(0x0123_4567_89ab_cdef_0123_4567_89ab_cdef);
         let order = OrderId::from_uuid(arbitrary);
         assert_eq!(order.as_uuid(), arbitrary);
+    }
+
+    #[test]
+    fn nil_uuid_stays_parseable_without_a_command_trust_boundary() {
+        let nil = uuid::Uuid::nil();
+        let order = OrderId::from_uuid(nil);
+        assert_eq!(order.as_uuid(), nil);
+        assert_eq!(
+            CommandId::from_str("00000000-0000-0000-0000-000000000000")
+                .unwrap()
+                .as_uuid(),
+            nil
+        );
+        // OMS command ingress is not implemented. This crate does not reject
+        // historical nil bits at a boundary that does not exist.
+        const { assert!(!crate::ORDER_STATE_MACHINE_IMPLEMENTED) };
     }
 }

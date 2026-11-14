@@ -52,8 +52,8 @@ There is no orchestration framework and no trading-readiness state machine. M0-0
 
 | Crate | Responsibility now | Explicitly absent |
 | --- | --- | --- |
-| `trading-common` | `SecretString`, `CorrelationId`, and `error_chain` | General-purpose utility collection |
-| `trading-domain` | Draft identifiers, state labels, decimal shells, and timestamps. UD-01..UD-09 are design-resolved and implementation-pending. | State transitions, risk evaluation, broker dispatch, DET transition tables, and canonical wire schemas |
+| `trading-common` | `SecretString`, `HttpRequestId`, and `error_chain` | General-purpose utility collection. `HttpRequestId` is not a domain correlation id |
+| `trading-domain` | Draft identifiers, state labels, decimal shells, timestamps, and the M0-02A.2 type adjustments | State transitions, risk evaluation, broker dispatch, applied rounding, verified broker identity, DET transition tables, and canonical wire schemas |
 | `trading-application` | `Application` holding the deployment environment | Order submission workflows |
 | `trading-oms` | Reserved package | Order processing |
 | `trading-risk` | Reserved package | Risk policies and reservations |
@@ -88,6 +88,7 @@ trading-persistence
 trading-domain
 ├── serde
 ├── thiserror
+├── trading-common
 └── uuid
 
 trading-application
@@ -97,7 +98,7 @@ trading-broker
 trading-ibkr
 ```
 
-`trading-domain` depends only on `serde`, `thiserror`, and `uuid`. The other five crates have no workspace dependencies. `trading-api` is the only crate that depends on another workspace crate. The graph has no cycles. `trading-domain` does not depend on `trading-api`, `trading-common`, or `trading-persistence`.
+`trading-domain` depends on `serde`, `thiserror`, `uuid`, and `trading-common`. The `trading-common` edge names `HttpRequestId` in the non-interchangeability doctest. `trading-common` has no HTTP server and no database. Domain code does not open a socket. The other five crates have no workspace dependencies. `trading-api` is the composition root. The graph has no cycles. `trading-domain` does not depend on `trading-api` or `trading-persistence`.
 
 Domain and application crates do not depend on axum, sqlx, NATS, Interactive Brokers libraries, or frontend types. `trading-persistence` does not depend on domain types. `trading-ibkr` does not depend on `trading-broker` because that crate does not yet define a contract.
 
@@ -125,4 +126,4 @@ DET-01 through DET-10 are conceptually approved and still need implementation-le
 
 CR-B10 v1.0-draft is copied at `contracts/sources/CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md`. Its enum names stay draft. The architecture resolution for UD-01 through UD-09 is copied beside it. That resolution is DESIGN_RESOLVED / IMPLEMENTATION_PENDING. It refines provisional CR-B10 details and does not replace a DET invariant. Broker uniqueness stays EVIDENCE_PENDING.
 
-M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. M0-02B-a adds a registry skeleton that cannot publish canonical schemas. M0-02B-b, the canonical schemas and fixtures, is NO-GO until the resolution's type adjustments are implemented and tested. Safety-critical trading behavior stays absent until the missing contracts are specified. Live trading is not authorized.
+M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. M0-02B-a adds a registry skeleton that cannot publish canonical schemas. M0-02A.2 locally tested a subset of the resolution's type adjustments. M0-02B-b, the canonical schemas and fixtures, stays NO-GO until the remaining authoritative DET and CR sources are supplied and the canonical wire gates are implemented separately. Safety-critical trading behavior stays absent. Live trading is not authorized.

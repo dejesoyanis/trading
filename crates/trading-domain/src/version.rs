@@ -271,8 +271,11 @@ counter_version! {
 counter_version! {
     /// Local database fencing counter.
     ///
-    /// Owner: dispatch. This is not an external broker fence. Overflow fails
-    /// instead of wrapping. The `u64` width is a provisional storage choice.
+    /// Owner: dispatch. This is not an external broker fence and it is not
+    /// [`crate::AdapterSessionEpoch`]. `checked_next` is an in-process counter.
+    /// It is not the database allocation or transactional fence required by
+    /// UD-04. Overflow fails instead of wrapping. The `u64` width is a
+    /// provisional storage choice.
     WriterEpoch,
     WriterEpoch
 }

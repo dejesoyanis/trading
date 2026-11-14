@@ -1,32 +1,26 @@
 # Unresolved domain decisions
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING. The shells below are still in force. They are not production-proven.  
-**Milestone:** M0-02A provisional shells. M0-02B-a is the registry skeleton only. M0-02B-b canonical schemas are not published.  
+**Status:** DESIGN_RESOLVED. Each UD below records `IMPLEMENTED_AND_LOCALLY_TESTED` or `IMPLEMENTATION_PENDING` for the part that was actually delivered. A subset does not close the UD.  
+**Milestone:** M0-02A.2 type adjustments. M0-02B-a is the registry skeleton only. M0-02B-b canonical schemas are not published.  
 **Date:** 2026-11-14  
 **Resolution:** [M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md](../sources/M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md)  
 **Index:** [traceability-index.md](../traceability-index.md)
 
 M0-02A needed Rust types whose full representation is not fixed by CR-B10. Where a shell was required, it fails closed and is named here. Do not treat a shell as production-proven. DET-01 through DET-10 and CR-B01 through CR-B09 were not in the repository when the shells were written. They were still not supplied with the resolution, so no transition or policy text from those documents was reviewed. If a later copy of those documents uses different names or scopes, that text overrides these shells and the vocabulary must be revised. Do not silently keep the shell.
 
-The resolution refines CR-B10's explicitly provisional details. It does not replace a DET invariant. Implementation of each decision below is pending. Broker uniqueness rules stay **EVIDENCE_PENDING**.
+The resolution refines CR-B10's explicitly provisional details. It does not replace a DET invariant. Broker uniqueness rules stay **EVIDENCE_PENDING**. DET-01 through DET-10 and CR-B01 through CR-B09 are still not in this repository and were not reviewed.
 
 ## UD-01 — Two types named CorrelationId
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED / IMPLEMENTED_AND_LOCALLY_TESTED
 
-### Shell still in force
+### What is in force
 
-`trading_common::CorrelationId` is the existing HTTP request handle. It is process-local and is not a distributed trace. CR-B10 `CorrelationId` is the domain id that links commands and events.
-
-M0-02A keeps both types. There is no conversion. Renaming either one would change a foundation type or invent a name the contract does not use. A later ADR should rename one of them before any API publishes both on the same document.
-
-### Resolution
-
-Keep `trading_domain::CorrelationId` as the domain identity. Rename the HTTP type to `HttpRequestId` in a separately scoped refactor before either type is exposed in a public schema. Preserve HTTP behavior through an explicitly documented compatibility adapter if one is required. Do not convert or equate the ids. Domain correlation is not a distributed span. `trading_common::CorrelationId` may stay temporarily, marked deprecated and internal, until API tests and consumers migrate. That rename is not in this change. The registry lists both qualified names with `public_schema` false, and lists `trading_common::HttpRequestId` as not implemented.
+`trading_common::HttpRequestId` is the HTTP request identifier. It is process-local and is not a distributed trace. `trading_domain::CorrelationId` is the domain id that links commands and events. There is no conversion either way. The HTTP response header remains `x-correlation-id`, and the tracing field remains `correlation_id`. Those names are the existing wire and log format. They are not a second Rust type and they are not a public schema. The old `trading_common::CorrelationId` export was removed so the two identifiers are not published under one unqualified name. No deprecated alias was required: the only in-repository caller was the health middleware.
 
 ## UD-02 — Broker alias scope, including IBKR
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING  
+**Status:** DESIGN_RESOLVED. Distinct client id and unverified `BrokerIdentityContext`: IMPLEMENTED_AND_LOCALLY_TESTED. Kind-specific uniqueness rules and verified scopes: IMPLEMENTATION_PENDING.  
 **Broker uniqueness:** EVIDENCE_PENDING
 
 ### Shell still in force
@@ -40,21 +34,21 @@ The shell records:
 - an `UnverifiedSessionScope` value on every scope
 - separate types for order alias and permanent alias
 
-A separate client id is not modeled. Equality is structural equality of the recorded scope. It is not a uniqueness proof and it is not a merge. `session_scope` on the draft JSON shell must be the text `unverified`; `verified` is rejected. No identity resolver is implemented.
+`BrokerOrderAlias` still does not carry a client id. Equality of an alias is structural equality of the recorded scope. It is not a uniqueness proof and it is not a merge. `session_scope` on the draft JSON shell must be the text `unverified`; `verified` is rejected. No identity resolver is implemented.
 
 ### Resolution
 
-Keep `UnverifiedSessionScope` as a fail-closed shell. A future `BrokerIdentityContext` is to carry broker, account, environment, broker client id, connection or session identity, adapter session epoch, external id kind, and provenance or evidence id. Not every field belongs in every identity key. Kind-specific uniqueness for `orderId`, `permId`, and `execId` needs evidence-backed verified scopes and a separately approved rule table. `permId` is not assumed globally unique. Matching raw numeric aliases across clients or sessions are not equal. A broker `orderId` is a scoped alias, not an order primary key. Unknown or missing required scope quarantines; it does not auto-merge. External source identifiers stay raw immutable evidence. Client id is a different type from internal `BrokerSessionId`. Do not turn `unverified` into `verified` by renaming a field. `BrokerIdentityContext` is not implemented. Verified scopes are not claimed.
+`UnverifiedSessionScope` stays a fail-closed shell. `BrokerIdentityContext` records broker, account, environment, optional broker client id, optional internal session id, optional adapter session epoch, external id kind, the raw external id, and optional evidence id. Client id is `BrokerClientId`, not `BrokerSessionId`. Adapter session epoch is not `WriterEpoch` and is not allocated here. Missing client, session, epoch, or evidence is an absent field. The record does not decide which absences are required for a kind, and it does not auto-merge. `permId` is not assumed globally unique. Matching raw ids across accounts, environments, clients, sessions, alias kinds, or evidence ids are not equal. A broker `orderId` is a scoped alias, not an order primary key. There is no verified constructor. Deserializing `verified` fails. Quarantined execution JSON does not become an unflagged identity or a context. Kind-specific uniqueness for `orderId`, `permId`, and `execId` still needs evidence-backed verified scopes and a separately approved rule table. That table is not implemented.
 
 ## UD-03 — Decimal representation, scale, and rounding
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED. Storage bounds, structural equality, `numeric_eq` / `numeric_cmp`, and the `RoundingPolicy` vocabulary: IMPLEMENTED_AND_LOCALLY_TESTED. Applied rounding, `rescale`, division, foreign exchange, and tick quantization: IMPLEMENTATION_PENDING.
 
 ### Shell still in force
 
 CR-B10 requires checked decimal arithmetic and an explicit rounding policy. It does not name the coefficient width, the scale bound, or the rounding mode.
 
-The shell stores a signed `i128` coefficient and a scale from 0 through 38. Thirty-eight is the decimal digit budget of `i128`, not a tick size. Values at different scales are not normalized: coefficient `10` at scale `1` is not equal to coefficient `100` at scale `2`. Addition and subtraction require the same scale. `rescale` always returns `NotImplemented`, including when the scale is unchanged. There is no `f32` or `f64` field.
+The shell stores a signed `i128` coefficient and a scale from 0 through 38. Thirty-eight is the decimal digit budget of `i128`, not a tick size. Derived `Eq` and `Hash` stay structural: coefficient `10` at scale `1` is not representation-equal to coefficient `100` at scale `2`, and the two values are different hash keys. `numeric_eq` and `numeric_cmp` compare the mathematical value with checked powers of ten and do not use floats. When aligning a coefficient would overflow `i128`, that value has a larger magnitude than every coefficient at the higher scale. Addition and subtraction still require the same scale. `rescale`, `rescale_with_policy`, `checked_div`, and `quantize_to_tick` return `NotImplemented`, including when the scale is unchanged and including every `RoundingPolicy`. There is no `f32` or `f64` field. `RejectInexact` is the vocabulary default. Arithmetic does not apply it.
 
 Currency codes are uppercase ASCII, 1 to 16 letters. That is not an ISO 4217 registry check. Lowercase is rejected rather than case-folded. Foreign exchange always returns `NotImplemented`.
 
@@ -62,11 +56,11 @@ Instrument ids are printable ASCII, 1 to 64 bytes, with no case folding and no s
 
 ### Resolution
 
-Keep the signed `i128` coefficient and scale `0..=38` as a bounded storage primitive. That bound does not make every coefficient or scale valid for every operation. Overflow, including intermediate multiplication overflow, is rejected. Economic comparison must use mathematical equality across scales, through checked normalization or comparison. Structural representation equality may remain a separate explicit operation. The shell still uses structural, scale-sensitive equality. Numeric equality is not implemented. Scale is not a tick size. `Money`, `Price`, and `Quantity` pin currency or instrument and definition versions. Default arithmetic stays exact: no implicit rescale, foreign exchange, or rounding. `RoundingPolicy` is decided as `RejectInexact` (default), `TowardZero`, `AwayFromZero`, `HalfEven`, `Floor`, and `Ceiling`. A mode is allowed only when the caller supplies a validated target quantum or scale and a business-operation policy, and the result carries provenance. Financial decisions use operation-specific allowed modes. Division, conversion, or instrument-tick rounding without a validated policy fails closed. `rescale` stays `NotImplemented` until a tested policy implementation exists. `RoundingPolicy` is not implemented.
+The signed `i128` coefficient and scale `0..=38` stay a bounded storage primitive. That bound does not make every coefficient or scale valid for every operation. Overflow, including intermediate multiplication overflow, is rejected. Economic comparison uses `numeric_eq` and `numeric_cmp`. `representation_eq` is the structural operation, and it is what `Eq` and `Hash` use. Scale is not a tick size. `Money`, `Price`, and `Quantity` pin currency or instrument and definition versions. Their numeric comparison returns a mismatch error across those boundaries. It does not return `Ok(false)` for a different currency or instrument. Default arithmetic stays exact: no implicit rescale, foreign exchange, or rounding. `RoundingPolicy` is `RejectInexact` (vocabulary default), `TowardZero`, `AwayFromZero`, `HalfEven`, `Floor`, and `Ceiling`. No mode is applied. A mode would be allowed only when a caller supplies a validated target quantum or scale and a business-operation policy, and the result carries provenance. That implementation does not exist. Halfway ties are not tested as successful rounding. Division, conversion, and instrument-tick quantization return `NotImplemented`. `FINANCIAL_ROUNDING_IMPLEMENTED` stays false.
 
 ## UD-04 — Version text versus version integers
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED. Distinct `u64` newtypes, opaque versions, and overflow rejection: IMPLEMENTED_AND_LOCALLY_TESTED. Database epoch fencing and a published-schema compatibility validator: IMPLEMENTATION_PENDING.
 
 ### Shell still in force
 
@@ -82,15 +76,15 @@ Keep the signed `i128` coefficient and scale `0..=38` as a bounded storage primi
 
 ## UD-05 — Timestamp resolution
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED. Opt-in RFC 3339 UTC codec with six fractional digits: IMPLEMENTED_AND_LOCALLY_TESTED. `ClockQuality`, `TimestampProvenance`, and persistence-boundary assignment of `PersistedAt`: IMPLEMENTATION_PENDING.
 
 ### Shell still in force
 
-`OccurredAt`, `ReceivedAt`, and `PersistedAt` store `i64` microseconds since the Unix epoch. The resolution is a storage choice. Nanosecond values are rejected even when they are exact multiples of 1_000, so the shell does not truncate. RFC 3339 parsing is not implemented. Zero is an instant, not a missing timestamp. Clock quality is not represented. Ordering inside one type orders stored microseconds only. It does not order events or broker messages. Calendar logic is absent.
+`OccurredAt`, `ReceivedAt`, and `PersistedAt` store `i64` microseconds since the Unix epoch. Nanosecond values are rejected even when they are exact multiples of 1_000, so the shell does not truncate. `FromStr`, `Display`, and serde still use a canonical integer string. That draft JSON shape is not the RFC 3339 codec. Zero is an instant, not a missing timestamp. Clock quality is not stored on the timestamp. Ordering inside one type orders stored microseconds only. It does not order events or broker messages.
 
 ### Resolution
 
-Signed `i64` Unix microseconds stay the in-memory precision. The decided event wire encoding is normalized RFC 3339 UTC with exactly six fractional digits. Parsing accepts only explicit timezone offsets, converts with checked range and precision, and rejects nonzero sub-microsecond precision. Persist integer microseconds where the database constraints support it. An absent source timestamp is `Option<OccurredAt>` only where a contract allows it. `ClockQuality` and `TimestampProvenance` are separate metadata and are not inferred from the timestamp. `PersistedAt` is assigned by the persistence boundary and is not proof of an external broker order. The persistence boundary does not assign it yet. Zero is a real timestamp. RFC 3339 stays `NotImplemented` until tests pass. Timestamp order is not broker precedence. `ClockQuality` and `TimestampProvenance` are not implemented.
+Signed `i64` Unix microseconds stay the in-memory precision. `from_rfc3339` and `to_rfc3339_utc` are opt-in. Output is normalized UTC with exactly six fractional digits and a `Z` suffix. Parsing requires an explicit `Z` or `±HH:MM` offset, converts with checked range, and rejects nonzero digits after the microsecond. Extra zero digits are exact and are not a truncation. Omitted fractions are exact zeros. Leap seconds and invalid civil dates are rejected. The day product uses a checked `i128` intermediate so `i64::MIN` round-trips without wrapping. An absent source timestamp is `Option<OccurredAt>`. `ClockQuality` and `TimestampProvenance` are named by the resolution and have no variant list in that document, so the enums were not invented and are not inferred. `PersistedAt` is not assigned by the persistence boundary and is not proof of an external broker order. Timestamp order is not broker precedence. Draft serde was not replaced.
 
 ## UD-06 — State transitions
 
@@ -108,7 +102,7 @@ The enum labels are frozen as draft registry candidates. They are not executable
 
 ## UD-07 — Types named by CR-B10 and not implemented
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING. `OrderClosure` and `IncidentState` were not added.
 
 ### Shell still in force
 
@@ -116,11 +110,11 @@ The enum labels are frozen as draft registry candidates. They are not executable
 
 ### Resolution
 
-`OrderClosure` is to be an immutable record with closure reason, closing `EventId`, closing `OrderVersion`, occurred and recorded time, and an audit reference. Do not invent the closure-reason enum until DET-01 supplies that vocabulary. DET-01 was not supplied. A non-instantiable skeleton may exist later. This change does not add the Rust type, and it does not expose `OrderClosure` as a canonical wire schema. `IncidentState` waits until DET-10 is present and reviewed. DET-10 was not supplied. `ExecutionState` is owned by the execution ledger. The glossary ownership row records that assignment. No state variants were fabricated.
+`OrderClosure` is to be an immutable record with closure reason, closing `EventId`, closing `OrderVersion`, occurred and recorded time, and an audit reference. DET-01 was not in the repository, so the closure-reason vocabulary was not invented and the Rust type was not added. A compile-fail doctest rejects `trading_domain::OrderClosure`. It is not a canonical wire schema. `IncidentState` waits until DET-10 is present and reviewed. DET-10 was not supplied. `ExecutionState` is owned by the execution ledger. The glossary ownership row records that assignment. No state variants were fabricated.
 
 ## UD-08 — Canonical JSON
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING. No canonical schema was published.
 
 ### Shell still in force
 
@@ -132,7 +126,7 @@ Current serde shapes are an internal draft. M0-02B-b is the milestone that defin
 
 ## UD-09 — UUID version
 
-**Status:** DESIGN_RESOLVED / IMPLEMENTATION_PENDING
+**Status:** DESIGN_RESOLVED. UUIDv4 generation and typed parsing of arbitrary bits: IMPLEMENTED_AND_LOCALLY_TESTED. Nil rejection at a command trust boundary: IMPLEMENTATION_PENDING, because this repository has no such boundary.
 
 ### Shell still in force
 
@@ -140,4 +134,4 @@ CR-B10 proposes UUID version 7 and allows version 4. M0-02A generates version 4,
 
 ### Resolution
 
-Keep UUIDv4 generation for M0-02A and for the initial M0-02B schemas. UUIDv7 is an optional future ADR, not a migration prerequisite. Accepting arbitrary UUID bits from external input is allowed for typed parsing only. It does not prove that an identifier was minted internally. Non-nil checks and permitted provenance belong at the relevant command trust boundaries. Those checks are not implemented. UUID sorting is not event order. Historical ids are not rewritten.
+UUIDv4 generation stays for M0-02A and for the initial M0-02B schemas. UUIDv7 is an optional future ADR, not a migration prerequisite. `from_uuid` and canonical text parsing accept any UUID bits, including nil. That is typed parsing. It does not prove that an identifier was minted internally. `trading-oms` has no command ingress, so there is no trusted command boundary at which to reject nil. Those checks stay unimplemented. UUID sorting is not event order. Historical ids are not rewritten.
