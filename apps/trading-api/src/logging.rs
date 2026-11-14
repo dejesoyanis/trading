@@ -1,7 +1,6 @@
 use tracing_subscriber::EnvFilter;
 use trading_application::Application;
-use trading_common::error_chain;
-use trading_persistence::{DatabaseEndpoint, redact_connection_secrets};
+use trading_persistence::{DatabaseEndpoint, ReadinessProblem};
 
 use crate::config::{Config, LogFormat, LogLevel};
 use crate::error::AppError;
@@ -12,7 +11,11 @@ use crate::error::AppError;
 ///
 /// Returns [`AppError::Tracing`] when a subscriber is already installed.
 pub fn init_tracing(level: LogLevel, format: LogFormat) -> Result<(), AppError> {
-    let filter = EnvFilter::new(level.as_str());
+    // Driver targets are disabled so a connection error cannot reach the log
+    // through sqlx. Application logs record classified reasons instead.
+    let directives = format!("{level},sqlx=off,sqlx_core=off,sqlx_postgres=off");
+    let filter =
+        EnvFilter::try_new(directives).map_err(|error| AppError::Tracing(error.to_string()))?;
     let result = match format {
         LogFormat::Json => tracing_subscriber::fmt()
             .json()
@@ -45,18 +48,39 @@ pub(crate) fn log_starting(
     );
 }
 
-/// Logs a PostgreSQL failure after removing the connection secret.
-pub(crate) fn log_postgres_unavailable(
-    endpoint: &DatabaseEndpoint,
-    database_url: &str,
-    error: &(dyn std::error::Error + 'static),
+/// Last readiness result recorded for transition logging.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum ReadinessSnapshot {
+    /// The schema check succeeded.
+    Ready,
+    /// The schema check failed for a classified reason.
+    NotReady(ReadinessProblem),
+}
+
+/// Logs a readiness result when it differs from the previous one.
+///
+/// Repeated probes with the same result produce no log line.
+pub(crate) fn log_readiness_transition(
+    endpoint: &str,
+    previous: &mut Option<ReadinessSnapshot>,
+    next: ReadinessSnapshot,
 ) {
-    let message = redact_connection_secrets(&error_chain(error), database_url);
-    tracing::error!(
-        postgres = %endpoint,
-        error = %message,
-        "postgres is not ready"
-    );
+    if *previous == Some(next) {
+        return;
+    }
+    *previous = Some(next);
+    match next {
+        ReadinessSnapshot::Ready => {
+            tracing::info!(postgres = %endpoint, "readiness check passed");
+        }
+        ReadinessSnapshot::NotReady(problem) => {
+            tracing::warn!(
+                postgres = %endpoint,
+                reason = problem.as_str(),
+                "readiness check failed"
+            );
+        }
+    }
 }
 
 #[cfg(test)]
@@ -68,7 +92,9 @@ mod tests {
     use trading_application::{Application, DeploymentEnvironment};
     use trading_persistence::database_endpoint;
 
-    use super::{log_postgres_unavailable, log_starting};
+    use trading_persistence::ReadinessProblem;
+
+    use super::{ReadinessSnapshot, log_readiness_transition, log_starting};
     use crate::config::Config;
 
     const SECRET_URL: &str = "postgres://trading:super-secret-password@127.0.0.1:5432/trading";
@@ -90,17 +116,6 @@ mod tests {
             Ok(())
         }
     }
-
-    #[derive(Debug)]
-    struct LeakyError(String);
-
-    impl std::fmt::Display for LeakyError {
-        fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-            formatter.write_str(&self.0)
-        }
-    }
-
-    impl std::error::Error for LeakyError {}
 
     fn capture_log(record: impl FnOnce()) -> String {
         let buffer = Arc::new(Mutex::new(Vec::new()));
@@ -133,14 +148,21 @@ mod tests {
     }
 
     #[test]
-    fn postgres_error_log_redacts_a_leaked_url() {
-        let endpoint = database_endpoint(SECRET_URL).expect("endpoint");
-        let error = LeakyError(format!("connection failed for {SECRET_URL}"));
-        let text = capture_log(|| log_postgres_unavailable(&endpoint, SECRET_URL, &error));
+    fn readiness_failures_log_once_per_transition_and_omit_secrets() {
+        let endpoint = database_endpoint(SECRET_URL).expect("endpoint").to_string();
+        let failure = ReadinessSnapshot::NotReady(ReadinessProblem::Unreachable);
+        let text = capture_log(|| {
+            let mut previous = None;
+            log_readiness_transition(&endpoint, &mut previous, failure);
+            log_readiness_transition(&endpoint, &mut previous, failure);
+            log_readiness_transition(&endpoint, &mut previous, ReadinessSnapshot::Ready);
+        });
 
-        assert!(text.contains("postgres is not ready"));
-        assert!(text.contains("[redacted]"));
+        assert_eq!(text.matches("readiness check failed").count(), 1);
+        assert_eq!(text.matches("readiness check passed").count(), 1);
+        assert!(text.contains("database_unreachable"));
         assert!(!text.contains("super-secret-password"));
         assert!(!text.contains(SECRET_URL));
+        assert!(!text.contains("postgres://trading:"));
     }
 }

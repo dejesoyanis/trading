@@ -1,6 +1,13 @@
 # Foundation checks only. This workflow does not deploy and has no production access.
 # The Rust toolchain must stay aligned with rust-toolchain.toml.
 # The database password below is the local development credential from .env.example.
+# It is not a production secret. The workflow token can only read repository contents.
+#
+# Actions are pinned to commits verified against GitHub on 2026-11-14:
+# - actions/checkout v4 -> 11d5960a326750d5838078e36cf38b85af677262
+# - dtolnay/rust-toolchain branch 1.99.1 -> d124f86f28ff42855784ff3319f48ac182c248f8
+#   That commit's action.yml hardcodes toolchain 1.99.1.
+# - Swatinem/rust-cache v2.9.3 -> d1527c8f67ef9af357290475d4af4b0fab8f12e0
 
 name: CI
 
@@ -21,30 +28,30 @@ jobs:
     timeout-minutes: 30
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Install Rust
-        uses: dtolnay/rust-toolchain@1.99.1
+        uses: dtolnay/rust-toolchain@d124f86f28ff42855784ff3319f48ac182c248f8 # 1.99.1
         with:
           components: rustfmt, clippy
 
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
 
       - name: Check formatting
         run: cargo fmt --all -- --check
 
       - name: Clippy
-        run: cargo clippy --workspace --all-targets -- -D warnings
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
 
       - name: Test
-        run: cargo test --workspace
+        run: cargo test --workspace --locked
 
       - name: Build
-        run: cargo build --workspace
+        run: cargo build --workspace --locked
 
   postgres:
-    name: PostgreSQL connectivity
+    name: PostgreSQL integration
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
@@ -53,25 +60,26 @@ jobs:
         env:
           POSTGRES_USER: trading
           POSTGRES_PASSWORD: trading
-          POSTGRES_DB: trading
+          POSTGRES_DB: trading_test
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U trading -d trading"
+          --health-cmd "pg_isready -U trading -d trading_test"
           --health-interval 5s
           --health-timeout 5s
           --health-retries 12
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Install Rust
-        uses: dtolnay/rust-toolchain@1.99.1
+        uses: dtolnay/rust-toolchain@d124f86f28ff42855784ff3319f48ac182c248f8 # 1.99.1
 
       - name: Cache Cargo
-        uses: Swatinem/rust-cache@v2
+        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
 
-      - name: Run database integration test
+      - name: Run database integration tests
         env:
-          DATABASE_URL: postgres://trading:trading@127.0.0.1:5432/trading
-        run: cargo test -p trading-persistence --test connectivity -- --ignored --nocapture
+          TRADING_ALLOW_DATABASE_INTEGRATION_TESTS: "1"
+          TRADING_TEST_DATABASE_URL: postgres://trading:trading@127.0.0.1:5432/trading_test
+        run: cargo test -p trading-persistence --test connectivity --locked -- --ignored --nocapture

@@ -91,11 +91,25 @@ pub enum AppError {
     #[error("http server failed")]
     Serve(#[source] std::io::Error),
 
-    /// The process could not observe Ctrl-C.
+    /// The process could not observe Ctrl-C or, on Unix, SIGTERM.
     #[error("failed to listen for a shutdown signal")]
     Signal(#[source] std::io::Error),
 
-    /// The server task panicked or was cancelled.
+    /// The server task panicked or was cancelled outside shutdown.
     #[error("http server task stopped unexpectedly")]
     ServerTask(#[source] tokio::task::JoinError),
+
+    /// The HTTP server finished before a shutdown signal arrived.
+    #[error("http server stopped before a shutdown signal")]
+    ServerStopped,
+
+    /// Graceful shutdown exceeded its bound and the server task was aborted.
+    #[error("http server did not finish shutting down before the timeout")]
+    ShutdownTimeout,
+
+    /// The process was started with an unknown command.
+    #[error(
+        "usage: trading-api [migrate]. migrate applies infrastructure migrations and exits. Starting trading-api does not migrate"
+    )]
+    Usage,
 }

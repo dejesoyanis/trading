@@ -1,6 +1,6 @@
 [package]
 name = "trading-api"
-description = "Process entry point. Health endpoints only; no trading commands."
+description = "Process entry point. Health endpoints and the infrastructure migration command. No trading commands."
 version.workspace = true
 edition.workspace = true
 license.workspace = true

@@ -1,3 +1,5 @@
+use std::sync::{Arc, Mutex};
+
 use axum::extract::{Request, State};
 use axum::http::{HeaderValue, StatusCode, header};
 use axum::middleware::{self, Next};
@@ -6,33 +8,45 @@ use axum::routing::get;
 use axum::{Json, Router};
 use serde::Serialize;
 use tracing::Instrument;
-use trading_common::error_chain;
-use trading_common::{CorrelationId, SecretString};
-use trading_persistence::{Database, redact_connection_secrets};
+use trading_common::CorrelationId;
+use trading_persistence::{Database, PersistenceError};
+
+use crate::logging::{ReadinessSnapshot, log_readiness_transition};
 
 const SERVICE: &str = "trading-api";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
-/// Dependencies checked by the readiness endpoint.
+/// HTTP readiness is not Trading Readiness and grants no submission authority.
+///
+/// Dependencies checked by the readiness endpoint. The check is read-only.
 #[derive(Clone)]
 pub(crate) struct AppState {
     database: Database,
-    database_url: SecretString,
     endpoint_label: String,
+    last_readiness: Arc<Mutex<Option<ReadinessSnapshot>>>,
 }
 
 impl AppState {
     /// Builds the state shared by health handlers.
-    pub(crate) fn new(
-        database: Database,
-        database_url: SecretString,
-        endpoint_label: String,
-    ) -> Self {
+    pub(crate) fn new(database: Database, endpoint_label: String) -> Self {
         Self {
             database,
-            database_url,
             endpoint_label,
+            last_readiness: Arc::new(Mutex::new(None)),
         }
+    }
+
+    /// Records a readiness result and logs only when the result changes.
+    pub(crate) fn record_result(&self, result: &Result<(), PersistenceError>) {
+        let snapshot = match result {
+            Ok(()) => ReadinessSnapshot::Ready,
+            Err(error) => ReadinessSnapshot::NotReady(error.readiness_problem()),
+        };
+        let mut guard = self
+            .last_readiness
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        log_readiness_transition(&self.endpoint_label, &mut guard, snapshot);
     }
 }
 
@@ -58,7 +72,8 @@ struct ReadyChecks {
 
 /// Routes served by the process.
 ///
-/// Only liveness and PostgreSQL readiness are registered.
+/// Only liveness and read-only PostgreSQL readiness are registered.
+/// HTTP readiness is not Trading Readiness and grants no submission authority.
 pub(crate) fn router(state: AppState) -> Router {
     Router::new()
         .route("/health/live", get(live))
@@ -76,7 +91,9 @@ async fn live() -> Json<LiveBody> {
 }
 
 async fn ready(State(state): State<AppState>) -> Response {
-    match state.database.check_ready().await {
+    let result = state.database.check_ready().await;
+    state.record_result(&result);
+    match result {
         Ok(()) => (
             StatusCode::OK,
             Json(ReadyBody {
@@ -87,27 +104,18 @@ async fn ready(State(state): State<AppState>) -> Response {
             }),
         )
             .into_response(),
-        Err(error) => {
-            let message =
-                redact_connection_secrets(&error_chain(&error), state.database_url.expose());
-            tracing::error!(
-                postgres = %state.endpoint_label,
-                error = %message,
-                "readiness check failed"
-            );
-            (
-                StatusCode::SERVICE_UNAVAILABLE,
-                Json(ReadyBody {
-                    service: SERVICE,
-                    status: "not_ready",
-                    version: VERSION,
-                    checks: ReadyChecks {
-                        postgres: "unavailable",
-                    },
-                }),
-            )
-                .into_response()
-        }
+        Err(_error) => (
+            StatusCode::SERVICE_UNAVAILABLE,
+            Json(ReadyBody {
+                service: SERVICE,
+                status: "not_ready",
+                version: VERSION,
+                checks: ReadyChecks {
+                    postgres: "unavailable",
+                },
+            }),
+        )
+            .into_response(),
     }
 }
 

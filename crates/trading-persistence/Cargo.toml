@@ -1,6 +1,6 @@
 [package]
 name = "trading-persistence"
-description = "PostgreSQL connectivity and infrastructure migrations."
+description = "PostgreSQL connectivity, explicit infrastructure migrations, and read-only readiness."
 version.workspace = true
 edition.workspace = true
 license.workspace = true
@@ -15,7 +15,9 @@ tokio.workspace = true
 url.workspace = true
 
 [dev-dependencies]
+sqlx.workspace = true
 tokio.workspace = true
+url.workspace = true
 
 [lints]
 workspace = true
