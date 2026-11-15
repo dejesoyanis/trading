@@ -61,6 +61,7 @@ const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json",
     "contracts/design-proposals/TRD-ARCH-03B12-resolution-index.json",
     "contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json",
+    "contracts/design-proposals/TRD-ARCH-03B22-resolution-index.json",
     "contracts/registry/registry.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
@@ -343,7 +344,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, and the unratified risk proposal index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, and the non-wire risk policy resolution index"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
@@ -415,6 +416,41 @@ fn assert_no_published_schema_tree(root: &Path) {
     assert!(!risk.contains("\"risk_release_approved\": true"));
     assert!(!risk.contains("\"economic_posting_approved\": true"));
     assert!(!risk.contains("\"economic_finality_predicate_approved\": true"));
+
+    let risk_policy = fs::read_to_string(
+        root.join("contracts/design-proposals/TRD-ARCH-03B22-resolution-index.json"),
+    )
+    .expect("risk policy resolution index");
+    assert!(risk_policy.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX\""));
+    assert!(!risk_policy.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX\""));
+    assert!(risk_policy.contains("\"task\": \"TRD-ARCH-03B.2.2\""));
+    assert!(risk_policy.contains("\"record_label\": \"RATIFIED_DESIGN_POLICY_ONLY\""));
+    assert!(risk_policy.contains("\"implementation\": \"NOT_IMPLEMENTED\""));
+    assert!(risk_policy.contains("\"verification\": \"NOT_VERIFIED\""));
+    assert!(risk_policy.contains("\"record_labels_are_not_a_canonical_enum\": true"));
+    assert!(risk_policy.contains("\"not_a_schema\": true"));
+    assert!(risk_policy.contains("\"not_registry_json\": true"));
+    assert!(risk_policy.contains("\"not_the_historical_proposal_index\": true"));
+    assert!(risk_policy.contains("\"implementation_authorized\": false"));
+    assert!(risk_policy.contains("\"risk_release_approved\": false"));
+    assert!(risk_policy.contains("\"economic_posting_approved\": false"));
+    assert!(risk_policy.contains("\"economic_finality_predicate_approved\": false"));
+    assert!(risk_policy.contains("\"oms_transitions_approved\": false"));
+    assert!(risk_policy.contains("\"broker_dispatch_approved\": false"));
+    assert!(risk_policy.contains("\"closes_xc_findings\": false"));
+    assert!(risk_policy.contains("\"tests_executed\": false"));
+    assert!(risk_policy.contains("\"xc_02_pred\": \"OPEN\""));
+    assert!(risk_policy.contains("\"part_b\": \"NO-GO\""));
+    assert!(risk_policy.contains("\"live_trading_authorized\": false"));
+    assert!(risk_policy.contains("\"canonical_schemas_published\": false"));
+    assert!(risk_policy.contains("\"canonical_schema_published_by_this_index\": false"));
+    assert!(!risk_policy.contains("\"live_trading_authorized\": true"));
+    assert!(!risk_policy.contains("\"canonical_schemas_published\": true"));
+    assert!(!risk_policy.contains("\"risk_release_approved\": true"));
+    assert!(!risk_policy.contains("\"economic_posting_approved\": true"));
+    assert!(!risk_policy.contains("\"oms_transitions_approved\": true"));
+    assert!(!risk_policy.contains("\"broker_dispatch_approved\": true"));
+    assert!(!risk_policy.contains("\"tests_executed\": true"));
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
         .expect("read contracts/source-manifest.json");

@@ -463,3 +463,28 @@ ARCH-DEC-13 (OMSQ-05 B) and ARCH-DEC-14 (OMSQ-06 A) stay binding for every alter
 ## What an answer would still leave blocked
 
 A user decision on RISKQ-01 through RISKQ-14 may record a future design constraint. It would still leave implementation blocked. It would not approve economic posting, an economic-finality predicate, reservation release, an OMS transition, a canonical schema, broker dispatch, or live trading. `XC-02-PRED` would stay OPEN until a decision explicitly about that predicate says otherwise, and RISKQ-08 option A and option B both refuse to adopt the predicate. Option C is not available.
+
+## Resolution index (2026-11-15, TRD-ARCH-03B.2.2)
+
+The questions RISKQ-01 through RISKQ-14 above are unchanged historical text, including their alternatives, consequence tables, and non-binding recommendations. They are not rewritten as approvals. The creation-time status lines stay as they were written. This addendum does not change those lines and does not record a second decision. The historical proposal index stays `NOT_RATIFIED`.
+
+On 2026-11-15 the user ratified a design-policy choice for each question. The decision record is [ARCH-DEC-21-bis-34-2026-11-15.md](../decisions/ARCH-DEC-21-bis-34-2026-11-15.md). The machine-readable map is [TRD-ARCH-03B22-resolution-index.json](TRD-ARCH-03B22-resolution-index.json). That map is `NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX`. It is not a signature and not an evidence URI. The record labels there are documentary. They are not a canonical status enum. **NO IMPLEMENTATION.** **NO VERIFICATION.**
+
+| Question | Decision | Option | User wording |
+| --- | --- | --- | --- |
+| RISKQ-01 | ARCH-DEC-21 | B | Zusätzlich harte Ablehnungen als Konjunktionsregel festlegen. |
+| RISKQ-02 | ARCH-DEC-22 | A | Eine Reservierungs-ID, Idempotenz und atomare Multi-Scope-Reservierung. |
+| RISKQ-03 | ARCH-DEC-23 | A | Keine Reservierung bei fehlenden oder veralteten Daten. |
+| RISKQ-04 | ARCH-DEC-24 | A | Fill erfassen; gesamte Reservierung halten; keine Umbuchung. |
+| RISKQ-05 | ARCH-DEC-25 | A | Restverpflichtung bleibt unverändert. |
+| RISKQ-06 | ARCH-DEC-26 | A | Alle Fakten behalten und wirtschaftliche Effekte quarantänisieren. |
+| RISKQ-07 | ARCH-DEC-27 | A | Neue risikosteigernde Aktionen blockieren; keine Broker-Aktion. |
+| RISKQ-08 | ARCH-DEC-28 | A | Keine Nachweisliste als verbindlich übernehmen. |
+| RISKQ-09 | ARCH-DEC-29 | A | Keinen Freigabenachweis als ausreichend anerkennen. |
+| RISKQ-10 | ARCH-DEC-30 | B | Künftige Bewertungs- und Policy-Referenzen versionierbar machen. |
+| RISKQ-11 | ARCH-DEC-31 | B | Zusätzlich verpflichtende zukünftige Concurrency- und Crash-Tests. |
+| RISKQ-12 | ARCH-DEC-32 | A | Separaten transaktionalen Auditdatensatz verlangen, ohne Tabellennamen. |
+| RISKQ-13 | ARCH-DEC-33 | A | Keine Rollen oder Freigabewege einführen; Quarantäne bleibt. |
+| RISKQ-14 | ARCH-DEC-34 | B | Zusätzlich unveränderliche Policy-Versionen und negative Tests verlangen. |
+
+The proposal package above stays a proposal. Its header remains the creation-time request. The later record approves design policy only. It does not approve budget arithmetic, a reservation writer, a conversion, a residual release, a compensating ledger line, an economic-finality predicate, economic posting, a rounding mode, an FX conversion, a lock order, an isolation level, an audit table, a role, a policy migration, an OMS transition, broker dispatch, or live trading. Live trading stays NOT AUTHORIZED. `XC-02-PRED` stays OPEN. ARCH-DEC-13 and ARCH-DEC-14 stay binding. RISKQ-01 option B is conjunction shape only. RISKQ-08 option A and RISKQ-09 option A adopt no predicate and no release. No evidence record is created here. ARCH-03B.3 is not started.

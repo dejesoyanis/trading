@@ -113,3 +113,5 @@ No broker socket, credential, order submission, risk evaluation, readiness decis
 M0-02B-a adds the registry skeleton under `contracts/registry/`. Canonical schema files remain deferred to M0-02B-b. The skeleton does not publish provisional serde shapes.
 
 TRD-ARCH-03B.2 asks RISKQ-01 through RISKQ-14 and does not approve a reservation writer, a release, an economic posting, or an economic-finality predicate. `Released` stays a draft label. `XC-02-PRED` stays OPEN. `RoundingPolicy` still does not round.
+
+ARCH-DEC-21 through ARCH-DEC-34 (2026-11-15) record design policy for those questions and still do not approve a reservation writer, a release, a posting, a predicate, a rounding operation, or an FX conversion. `RoundingPolicy` still does not round. The labels `RATIFIED_DESIGN_POLICY_ONLY`, `NOT_IMPLEMENTED`, and `NOT_VERIFIED` are documentary. They are not a canonical enum.

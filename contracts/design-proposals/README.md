@@ -32,8 +32,16 @@ Risk reservation, partial fills, corrections, and economic finality. Ratificatio
 | [TRD-ARCH-03B2-risk-semantics-and-invariants.md](TRD-ARCH-03B2-risk-semantics-and-invariants.md) | Dimensions, invariant inventory, and fail-closed boundaries. |
 | [TRD-ARCH-03B2-economic-finality-and-release-coverage-draft.md](TRD-ARCH-03B2-economic-finality-and-release-coverage-draft.md) | Candidate evidence and scenario coverage. Not a predicate. |
 | [TRD-ARCH-03B2-reservation-and-correction-options.md](TRD-ARCH-03B2-reservation-and-correction-options.md) | Three comparison architectures. Not allowed operations. |
-| [TRD-ARCH-03B2-approval-requests.md](TRD-ARCH-03B2-approval-requests.md) | RISKQ-01 through RISKQ-14. Status `USER_DECISION_PENDING`. |
+| [TRD-ARCH-03B2-approval-requests.md](TRD-ARCH-03B2-approval-requests.md) | RISKQ-01 through RISKQ-14. Creation-time status lines stay `USER_DECISION_PENDING`. A dated resolution addendum at the end points at ARCH-DEC-21 through ARCH-DEC-34. |
 | [TRD-ARCH-03B2-dependency-and-conflict-matrix.md](TRD-ARCH-03B2-dependency-and-conflict-matrix.md) | Open XC findings, including `XC-02-PRED`. |
 | [TRD-ARCH-03B2-proposal-index.json](TRD-ARCH-03B2-proposal-index.json) | Non-runtime index. `NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX`. Not a registry and not a wire schema. |
 
 The recommendation inside the options note is not a decision. OMSQ-05 option B and OMSQ-06 option A stay binding. ARCH-DEC-09 through ARCH-DEC-20 are not reopened.
+
+The proposal index repeats the creation-time pending statuses. It is unchanged by TRD-ARCH-03B.2.2.
+
+## Later policy record (TRD-ARCH-03B.2.2)
+
+On 2026-11-15 the user ratified design-policy choices for RISKQ-01 through RISKQ-14. The record is ARCH-DEC-21 through ARCH-DEC-34 in [ARCH-DEC-21-bis-34-2026-11-15.md](../decisions/ARCH-DEC-21-bis-34-2026-11-15.md). The machine-readable map is [TRD-ARCH-03B22-resolution-index.json](TRD-ARCH-03B22-resolution-index.json). That map is `NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX`. It is not a registry, not the historical proposal index, and not a wire schema. Its labels are not a canonical enum.
+
+The proposal files above keep their creation-time text. Their `NOT_RATIFIED` lines and the pending question statuses are the historical request. The later record approves design policy only. Options are B, A, A, A, A, A, A, A, A, B, B, A, A, B. It does not approve budget arithmetic, a reservation writer, reservation release, economic posting, an economic-finality predicate, a rounding mode, a lock order, an audit table, a role, a policy migration, an OMS transition, broker dispatch, or live trading. `XC-02-PRED` stays OPEN. ARCH-DEC-13 and ARCH-DEC-14 stay binding. ARCH-03B.3 is not started. **NO IMPLEMENTATION.** **NO VERIFICATION.**
