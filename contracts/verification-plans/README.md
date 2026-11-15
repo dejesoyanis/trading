@@ -17,3 +17,9 @@ IBKR evidence and verification planning. Ratification: `NOT_RATIFIED`. Every `IB
 | [TRD-ARCH-03B4-plan-index.json](TRD-ARCH-03B4-plan-index.json) | Non-runtime index. Not `registry.json`. |
 
 The reading record is [TRD-ARCH-03B.4-report.md](../../docs/architecture/TRD-ARCH-03B.4-report.md). ARCH-DEC-01 through ARCH-DEC-48 stay in force. A recommendation in the approval requests is not an approval. **NO IMPLEMENTATION.** **NO VERIFICATION.**
+
+## Later policy record (TRD-ARCH-03B.4.2)
+
+On 2026-11-15 the user ratified design-policy choices for IBKREVQ-01 through IBKREVQ-14 as ARCH-DEC-49 through ARCH-DEC-62. The record is [ARCH-DEC-49-bis-62-2026-11-15.md](../decisions/ARCH-DEC-49-bis-62-2026-11-15.md). The machine-readable map is [TRD-ARCH-03B42-resolution-index.json](TRD-ARCH-03B42-resolution-index.json), role `NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX`. It is not a registry, not the historical plan index, and not a wire schema.
+
+The `NOT_RATIFIED` line above is the creation-time plan status. The historical questions, recommendations, and option tables stay as written. The later record approves design policy only. Options are B, A, A, B, B, B, A, A, B, A, A, A, A, B. Count: 8 times A and 6 times B. Option C stays `CONFLICTS_WITH_BINDING_POLICY`. Stages E0 through E4 stay STOP. The record does not authorize a broker connection, a read, an order, paper trading, a uniqueness guarantee, a completeness token, economic posting, risk release, an economic-finality predicate, an OMS transition, broker dispatch, or live trading. External cases stay `NOT_EXECUTED`. External evidence stays `EXTERNAL_EVIDENCE_PENDING`. `XC-01`, `XC-08-IBKR`, `XC-02-PRED`, and the XC-04 operational remainder stay OPEN. Documentation tests are not broker evidence. **NO IMPLEMENTATION.** **NO VERIFICATION.**

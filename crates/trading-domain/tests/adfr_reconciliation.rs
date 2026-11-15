@@ -2924,8 +2924,8 @@ fn risk_design_policy_21_through_34_stays_unimplemented() {
     assert!(
         !decision_names
             .iter()
-            .any(|name| name.contains("ARCH-DEC-49")),
-        "ARCH-DEC-49 stays unused after ARCH-DEC-35 through ARCH-DEC-48"
+            .any(|name| name.contains("ARCH-DEC-63")),
+        "ARCH-DEC-63 stays unused after ARCH-DEC-49 through ARCH-DEC-62"
     );
     let decision = read_text(&root.join(index.decision_record));
     assert!(decision.contains("2026-11-15"));
@@ -4124,7 +4124,7 @@ fn broker_design_policy_35_through_48_stays_unimplemented() {
     assert!(
         !decision_names
             .iter()
-            .any(|name| name.contains("ARCH-DEC-49"))
+            .any(|name| name.contains("ARCH-DEC-63"))
     );
     let decision = read_text(&root.join(index.decision_record));
     assert!(decision.contains("2026-11-15"));
@@ -4806,7 +4806,7 @@ fn ibkr_evidence_verification_plan_stays_unexecuted() {
     let decision_count = fs::read_dir(root.join("contracts/decisions"))
         .expect("decisions")
         .count();
-    assert_eq!(decision_count, 5);
+    assert_eq!(decision_count, 6);
     assert!(
         !root
             .join("contracts/decisions")
@@ -4816,7 +4816,7 @@ fn ibkr_evidence_verification_plan_stays_unexecuted() {
                 .expect("entry")
                 .file_name()
                 .to_string_lossy()
-                .contains("ARCH-DEC-49"))
+                .contains("ARCH-DEC-63"))
     );
 
     let prompt = root.join(

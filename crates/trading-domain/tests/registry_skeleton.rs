@@ -66,6 +66,7 @@ const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/design-proposals/TRD-ARCH-03B32-resolution-index.json",
     "contracts/registry/registry.json",
     "contracts/verification-plans/TRD-ARCH-03B4-plan-index.json",
+    "contracts/verification-plans/TRD-ARCH-03B42-resolution-index.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
     "contracts/status-model/status-dimensions-draft-v0.json",
@@ -347,7 +348,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, and the non-wire IBKR verification plan index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, the non-wire IBKR verification plan index, and the non-wire IBKR verification policy resolution index"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
@@ -597,6 +598,77 @@ fn assert_no_published_schema_tree(root: &Path) {
     assert!(!plan.contains("\"tests_executed\": true"));
     assert!(!plan.contains("\"external_broker_requests_executed\": true"));
     assert!(!plan.contains("\"conflict_closure\": true"));
+
+    let ibkr_policy = fs::read_to_string(
+        root.join("contracts/verification-plans/TRD-ARCH-03B42-resolution-index.json"),
+    )
+    .expect("IBKR verification policy resolution index");
+    assert!(ibkr_policy.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX\""));
+    assert!(!ibkr_policy.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX\""));
+    assert!(
+        !ibkr_policy
+            .contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_VERIFICATION_PLAN_INDEX\"")
+    );
+    assert!(ibkr_policy.contains("\"task\": \"TRD-ARCH-03B.4.2\""));
+    assert!(ibkr_policy.contains("\"record_label\": \"RATIFIED_DESIGN_POLICY_ONLY\""));
+    assert!(ibkr_policy.contains("\"implementation\": \"NOT_IMPLEMENTED\""));
+    assert!(ibkr_policy.contains("\"verification\": \"NOT_VERIFIED\""));
+    assert!(ibkr_policy.contains("\"execution\": \"NOT_EXECUTED\""));
+    assert!(ibkr_policy.contains("\"external_evidence\": \"EXTERNAL_EVIDENCE_PENDING\""));
+    assert!(ibkr_policy.contains("\"record_labels_are_not_a_canonical_enum\": true"));
+    assert!(ibkr_policy.contains("\"not_a_schema\": true"));
+    assert!(ibkr_policy.contains("\"not_registry_json\": true"));
+    assert!(ibkr_policy.contains("\"not_the_historical_plan_index\": true"));
+    assert!(ibkr_policy.contains("\"not_a_wire_schema\": true"));
+    assert!(ibkr_policy.contains("\"added_to_canonical_registry\": false"));
+    assert!(ibkr_policy.contains("\"implementation_authorized\": false"));
+    assert!(ibkr_policy.contains("\"testing_authorized\": false"));
+    assert!(ibkr_policy.contains("\"broker_connection_authorized\": false"));
+    assert!(ibkr_policy.contains("\"read_only_broker_access_authorized\": false"));
+    assert!(ibkr_policy.contains("\"order_send_authorized\": false"));
+    assert!(ibkr_policy.contains("\"paper_trading_authorized\": false"));
+    assert!(ibkr_policy.contains("\"uniqueness_guaranteed\": false"));
+    assert!(ibkr_policy.contains("\"completeness_proof_approved\": false"));
+    assert!(ibkr_policy.contains("\"completeness_token_ratified\": false"));
+    assert!(ibkr_policy.contains("\"economic_posting_approved\": false"));
+    assert!(ibkr_policy.contains("\"risk_release_approved\": false"));
+    assert!(ibkr_policy.contains("\"economic_finality_predicate_approved\": false"));
+    assert!(ibkr_policy.contains("\"oms_transitions_approved\": false"));
+    assert!(ibkr_policy.contains("\"broker_dispatch_approved\": false"));
+    assert!(ibkr_policy.contains("\"live_trading_authorized\": false"));
+    assert!(ibkr_policy.contains("\"closes_xc_findings\": false"));
+    assert!(ibkr_policy.contains("\"conflict_closure\": false"));
+    assert!(ibkr_policy.contains("\"external_broker_tests_executed\": false"));
+    assert!(ibkr_policy.contains("\"tests_executed\": false"));
+    assert!(ibkr_policy.contains("\"stage_e0\": \"STOP\""));
+    assert!(ibkr_policy.contains("\"stage_e1\": \"STOP\""));
+    assert!(ibkr_policy.contains("\"stage_e2\": \"STOP\""));
+    assert!(ibkr_policy.contains("\"stage_e3\": \"STOP\""));
+    assert!(ibkr_policy.contains("\"stage_e4\": \"STOP\""));
+    assert!(ibkr_policy.contains("\"evidence_uri\": null"));
+    assert!(ibkr_policy.contains("\"signature_artifact\": null"));
+    assert!(ibkr_policy.contains("\"xc_01\": \"OPEN\""));
+    assert!(ibkr_policy.contains("\"xc_08_ibkr\": \"OPEN\""));
+    assert!(ibkr_policy.contains("\"xc_04_remainder\": \"OPEN\""));
+    assert!(ibkr_policy.contains("\"xc_02_pred\": \"OPEN\""));
+    assert!(ibkr_policy.contains("\"part_b\": \"NO-GO\""));
+    assert!(ibkr_policy.contains("\"registry_status_required\": \"SKELETON_NOT_CANONICAL\""));
+    assert!(!ibkr_policy.contains("\"live_trading_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"canonical_schemas_published\": true"));
+    assert!(!ibkr_policy.contains("\"implementation_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"testing_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"broker_connection_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"read_only_broker_access_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"order_send_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"paper_trading_authorized\": true"));
+    assert!(!ibkr_policy.contains("\"uniqueness_guaranteed\": true"));
+    assert!(!ibkr_policy.contains("\"external_broker_tests_executed\": true"));
+    assert!(!ibkr_policy.contains("\"tests_executed\": true"));
+    assert!(!ibkr_policy.contains("\"conflict_closure\": true"));
+    let registry_text =
+        fs::read_to_string(root.join("contracts/registry/registry.json")).expect("registry");
+    assert!(!registry_text.contains("TRD-ARCH-03B42"));
+    assert!(!registry_text.contains("ARCH-DEC-49"));
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
         .expect("read contracts/source-manifest.json");
