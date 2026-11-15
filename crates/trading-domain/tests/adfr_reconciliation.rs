@@ -1322,6 +1322,248 @@ fn interpretation_decisions_04_through_08_stay_conservative() {
     assert!(!root.join("contracts/evidence").exists());
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct OmsProposalIndex {
+    document_role: String,
+    ratification: String,
+    task: String,
+    date: String,
+    live_trading_authorized: bool,
+    canonical_schemas_published: bool,
+    part_b: String,
+    broker_uniqueness_evidence: String,
+    registry_status_required: String,
+    order_state_machine_implemented: bool,
+    state_transitions_implemented: bool,
+    order_closure_vocabulary: String,
+    transition_edges: String,
+    xc_03_matrix: String,
+    cr_b01_precedence_over_det07: String,
+    questions: Vec<OmsQuestionStatus>,
+    scenario_families: Vec<OmsScenarioStatus>,
+    open_findings: Vec<String>,
+    files: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct OmsQuestionStatus {
+    id: String,
+    status: String,
+    recommendation_is_approval: bool,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct OmsScenarioStatus {
+    id: String,
+    approval_status: String,
+}
+
+#[test]
+fn oms_finality_proposals_stay_unratified_and_registers_stay_closed() {
+    let root = repo_root();
+    let index_path = root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json");
+    let index_bytes = fs::read(&index_path).expect("OMS proposal index");
+    assert!(
+        !index_bytes.starts_with(&[0xEF, 0xBB, 0xBF]),
+        "proposal index has a BOM"
+    );
+    let index: OmsProposalIndex =
+        serde_json::from_slice(&index_bytes).expect("parse proposal index");
+    assert_eq!(index.document_role, "NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX");
+    assert_eq!(index.ratification, "NOT_RATIFIED");
+    assert_eq!(index.task, "TRD-ARCH-03B.1");
+    assert_eq!(index.date, "2026-11-15");
+    assert!(!index.live_trading_authorized);
+    assert!(!index.canonical_schemas_published);
+    assert_eq!(index.part_b, "NO-GO");
+    assert_eq!(index.broker_uniqueness_evidence, "EVIDENCE_PENDING");
+    assert_eq!(index.registry_status_required, "SKELETON_NOT_CANONICAL");
+    assert!(!index.order_state_machine_implemented);
+    assert!(!index.state_transitions_implemented);
+    assert_eq!(index.order_closure_vocabulary, "NOT_APPROVED");
+    assert_eq!(index.transition_edges, "NOT_APPROVED");
+    assert_eq!(index.xc_03_matrix, "OPEN");
+    assert_eq!(index.cr_b01_precedence_over_det07, "IN_FORCE");
+
+    let expected_questions = [
+        "OMSQ-01", "OMSQ-02", "OMSQ-03", "OMSQ-04", "OMSQ-05", "OMSQ-06", "OMSQ-07", "OMSQ-08",
+        "OMSQ-09", "OMSQ-10", "OMSQ-11", "OMSQ-12",
+    ];
+    assert_eq!(index.questions.len(), expected_questions.len());
+    for (question, expected) in index.questions.iter().zip(expected_questions) {
+        assert_eq!(question.id, expected);
+        assert_eq!(question.status, "USER_DECISION_PENDING");
+        assert!(!question.recommendation_is_approval);
+    }
+
+    let allowed_family_status = ["PROPOSED_REQUIRES_USER_DECISION", "BLOCKED_BY_DEPENDENCY"];
+    assert_eq!(index.scenario_families.len(), 16);
+    let mut proposed = 0;
+    for family in &index.scenario_families {
+        assert!(
+            allowed_family_status.contains(&family.approval_status.as_str()),
+            "{} has {}",
+            family.id,
+            family.approval_status
+        );
+        assert_ne!(family.approval_status, "APPROVED");
+        if family.approval_status == "PROPOSED_REQUIRES_USER_DECISION" {
+            proposed += 1;
+        }
+    }
+    assert!(
+        proposed >= 1,
+        "create and validate must stay user decisions"
+    );
+    assert!(
+        index
+            .scenario_families
+            .iter()
+            .any(|family| family.id == "create"
+                && family.approval_status == "PROPOSED_REQUIRES_USER_DECISION")
+    );
+    assert!(
+        index
+            .scenario_families
+            .iter()
+            .any(|family| family.id == "modify_request_or_confirm"
+                && family.approval_status == "BLOCKED_BY_DEPENDENCY")
+    );
+
+    for finding in [
+        "XC-01",
+        "XC-02-PRED",
+        "XC-03-MATRIX",
+        "XC-05-LOCK",
+        "XC-06",
+        "XC-07-ROUND",
+        "XC-08-IBKR",
+        "XC-09-RESET",
+        "XC-10-ACTION",
+    ] {
+        assert!(index.open_findings.iter().any(|item| item == finding));
+    }
+
+    let approvals =
+        read_text(&root.join("contracts/design-proposals/TRD-ARCH-03B1-approval-requests.md"));
+    let coverage = read_text(
+        &root.join("contracts/design-proposals/TRD-ARCH-03B1-transition-coverage-draft.md"),
+    );
+    let vocabulary = read_text(
+        &root.join("contracts/design-proposals/TRD-ARCH-03B1-OrderClosure-vocabulary-options.md"),
+    );
+    let semantics = read_text(
+        &root.join("contracts/design-proposals/TRD-ARCH-03B1-OMS-semantics-and-invariants.md"),
+    );
+    let matrix = read_text(
+        &root.join("contracts/design-proposals/TRD-ARCH-03B1-dependency-and-conflict-matrix.md"),
+    );
+    for text in [&approvals, &coverage, &vocabulary, &semantics, &matrix] {
+        assert!(text.contains("NOT_RATIFIED"));
+        assert!(text.contains("XC-03-MATRIX"));
+        assert!(text.contains("OPEN"));
+        assert!(text.contains("NOT AUTHORIZED"));
+    }
+    for id in expected_questions {
+        assert!(approvals.contains(id), "approval request missing {id}");
+        assert!(
+            approvals.contains(&format!("## {id}")),
+            "missing heading {id}"
+        );
+    }
+    assert_eq!(approvals.matches("USER_DECISION_PENDING").count(), 13);
+    assert!(approvals.contains("not an approval"));
+    assert!(vocabulary.contains("Alternative C"));
+    assert!(vocabulary.contains("Non-binding recommendation"));
+    assert!(semantics.contains("BINDING_EXISTING"));
+    assert!(semantics.contains("PROPOSED"));
+    assert!(semantics.contains("DEPENDENCY"));
+    assert!(semantics.contains("UNVERIFIED"));
+    assert!(coverage.contains("UNSPECIFIED"));
+    assert!(coverage.contains("TESTS_NOT_EXECUTED"));
+    assert!(coverage.contains("PROPOSED_REQUIRES_USER_DECISION"));
+    assert!(coverage.contains("BLOCKED_BY_DEPENDENCY"));
+    assert!(matrix.contains("| XC-03-MATRIX | OPEN |"));
+    assert!(matrix.contains("ARCH-03B.2"));
+    assert!(matrix.contains("ARCH-03B.3"));
+    for file in &index.files {
+        assert!(root.join(file).is_file(), "missing {file}");
+    }
+
+    let json_bytes =
+        fs::read(root.join("contracts/sources/ADFR-Consolidated-v1.0.json")).expect("ADFR JSON");
+    let csv_bytes =
+        fs::read(root.join("contracts/sources/ADFR-Consolidated-v1.0.csv")).expect("ADFR CSV");
+    assert_eq!(
+        sha256_hex(&json_bytes),
+        "272a6dabdb411701a25dd708577dbb498c7a7cd2754d83c612e85454a178a1d5"
+    );
+    assert_eq!(json_bytes.len(), 29880);
+    assert_eq!(
+        sha256_hex(&csv_bytes),
+        "b5577302650e3d497465b93063d149313ec1197a38ddad3a9e7a6f223757ec32"
+    );
+    assert_eq!(csv_bytes.len(), 13138);
+    let adfr = load_adfr(&root);
+    assert_eq!(adfr.entries.len(), 78);
+    assert_eq!(adfr.status, "ARCHITECTURE_DRAFT_NOT_IMPLEMENTED");
+    assert!(
+        adfr.entries
+            .iter()
+            .all(|entry| entry.verification == "NOT_VERIFIED")
+    );
+    assert_eq!(
+        adfr.entries
+            .iter()
+            .filter(|entry| entry.lifecycle == "SUPERSEDED")
+            .count(),
+        1
+    );
+    let superseded = adfr
+        .entries
+        .iter()
+        .find(|entry| entry.lifecycle == "SUPERSEDED")
+        .expect("superseded");
+    assert_eq!(superseded.id, SUPERSEDED_ID);
+    assert_eq!(superseded.superseded_by.as_deref(), Some(SUCCESSOR_ID));
+    assert_eq!(
+        adfr.entries
+            .iter()
+            .filter(|entry| entry.lifecycle == "NOT_SUPERSEDED")
+            .count(),
+        77
+    );
+
+    let manifest_bytes = fs::read(root.join("contracts/source-manifest.json")).expect("manifest");
+    let manifest: Value = serde_json::from_slice(&manifest_bytes).expect("manifest JSON");
+    let files = manifest["files"].as_array().expect("files");
+    assert_eq!(files.len(), 12);
+    for entry in files {
+        let relative = entry["repository_path"].as_str().expect("path");
+        let bytes = fs::read(root.join(relative)).expect(relative);
+        assert_eq!(bytes.len() as u64, entry["bytes"].as_u64().expect("bytes"));
+        assert_eq!(
+            sha256_hex(&bytes),
+            entry["sha256"].as_str().expect("sha256")
+        );
+        assert!(entry.get("package_sha256").is_some());
+        assert!(entry.get("package_bytes").is_some());
+    }
+
+    let registry_bytes = fs::read(root.join("contracts/registry/registry.json")).expect("registry");
+    assert_eq!(sha256_hex(&registry_bytes), REGISTRY_SHA256);
+    assert_eq!(registry_bytes.len(), 44332);
+    let registry: Value = serde_json::from_slice(&registry_bytes).expect("registry JSON");
+    assert_eq!(registry["registry_status"], "SKELETON_NOT_CANONICAL");
+    assert_eq!(registry["canonical_schemas_published"], false);
+    assert_eq!(registry["live_trading_authorized"], false);
+    assert_eq!(registry["part_b"], "NO-GO");
+    assert_eq!(registry["broker_uniqueness_evidence"], "EVIDENCE_PENDING");
+}
+
 fn load_status_draft(root: &Path) -> StatusDraft {
     let path = root.join("contracts/status-model/status-dimensions-draft-v0.json");
     let bytes = fs::read(&path).expect("status draft");

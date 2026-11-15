@@ -58,6 +58,7 @@ const FORBIDDEN_DIRS: &[&str] = &[
 /// extract. The status draft is an interpretation file. None of them is a
 /// published event, command, or API schema.
 const ALLOWED_CONTRACT_JSON: &[&str] = &[
+    "contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json",
     "contracts/registry/registry.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
@@ -340,8 +341,20 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, and the non-wire status draft"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, and the unratified OMS proposal index"
     );
+    let proposal = fs::read_to_string(
+        root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
+    )
+    .expect("OMS proposal index");
+    assert!(proposal.contains("\"ratification\": \"NOT_RATIFIED\""));
+    assert!(proposal.contains("\"xc_03_matrix\": \"OPEN\""));
+    assert!(proposal.contains("\"order_closure_vocabulary\": \"NOT_APPROVED\""));
+    assert!(proposal.contains("\"transition_edges\": \"NOT_APPROVED\""));
+    assert!(proposal.contains("\"live_trading_authorized\": false"));
+    assert!(proposal.contains("\"canonical_schemas_published\": false"));
+    assert!(!proposal.contains("\"live_trading_authorized\": true"));
+    assert!(!proposal.contains("\"canonical_schemas_published\": true"));
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
         .expect("read contracts/source-manifest.json");

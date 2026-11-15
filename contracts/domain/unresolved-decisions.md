@@ -149,3 +149,7 @@ XC-01 stays OPEN. XC-02-PRED stays OPEN. XC-03-MATRIX stays OPEN. XC-05-LOCK sta
 XC-11 status-word disagreement stays OPEN. ARCH-DEC-04 chooses no winning status and no default precedence. The population and supersession sub-finding remains `RESOLVED_BY_ARCH_DEC_02`. XC-04 design precedence remains `RESOLVED_BY_ARCH_DEC_03`. The rest of XC-04 stays OPEN, including broker-session exclusivity, lease and heartbeat, dispatch scope, in-flight send evidence, recovery tests, and IBKR behavior.
 
 `NO_CONFLICT_FOUND` on a principle does not permit an unresolved predicate or transition. `IMPLEMENTED_AND_LOCALLY_TESTED` on a UD line stays scoped to that named part. It does not set an ADFR row to verified. DET-01 and DET-02 Q01–Q10 verification cells stay OPEN. Live trading stays NOT AUTHORIZED.
+
+## OMS proposal after TRD-ARCH-03B.1
+
+TRD-ARCH-03B.1 does not change the UD statuses above and does not close the XC findings in the previous section. The review package is [contracts/design-proposals/README.md](../design-proposals/README.md). OMSQ-01 through OMSQ-12 are `USER_DECISION_PENDING`. `XC-03-MATRIX` stays OPEN. No transition edge and no `OrderClosure` vocabulary are approved. `OrderClosure` stays an absent type. `ORDER_STATE_MACHINE_IMPLEMENTED` and `STATE_TRANSITIONS_IMPLEMENTED` stay false.
