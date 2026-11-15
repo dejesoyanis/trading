@@ -52,6 +52,15 @@ const FORBIDDEN_DIRS: &[&str] = &[
     "contracts/examples",
 ];
 
+/// Non-schema JSON that TRD-ARCH-SYNC-01 is required to keep under `contracts/`.
+/// These paths are provenance and a decision-register extract. They are not
+/// published event, command, or API schemas.
+const ALLOWED_CONTRACT_JSON: &[&str] = &[
+    "contracts/registry/registry.json",
+    "contracts/source-manifest.json",
+    "contracts/sources/ADFR-Consolidated-v1.0.json",
+];
+
 const EXPECTED: &[(&str, &str)] = &[
     ("trading_domain::OrderId", "identifier"),
     ("trading_domain::CommandId", "identifier"),
@@ -316,12 +325,55 @@ fn assert_no_published_schema_tree(root: &Path) {
 
     let mut json_files = Vec::new();
     collect_json(root.join("contracts"), &mut json_files);
-    assert_eq!(json_files.len(), 1, "contracts JSON files: {json_files:?}");
-    assert!(
-        json_files[0].ends_with("registry.json"),
-        "unexpected contracts JSON {}",
-        json_files[0].display()
+    let mut relative: Vec<String> = json_files
+        .iter()
+        .map(|path| contract_relative(root, path))
+        .collect();
+    relative.sort();
+    let mut allowed: Vec<String> = ALLOWED_CONTRACT_JSON
+        .iter()
+        .map(|path| (*path).to_string())
+        .collect();
+    allowed.sort();
+    assert_eq!(
+        relative, allowed,
+        "contracts JSON is limited to the registry skeleton and the two non-schema source artifacts"
     );
+
+    let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
+        .expect("read contracts/source-manifest.json");
+    assert!(
+        manifest.contains("\"approved\": false"),
+        "source manifest must not mark a source approved"
+    );
+    assert!(
+        !manifest.contains("\"live_trading_authorized\": true"),
+        "source manifest must not authorize live trading"
+    );
+    assert!(
+        !manifest.contains("\"canonical_schemas_published\": true"),
+        "source manifest must not publish canonical schemas"
+    );
+
+    let adfr = fs::read_to_string(root.join("contracts/sources/ADFR-Consolidated-v1.0.json"))
+        .expect("read ADFR JSON");
+    assert!(
+        adfr.contains("ARCHITECTURE_DRAFT_NOT_IMPLEMENTED"),
+        "ADFR JSON presence is not implementation"
+    );
+    assert!(
+        !adfr.contains("\"canonical_wire\": true"),
+        "ADFR JSON is not a canonical wire schema"
+    );
+}
+
+fn contract_relative(root: &Path, path: &Path) -> String {
+    path.strip_prefix(root)
+        .unwrap_or_else(|_| panic!("path outside repo: {}", path.display()))
+        .components()
+        .map(|component| component.as_os_str().to_string_lossy().into_owned())
+        .collect::<Vec<_>>()
+        .join("/")
 }
 
 fn collect_json(dir: PathBuf, found: &mut Vec<PathBuf>) {

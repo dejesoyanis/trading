@@ -1,14 +1,14 @@
 # Domain glossary
 
 **Status:** draft shell, M0-02A.2. Each UD is DESIGN_RESOLVED. Implementation status is per decision in [unresolved-decisions.md](unresolved-decisions.md). Not production-proven.  
-**Source:** CR-B10 v1.0-draft, read as draft names rather than a transition model. Provisional details are refined by the architecture resolution. DET bodies were not supplied and were not reviewed.  
+**Source:** CR-B10 v1.0-draft, read as draft names rather than a transition model. Provisional details are refined by the architecture resolution. At M0-02A.2 the DET bodies were not supplied and were not reviewed. As of TRD-ARCH-SYNC-01 they are present under `contracts/sources/` and indexed as `PRESENT / NOT_REVIEWED`. This glossary was not rewritten from them. DET-01 and DET-02 are reconstructed drafts.  
 **Code:** `crates/trading-domain`.  
 **Decisions:** [unresolved-decisions.md](unresolved-decisions.md).  
 **Resolution:** [M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md](../sources/M0-02A-UD-01-bis-UD-09-Architecture-Resolution-v1.0.md).  
 **Registry:** [M0-02B-a skeleton](../registry/README.md). Canonical schemas are not published.  
 **Index:** [traceability-index.md](../traceability-index.md).
 
-DET-01 through DET-10 and CR-B01 through CR-B09 were not in the repository. No transition row is claimed against them. B10-T01 through B10-T12 are not executed by this glossary or by the registry skeleton. Unit tests cover non-interchangeable ids, scoped alias inequality, fail-closed state decoding, and checked decimal mismatch. Those tests are not the full registry gates.
+At M0-02A.2, DET-01 through DET-10 and CR-B01 through CR-B09 were not in the repository. They are present as of TRD-ARCH-SYNC-01 and are `PRESENT / NOT_REVIEWED`. No transition row is claimed against them. B10-T01 through B10-T12 are not executed by this glossary or by the registry skeleton. Unit tests cover non-interchangeable ids, scoped alias inequality, fail-closed state decoding, and checked decimal mismatch. Those tests are not the full registry gates.
 
 HTTP readiness is not `TradingReadinessState`. `trading_common::HttpRequestId` is not `CorrelationId` below. The HTTP header remains `x-correlation-id`.
 
@@ -98,7 +98,7 @@ Wire labels are the PascalCase variant names. Decoding accepts only those string
 
 `ExecutionState` is owned by the execution ledger. CR-B10 §1 does not have this row. UD-07 assigns that owner. No variants were added to fill the gap.
 
-`RiskReservationAdjusted` is an event name in CR-B10 §2. It is not a `RiskReservationState` variant. The enum labels are draft registry candidates. Edges and guards wait until DET-01, DET-02, DET-06, and DET-07 are supplied and cross-reviewed. Those bodies are not in the repository.
+`RiskReservationAdjusted` is an event name in CR-B10 §2. It is not a `RiskReservationState` variant. The enum labels are draft registry candidates. Edges and guards wait until DET-01, DET-02, DET-06, and DET-07 are supplied and cross-reviewed. Those bodies are now present and are not an approved transition matrix.
 
 ## Money, price, quantity, and time
 
@@ -108,6 +108,6 @@ Wire labels are the PascalCase variant names. Decoding accepts only those string
 
 ## Explicitly absent
 
-No broker socket, credential, order submission, risk evaluation, readiness decision, identity resolver, migration, or state transition is implemented in this vocabulary. `OrderClosure` is not a Rust type and not a wire schema. UD-07 requires an immutable record once DET-01 supplies a closure-reason vocabulary: closure reason, closing `EventId`, closing `OrderVersion`, occurred and recorded time, and an audit reference. DET-01 was not supplied, so no reason enum was invented. `IncidentState` stays undefined until DET-10 is in the repository and reviewed. `ClockQuality` and `TimestampProvenance` stay undefined because the resolution does not list their variants. `BrokerIdentityContext` records unverified components and does not verify them.
+No broker socket, credential, order submission, risk evaluation, readiness decision, identity resolver, migration, or state transition is implemented in this vocabulary. `OrderClosure` is not a Rust type and not a wire schema. UD-07 requires an immutable record once DET-01 supplies a closure-reason vocabulary: closure reason, closing `EventId`, closing `OrderVersion`, occurred and recorded time, and an audit reference. The reconstructed DET-01 draft says that reason vocabulary is not confirmed, so no reason enum was invented. `IncidentState` stays undefined. DET-10 is present and not reviewed, and its incident-state list was not adopted. `ClockQuality` and `TimestampProvenance` stay undefined because the resolution does not list their variants. `BrokerIdentityContext` records unverified components and does not verify them.
 
 M0-02B-a adds the registry skeleton under `contracts/registry/`. Canonical schema files remain deferred to M0-02B-b. The skeleton does not publish provisional serde shapes.

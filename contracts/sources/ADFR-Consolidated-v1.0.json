@@ -1,0 +1,623 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-11-14",
+  "status": "ARCHITECTURE_DRAFT_NOT_IMPLEMENTED",
+  "entries": [
+    {
+      "id": "ADFR-CROSS-001",
+      "decision": "Ein gemeinsamer transaktionaler OMS/Risk/Outbox/Audit-Unit-of-Work",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-CROSS-002",
+      "decision": "Fenced Dispatch + konservatives Failover unter in-flight Brokeraufrufen",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-CROSS-003",
+      "decision": "Late-Fill-Kompensation nach Risk-Release",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-CROSS-004",
+      "decision": "IBKR-Identitäts- und Eindeutigkeitsmatrix",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-CROSS-005",
+      "decision": "Kanonisches Domain Glossary und Schema Registry",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-CROSS-006",
+      "decision": "Abnahmefähige Cross-Contract-CI-Gates",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-001",
+      "decision": "Hybrid Workflow Closure mit immutable closure_reason",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-002",
+      "decision": "Evidenzbasierte Broker-Konfliktauflösung",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-003",
+      "decision": "Aggregate-Version plus Command/Event-Identitäten",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-004",
+      "decision": "CAS plus gezielte PostgreSQL-Locks",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-005",
+      "decision": "Idempotentes Execution Ledger und kontrollierte Korrekturen",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-006",
+      "decision": "Relationales Order-Aggregate plus Command/Event-Historie",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-007",
+      "decision": "Konservative Recovery ohne Blind-Retry",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-008",
+      "decision": "Mehrdimensionale Finalität",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-009",
+      "decision": "Append-only Correction Events",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET01-010",
+      "decision": "Formales Transition Model, Property/Model-Based Tests",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET01",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-001",
+      "decision": "Hierarchisches mehrdimensionales Risk Budget",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-002",
+      "decision": "Deterministische Deny-Overrides Policy-Komposition und Fail-Closed",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-003",
+      "decision": "Atomare PostgreSQL-Risk-Reservierungen",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-004",
+      "decision": "Marktdatenqualität und explizite konservative Fallbacks",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-005",
+      "decision": "Wirtschaftliche Umbuchung bei Partial Fills",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-006",
+      "decision": "Evidenzbasierte Risk-Freigabe",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-007",
+      "decision": "Konservative Risk-Recovery und Reconciliation",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-008",
+      "decision": "Klassifizierte zeitlich begrenzte Risk Overrides",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-009",
+      "decision": "Mehrstufige Risk Response",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET02-010",
+      "decision": "Formale Risk-Invarianten und CI-Gates",
+      "source": "conversation: confirmed DET-01/02 Q01-Q10",
+      "status": "CONFIRMED_DECISION",
+      "basis": "DET02",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET03-001",
+      "decision": "UUID-Orderidentität und kontextgebundene Aliasse",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET03-002",
+      "decision": "Separate Attempt-/Execution-Identitäten",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET03-003",
+      "decision": "Evidenzbasierter Identity Resolver",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET03-004",
+      "decision": "Append-only Identity Corrections",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET04-001",
+      "decision": "Lokale PostgreSQL-Transaktionsautorität",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET04-002",
+      "decision": "Transactional Outbox + JetStream",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET04-003",
+      "decision": "Inbox-Idempotenz und ACK nach Commit",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET04-004",
+      "decision": "DLQ/Retry/Schema-Versionierung",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET05-001",
+      "decision": "Hexagonaler Broker-Port",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET05-002",
+      "decision": "Connection State Machine und Capabilities",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET05-003",
+      "decision": "Raw Evidence und Normalisierungsversion",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET06-001",
+      "decision": "Mehrdimensionale Readiness-Gates",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET06-002",
+      "decision": "Aktionsspezifische Berechtigungen",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET06-003",
+      "decision": "Persistierte Halts und manueller Reset",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET07-001",
+      "decision": "Single-Writer mit Epoch-Fencing",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET07-002",
+      "decision": "Persistierter Submission Attempt vor Send",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET07-003",
+      "decision": "Revalidierendes Submission Gate",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET07-004",
+      "decision": "Kein blindes Retry; begrenzte Fencing-Garantie",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET08-001",
+      "decision": "Systemweite evidenzbasierte Reconciliation",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET08-002",
+      "decision": "Snapshot-Vollständigkeit und Watermarks",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET08-003",
+      "decision": "Differenzklassifikation und Quarantäne",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET08-004",
+      "decision": "Gestufte Recovery und Readiness-Gate",
+      "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET03-08",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-001",
+      "decision": "Providerunabhängige Beobachtungsidentität",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-002",
+      "decision": "Versionierter Quality Envelope",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-003",
+      "decision": "Fail-Closed und explizite Fallbacks",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-004",
+      "decision": "Deterministische Valuation",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-005",
+      "decision": "Event-/Receive-Time getrennt",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-006",
+      "decision": "Snapshot-gebundenes Replay",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET09-007",
+      "decision": "Research/Live-Trennung",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-001",
+      "decision": "Append-only Audit",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-002",
+      "decision": "Transaktionale Auditquelle, asynchroner Export",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-003",
+      "decision": "Persistierter Incident-Lifecycle",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-004",
+      "decision": "Least Privilege, kritische Dual Approval als Standard",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-005",
+      "decision": "Begrenztes Break-Glass",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-006",
+      "decision": "Kill Switch mit separaten Action Gates",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-007",
+      "decision": "Evidenzbasierte Wiederaufnahme",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-008",
+      "decision": "Tamper-evident Audit/Retention",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-DET10-009",
+      "decision": "Korrelierte Observability",
+      "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "DET09-10",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-001",
+      "decision": "Konservatives Active-Passive mit exklusiver Broker-Sendefähigkeit",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-002",
+      "decision": "DISPATCH_STARTED` vor Socket-Send, Unknown = kein Retry",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-003",
+      "decision": "Gemeinsame PostgreSQL-UoW mit kanonischer Sperrordnung",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-004",
+      "decision": "READ COMMITTED mit expliziten Guards, CAS und Locks",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-005",
+      "decision": "Append-only Risk-Rebooking bei Late Fill/Bust",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-006",
+      "decision": "IBKR-Alias-Scopes erst nach Verifikation einfrieren",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-007",
+      "decision": "Quarantäne für unbekannte/mehrdeutige Brokerbeobachtungen",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P0-008",
+      "decision": "Produktive Freigabe nur nach Nachweis aller P0-Gates",
+      "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P0",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P1-001",
+      "decision": "Solo-Operator, Reset & Break-Glass — konservativer Vertragsansatz",
+      "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P1",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P1-002",
+      "decision": "Instrument-, Bewertungs- & Rundungspolicy — konservativer Vertragsansatz",
+      "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P1",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P1-003",
+      "decision": "Broker Snapshot Completeness — konservativer Vertragsansatz",
+      "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P1",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P1-004",
+      "decision": "Audit-Atomizität & Export — konservativer Vertragsansatz",
+      "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P1",
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "ADFR-P1-005",
+      "decision": "Cancel, Modify & Risk Reduction Dispatch — konservativer Vertragsansatz",
+      "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
+      "status": "PROPOSED_FOR_ACCEPTANCE",
+      "basis": "P1",
+      "verification": "NOT_VERIFIED"
+    }
+  ]
+}

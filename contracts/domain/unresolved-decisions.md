@@ -8,7 +8,7 @@
 
 M0-02A needed Rust types whose full representation is not fixed by CR-B10. Where a shell was required, it fails closed and is named here. Do not treat a shell as production-proven. DET-01 through DET-10 and CR-B01 through CR-B09 were not in the repository when the shells were written. They were still not supplied with the resolution, so no transition or policy text from those documents was reviewed. If a later copy of those documents uses different names or scopes, that text overrides these shells and the vocabulary must be revised. Do not silently keep the shell.
 
-The resolution refines CR-B10's explicitly provisional details. It does not replace a DET invariant. Broker uniqueness rules stay **EVIDENCE_PENDING**. DET-01 through DET-10 and CR-B01 through CR-B09 are still not in this repository and were not reviewed.
+The resolution refines CR-B10's explicitly provisional details. It does not replace a DET invariant. Broker uniqueness rules stay **EVIDENCE_PENDING**. At M0-02A.2, DET-01 through DET-10 and CR-B01 through CR-B09 were not in this repository and were not reviewed. TRD-ARCH-SYNC-01 placed those bodies in `contracts/sources/`. The index now says `PRESENT / NOT_REVIEWED`. These UD statuses were not rewritten from that text. DET-01 and DET-02 remain reconstructed drafts.
 
 ## UD-01 — Two types named CorrelationId
 
@@ -92,13 +92,13 @@ Signed `i64` Unix microseconds stay the in-memory precision. `from_rfc3339` and 
 
 ### Shell still in force
 
-CR-B10 section 2 gives draft variant names and says the transition matrix is a separate acceptance item. DET-01 was not supplied. M0-02A defines the enums and does not define edges, guards, or events. `RiskReservationAdjusted` is not a variant. `BrokerLifecycleState::Unknown` is a known label; unrecognized text does not become `Unknown`, `Ready`, `Allow`, `Released`, or `ConfirmedAccepted`.
+CR-B10 section 2 gives draft variant names and says the transition matrix is a separate acceptance item. DET-01 was not supplied when this shell was written. M0-02A defines the enums and does not define edges, guards, or events. `RiskReservationAdjusted` is not a variant. `BrokerLifecycleState::Unknown` is a known label; unrecognized text does not become `Unknown`, `Ready`, `Allow`, `Released`, or `ConfirmedAccepted`.
 
 Declaration order is not lifecycle order. The enums do not implement `Ord` or `Default`.
 
 ### Resolution
 
-The enum labels are frozen as draft registry candidates. They are not executable transition rules. Do not add edges or guards until DET-01, DET-02, DET-06, and DET-07 are in the repository and cross-reviewed. Those bodies are not in the repository and were not reviewed. Unknown wire state fails closed. Do not implement `Ord` or `Default`. `RiskReservationAdjusted` stays an event, not a state. The draft spelling `Cancelled` stays. A broker adapter must normalize raw vendor spelling and preserve the raw evidence. Transition matrices are not implemented.
+The enum labels are frozen as draft registry candidates. They are not executable transition rules. Do not add edges or guards until DET-01, DET-02, DET-06, and DET-07 are in the repository and cross-reviewed. Those bodies are present as of TRD-ARCH-SYNC-01 and were not adopted as an executable matrix. Unknown wire state fails closed. Do not implement `Ord` or `Default`. `RiskReservationAdjusted` stays an event, not a state. The draft spelling `Cancelled` stays. A broker adapter must normalize raw vendor spelling and preserve the raw evidence. Transition matrices are not implemented.
 
 ## UD-07 — Types named by CR-B10 and not implemented
 
@@ -110,7 +110,7 @@ The enum labels are frozen as draft registry candidates. They are not executable
 
 ### Resolution
 
-`OrderClosure` is to be an immutable record with closure reason, closing `EventId`, closing `OrderVersion`, occurred and recorded time, and an audit reference. DET-01 was not in the repository, so the closure-reason vocabulary was not invented and the Rust type was not added. A compile-fail doctest rejects `trading_domain::OrderClosure`. It is not a canonical wire schema. `IncidentState` waits until DET-10 is present and reviewed. DET-10 was not supplied. `ExecutionState` is owned by the execution ledger. The glossary ownership row records that assignment. No state variants were fabricated.
+`OrderClosure` is to be an immutable record with closure reason, closing `EventId`, closing `OrderVersion`, occurred and recorded time, and an audit reference. The reconstructed DET-01 draft does not confirm a closure-reason vocabulary, so that vocabulary was not invented and the Rust type was not added. A compile-fail doctest rejects `trading_domain::OrderClosure`. It is not a canonical wire schema. `IncidentState` waits until a reviewed DET-10 transition model is adopted. The DET-10 text is present and was not adopted. `ExecutionState` is owned by the execution ledger. The glossary ownership row records that assignment. No state variants were fabricated.
 
 ## UD-08 — Canonical JSON
 

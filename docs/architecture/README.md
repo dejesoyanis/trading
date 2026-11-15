@@ -106,7 +106,7 @@ No port trait was added for a future database, broker, or order workflow. The AP
 
 ## Approved references
 
-These identifiers were supplied as binding architecture decisions. Their bodies were not provided here:
+These identifiers were supplied as binding architecture decisions. Their original bodies were not provided here. TRD-ARCH-SYNC-01 added draft contracts and an ADFR extract under `contracts/sources/`. That extract is not a review of ARCH-01A, ARCH-01B, or ARCH-01D, and it is not approval of ARCH-01C:
 
 - REV-10: Modular Rust monolith.
 - REV-11: PostgreSQL-based operational persistence.
@@ -122,8 +122,8 @@ These identifiers were supplied as binding architecture decisions. Their bodies 
 
 ## Outstanding technical contracts
 
-DET-01 through DET-10 are conceptually approved and still need implementation-level specification. Their bodies are not in this repository and were not reviewed. CR-B01 through CR-B09 and the Architecture Decision and Foundations Register are also absent. The index is [contracts/traceability-index.md](../../contracts/traceability-index.md).
+DET-01 through DET-10, CR-B01 through CR-B09, and a consolidated Architecture Decision and Foundations Register extract are present under `contracts/sources/` as of TRD-ARCH-SYNC-01. The index is [contracts/traceability-index.md](../../contracts/traceability-index.md). Current presence is `PRESENT / NOT_REVIEWED`. DET-01 and DET-02 are reconstructed drafts (`SOURCE_REVIEW_PENDING`), not the original Q&A transcripts. The comparison in [TRD-ARCH-SYNC-01-report.md](TRD-ARCH-SYNC-01-report.md) does not approve the texts, close a conflict, or authorize trading. Earlier statements in this file that those bodies were absent describe the repository before that integration.
 
 CR-B10 v1.0-draft is copied at `contracts/sources/CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md`. Its enum names stay draft. The architecture resolution for UD-01 through UD-09 is copied beside it. That resolution is DESIGN_RESOLVED / IMPLEMENTATION_PENDING. It refines provisional CR-B10 details and does not replace a DET invariant. Broker uniqueness stays EVIDENCE_PENDING.
 
-M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. M0-02B-a adds a registry skeleton that cannot publish canonical schemas. M0-02A.2 locally tested a subset of the resolution's type adjustments. M0-02B-b, the canonical schemas and fixtures, stays NO-GO until the remaining authoritative DET and CR sources are supplied and the canonical wire gates are implemented separately. Safety-critical trading behavior stays absent. Live trading is not authorized.
+M0-02A adds the draft vocabulary in `trading-domain` and `contracts/domain/glossary.md`. It does not invent transition tables, and it does not implement order, risk, execution, or broker behavior. M0-02B-a adds a registry skeleton that cannot publish canonical schemas. M0-02A.2 locally tested a subset of the resolution's type adjustments. M0-02B-b, the canonical schemas and fixtures, stays NO-GO. The DET and CR bodies are now present and not reviewed. Canonical wire gates are not implemented. Safety-critical trading behavior stays absent. Live trading is not authorized.
