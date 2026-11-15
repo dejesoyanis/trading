@@ -1,6 +1,6 @@
 # Domain glossary
 
-**Status:** draft shell, M0-02A.2. Each UD is DESIGN_RESOLVED. Implementation status is per decision in [unresolved-decisions.md](unresolved-decisions.md). Not production-proven.  
+**Status:** draft shell, M0-02A.2. Each UD is DESIGN_RESOLVED. Implementation status is per decision in [unresolved-decisions.md](unresolved-decisions.md). Not production-proven. `DESIGN_RESOLVED` here is not verification and not live authorization. The separate status vocabulary is [contract-status-model-v1.0.md](../status-model/contract-status-model-v1.0.md).  
 **Source:** CR-B10 v1.0-draft, read as draft names rather than a transition model. Provisional details are refined by the architecture resolution. At M0-02A.2 the DET bodies were not supplied and were not reviewed. As of TRD-ARCH-SYNC-01 they are present under `contracts/sources/` and indexed as `PRESENT / NOT_REVIEWED`. This glossary was not rewritten from them. DET-01 and DET-02 are reconstructed drafts.  
 **Code:** `crates/trading-domain`.  
 **Decisions:** [unresolved-decisions.md](unresolved-decisions.md).  

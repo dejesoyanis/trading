@@ -10,6 +10,8 @@ M0-02A needed Rust types whose full representation is not fixed by CR-B10. Where
 
 The resolution refines CR-B10's explicitly provisional details. It does not replace a DET invariant. Broker uniqueness rules stay **EVIDENCE_PENDING**. At M0-02A.2, DET-01 through DET-10 and CR-B01 through CR-B09 were not in this repository and were not reviewed. TRD-ARCH-SYNC-01 placed those bodies in `contracts/sources/`. The index now says `PRESENT / NOT_REVIEWED`. These UD statuses were not rewritten from that text. DET-01 and DET-02 remain reconstructed drafts.
 
+TRD-ARCH-03A does not change the UD statuses below. Status words are interpreted in [contract-status-model-v1.0.md](../status-model/contract-status-model-v1.0.md). That file's unassigned enums are `PROPOSED_NOT_RATIFIED`. Open questions are [approval-requests.md](../status-model/approval-requests.md). Nothing in that interpretation approves a new decision.
+
 ## UD-01 — Two types named CorrelationId
 
 **Status:** DESIGN_RESOLVED / IMPLEMENTED_AND_LOCALLY_TESTED
@@ -135,3 +137,13 @@ CR-B10 proposes UUID version 7 and allows version 4. M0-02A generates version 4,
 ### Resolution
 
 UUIDv4 generation stays for M0-02A and for the initial M0-02B schemas. UUIDv7 is an optional future ADR, not a migration prerequisite. `from_uuid` and canonical text parsing accept any UUID bits, including nil. That is typed parsing. It does not prove that an identifier was minted internally. `trading-oms` has no command ingress, so there is no trusted command boundary at which to reject nil. Those checks stay unimplemented. UUID sorting is not event order. Historical ids are not rewritten.
+
+## XC findings after TRD-ARCH-03A
+
+TRD-ARCH-03A does not change the UD statuses above and does not close these findings.
+
+XC-01 stays OPEN. XC-02-PRED stays OPEN. XC-03-MATRIX stays OPEN. XC-05-LOCK stays OPEN. XC-06 stays OPEN. XC-07-ROUND stays OPEN. XC-08-IBKR stays OPEN. XC-09-RESET stays OPEN. XC-10-ACTION stays OPEN.
+
+XC-11 status-word disagreement stays OPEN. The population and supersession sub-finding remains `RESOLVED_BY_ARCH_DEC_02`. XC-04 design precedence remains `RESOLVED_BY_ARCH_DEC_03`. The rest of XC-04 stays OPEN, including broker-session exclusivity, lease and heartbeat, dispatch scope, in-flight send evidence, recovery tests, and IBKR behavior.
+
+`NO_CONFLICT_FOUND` on a principle does not permit an unresolved predicate or transition. `IMPLEMENTED_AND_LOCALLY_TESTED` on a UD line stays scoped to that named part. It does not set an ADFR row to verified. Live trading stays NOT AUTHORIZED.

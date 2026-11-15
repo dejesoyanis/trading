@@ -3,11 +3,13 @@
 **Status:** `SKELETON_NOT_CANONICAL`  
 **Part (b):** NO-GO  
 **Live trading:** NOT AUTHORIZED  
-**Broker uniqueness:** EVIDENCE_PENDING
+**Broker uniqueness:** EVIDENCE_PENDING  
+
+Those four gates are unchanged by the [contract status model](../status-model/contract-status-model-v1.0.md). That model is not this registry and does not publish canonical schemas.
 
 M0-02B is split.
 
-**(a) This directory.** [`registry.json`](registry.json) lists the domain shell and the types the architecture resolution requires later. `crates/trading-domain/tests/registry_skeleton.rs` rejects a published schema, a verified broker-uniqueness claim, a public `CorrelationId`, a schema path, and a transition flag set on this skeleton.
+**(a) This directory.** [`registry.json`](registry.json) lists the domain shell and the types the architecture resolution requires later. `crates/trading-domain/tests/registry_skeleton.rs` rejects a published schema, a verified broker-uniqueness claim, a public `CorrelationId`, a schema path, and a transition flag set on this skeleton. The same test allows `contracts/status-model/status-dimensions-draft-v0.json` only as a non-wire draft and rejects a live-trading or canonical-schema flag in that file.
 
 **(b) Canonical schemas and fixtures.** Event and command wire schemas, golden bytes, and compatibility fixtures are not in this directory. M0-02A.2 locally tested the HTTP id rename, numeric decimal equality, the `RoundingPolicy` vocabulary, and opt-in RFC 3339. `OrderClosure` still depends on a closure-reason vocabulary. TRD-ARCH-SYNC-01 added a reconstructed DET-01 draft that says the vocabulary is not confirmed. ARCH-DEC-01 (2026-11-15) ratifies that draft as `DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS`. The unconfirmed reason vocabulary is one of those exceptions, so none was invented and the draft was not adopted as an `OrderClosure` schema. Applied rounding and verified broker uniqueness are not implemented. Current serde shapes stay internal drafts. This directory does not serialize them as production.
 

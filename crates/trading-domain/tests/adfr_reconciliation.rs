@@ -3,7 +3,7 @@
 //! These checks do not implement trading behavior, do not pass B10-T01
 //! through B10-T12, and do not treat `DESIGN_RESOLVED` as a test result.
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 
@@ -475,6 +475,596 @@ fn registry_skeleton_file_is_unchanged_and_closed() {
     assert_eq!(registry["live_trading_authorized"].as_bool(), Some(false));
     assert_eq!(registry["broker_uniqueness_evidence"], "EVIDENCE_PENDING");
     assert_eq!(registry["part_b"], "NO-GO");
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct StatusDraft {
+    document_role: String,
+    artifact_class: String,
+    version: String,
+    interpretation_layer_ratification: String,
+    records_ratified_citations: bool,
+    not_a_canonical_wire_schema: bool,
+    not_a_registry: bool,
+    not_runtime: bool,
+    adfr_register_copied: bool,
+    replaces_adfr_fields: bool,
+    mutates_registry: bool,
+    closes_xc_findings: bool,
+    do_not_publish_as: Vec<String>,
+    live_trading_authorized: bool,
+    canonical_schemas_published: bool,
+    part_b: String,
+    broker_uniqueness_evidence: String,
+    dispatch_readiness: String,
+    who_may_approve: String,
+    ratified_fact_citations: Vec<String>,
+    source_references: Vec<String>,
+    invariants: Vec<StatusInvariant>,
+    dimensions: Vec<StatusDimension>,
+    legacy_phrases: Vec<LegacyPhrase>,
+    example_interpretation: ExampleInterpretation,
+    validation_rules: Vec<String>,
+    forbidden_promotions: Vec<ForbiddenPromotion>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct StatusInvariant {
+    id: String,
+    statement: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct StatusDimension {
+    id: String,
+    ratification: String,
+    purpose: String,
+    in_force_literals: Vec<String>,
+    proposed_values_not_ratified: Vec<String>,
+    proposed_values_are_not_assigned: bool,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct LegacyPhrase {
+    phrase: String,
+    context: String,
+    mapping_status: String,
+    dimensions: Vec<String>,
+    safe_interpretation: String,
+    does_not_imply: Vec<String>,
+    sources: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ExampleInterpretation {
+    example_only: bool,
+    role: String,
+    subject: String,
+    provenance: String,
+    design_baseline: String,
+    implementation: String,
+    verification: String,
+    verified: bool,
+    live_trading_authorized: bool,
+    canonical_schemas_published: bool,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct ForbiddenPromotion {
+    from: String,
+    to: String,
+}
+
+const REQUIRED_PHRASES: &[&str] = &[
+    "OPEN P0",
+    "OPEN P1",
+    "PROPOSED_FOR_ACCEPTANCE",
+    "CONFIRMED_DECISION",
+    "DESIGN_RESOLVED",
+    "DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS",
+    "RECONSTRUCTED_DRAFT",
+    "NOT_VERIFIED",
+    "EVIDENCE_PENDING",
+    "SUPERSEDED",
+    "NOT_SUPERSEDED",
+    "NOT_IMPLEMENTED",
+    "SKELETON_NOT_CANONICAL",
+    "NO-GO",
+];
+
+const DIMENSION_IDS: &[&str] = &[
+    "provenance",
+    "decision_lifecycle",
+    "implementation",
+    "verification",
+    "safety_authorization",
+    "severity",
+    "supersession",
+];
+
+#[test]
+fn status_draft_is_non_runtime_and_unratified() {
+    let root = repo_root();
+    let draft = load_status_draft(&root);
+    assert_eq!(draft.document_role, "NON_RUNTIME_NON_WIRE_DRAFT");
+    assert_eq!(draft.artifact_class, "STATUS_MODEL_INTERPRETATION_DRAFT");
+    assert!(draft.version.contains("draft"));
+    assert_eq!(
+        draft.interpretation_layer_ratification,
+        "PROPOSED_NOT_RATIFIED"
+    );
+    assert!(draft.records_ratified_citations);
+    assert!(draft.not_a_canonical_wire_schema);
+    assert!(draft.not_a_registry);
+    assert!(draft.not_runtime);
+    assert!(!draft.adfr_register_copied);
+    assert!(!draft.replaces_adfr_fields);
+    assert!(!draft.mutates_registry);
+    assert!(!draft.closes_xc_findings);
+    assert!(!draft.live_trading_authorized);
+    assert!(!draft.canonical_schemas_published);
+    assert_eq!(draft.part_b, "NO-GO");
+    assert_eq!(draft.broker_uniqueness_evidence, "EVIDENCE_PENDING");
+    assert_eq!(draft.dispatch_readiness, "NOT_AUTHORIZED");
+    assert!(draft.who_may_approve.contains("does not approve"));
+    assert!(draft.ratified_fact_citations.len() >= 3);
+    for citation in &draft.ratified_fact_citations {
+        assert!(
+            citation.contains("ARCH-DEC-01")
+                || citation.contains("ARCH-DEC-02")
+                || citation.contains("ARCH-DEC-03"),
+            "citation is not an ARCH-DEC fact: {citation}"
+        );
+    }
+    for source in [
+        "contracts/source-manifest.json",
+        "contracts/sources/ADFR-Consolidated-v1.0.json",
+        "contracts/registry/registry.json",
+    ] {
+        assert!(
+            draft.source_references.iter().any(|item| item == source),
+            "draft omits source {source}"
+        );
+    }
+    for path in [
+        "registry.yaml",
+        "events/v1",
+        "commands/v1",
+        "api/v1",
+        "sql/v1",
+    ] {
+        assert!(
+            draft.do_not_publish_as.iter().any(|item| item == path),
+            "draft may publish {path}"
+        );
+        assert!(
+            !root.join("contracts").join(path).exists(),
+            "contracts/{path} must stay absent"
+        );
+    }
+    let invariant_ids: BTreeSet<&str> = draft
+        .invariants
+        .iter()
+        .map(|item| item.id.as_str())
+        .collect();
+    for id in [
+        "INV-HASHES",
+        "INV-78",
+        "INV-ONE-SUPERSESSION",
+        "INV-NO-CYCLE",
+        "INV-NOT-VERIFIED",
+        "INV-RECONSTRUCTED",
+        "INV-NO-LIVE",
+        "INV-NO-CANONICAL-PUBLISH",
+        "INV-NO-XC-CLOSURE",
+    ] {
+        assert!(invariant_ids.contains(id), "missing {id}");
+    }
+    for invariant in &draft.invariants {
+        assert!(!invariant.statement.is_empty(), "{}", invariant.id);
+    }
+    assert_eq!(draft.dimensions.len(), DIMENSION_IDS.len());
+    for (dimension, expected) in draft.dimensions.iter().zip(DIMENSION_IDS.iter()) {
+        assert_eq!(dimension.id, *expected);
+        assert!(!dimension.purpose.is_empty());
+        assert!(dimension.proposed_values_are_not_assigned);
+        assert!(matches!(
+            dimension.ratification.as_str(),
+            "IN_FORCE" | "MIXED" | "PROPOSED_NOT_RATIFIED"
+        ));
+    }
+    let lifecycle = draft
+        .dimensions
+        .iter()
+        .find(|dimension| dimension.id == "decision_lifecycle")
+        .expect("lifecycle dimension");
+    assert_eq!(lifecycle.ratification, "MIXED");
+    for value in [
+        "rejected",
+        "withdrawn",
+        "proposed",
+        "ratified_with_exceptions",
+    ] {
+        assert!(
+            lifecycle
+                .proposed_values_not_ratified
+                .iter()
+                .any(|item| item == value),
+            "lifecycle proposal missing {value}"
+        );
+    }
+    let provenance = draft
+        .dimensions
+        .iter()
+        .find(|dimension| dimension.id == "provenance")
+        .expect("provenance");
+    for value in ["original", "reconstructed", "external_evidence", "unknown"] {
+        assert!(
+            provenance
+                .proposed_values_not_ratified
+                .iter()
+                .any(|item| item == value),
+            "provenance proposal missing {value}"
+        );
+    }
+    assert!(
+        provenance
+            .in_force_literals
+            .iter()
+            .any(|item| item == "RECONSTRUCTED_DRAFT")
+    );
+    let safety = draft
+        .dimensions
+        .iter()
+        .find(|dimension| dimension.id == "safety_authorization")
+        .expect("safety");
+    assert_eq!(safety.ratification, "IN_FORCE");
+    assert!(safety.proposed_values_not_ratified.is_empty());
+
+    let example = &draft.example_interpretation;
+    assert!(example.example_only);
+    assert!(example.role.contains("Not a new decision"));
+    assert!(
+        example
+            .subject
+            .ends_with("DET-01-Order-Workflow-and-Finality-Contract-v1.0.md")
+    );
+    assert_eq!(example.provenance, "RECONSTRUCTED_DRAFT");
+    assert_eq!(
+        example.design_baseline,
+        "DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS"
+    );
+    assert_eq!(example.implementation, "NOT_IMPLEMENTED");
+    assert_eq!(example.verification, "NOT_VERIFIED");
+    assert!(!example.verified);
+    assert!(!example.live_trading_authorized);
+    assert!(!example.canonical_schemas_published);
+
+    let model = read_text(&root.join("contracts/status-model/contract-status-model-v1.0.md"));
+    for heading in [
+        "## 3. Provenance",
+        "## 4. Decision and design lifecycle",
+        "## 5. Implementation state",
+        "## 6. Verification state",
+        "## 7. Safety and authorization",
+        "## 8. Severity and priority",
+        "## 9. Supersession",
+        "PROPOSED_NOT_RATIFIED",
+        "Provenance is not approval.",
+        "XC-03-MATRIX",
+        "XC-11",
+    ] {
+        assert!(model.contains(heading), "status model missing {heading}");
+    }
+    assert!(
+        !model.contains("live_trading_authorized` is true")
+            && !model.contains("live_trading_authorized=true"),
+        "status model must not authorize live trading"
+    );
+}
+
+#[test]
+fn legacy_phrase_map_blocks_silent_equivalence() {
+    let root = repo_root();
+    let draft = load_status_draft(&root);
+    let mapping = read_text(&root.join("contracts/status-model/legacy-status-mapping.md"));
+    let mut seen = BTreeSet::new();
+    for phrase in &draft.legacy_phrases {
+        assert!(
+            seen.insert((phrase.phrase.as_str(), phrase.context.as_str())),
+            "duplicate phrase {} / {}",
+            phrase.phrase,
+            phrase.context
+        );
+        assert!(
+            matches!(
+                phrase.mapping_status.as_str(),
+                "DEFINITIVE" | "PROVISIONAL" | "REQUIRES_USER_DECISION"
+            ),
+            "{} has status {}",
+            phrase.phrase,
+            phrase.mapping_status
+        );
+        assert!(!phrase.safe_interpretation.is_empty());
+        assert!(!phrase.does_not_imply.is_empty(), "{}", phrase.phrase);
+        assert!(!phrase.sources.is_empty(), "{}", phrase.phrase);
+        assert!(!phrase.dimensions.is_empty(), "{}", phrase.phrase);
+        let heading = format!(
+            "### {} ({}) — {}",
+            phrase.phrase, phrase.context, phrase.mapping_status
+        );
+        assert!(mapping.contains(&heading), "mapping missing {heading}");
+        for source in &phrase.sources {
+            assert!(
+                mapping.contains(source),
+                "mapping missing source {source} for {}",
+                phrase.phrase
+            );
+        }
+    }
+    for required in REQUIRED_PHRASES {
+        assert!(
+            draft
+                .legacy_phrases
+                .iter()
+                .any(|phrase| phrase.phrase == *required),
+            "missing phrase {required}"
+        );
+    }
+    assert_phrase_blocks(
+        &draft,
+        "OPEN P0",
+        "REQUIRES_USER_DECISION",
+        "PROPOSED_FOR_ACCEPTANCE",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "OPEN P1",
+        "REQUIRES_USER_DECISION",
+        "PROPOSED_FOR_ACCEPTANCE",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "PROPOSED_FOR_ACCEPTANCE",
+        "REQUIRES_USER_DECISION",
+        "DESIGN_RESOLVED",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "DESIGN_RESOLVED",
+        "REQUIRES_USER_DECISION",
+        "verified",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "DESIGN_RESOLVED",
+        "REQUIRES_USER_DECISION",
+        "implemented",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "DESIGN_RESOLVED",
+        "REQUIRES_USER_DECISION",
+        "live_authorized",
+    );
+    assert_phrase_blocks(&draft, "NOT_VERIFIED", "DEFINITIVE", "verified");
+    assert_phrase_blocks(&draft, "NOT_VERIFIED", "DEFINITIVE", "externally_verified");
+    assert_phrase_blocks(
+        &draft,
+        "RECONSTRUCTED_DRAFT",
+        "DEFINITIVE",
+        "original_qa_transcript",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS",
+        "DEFINITIVE",
+        "closed_exceptions",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "NO_CONFLICT_FOUND",
+        "DEFINITIVE",
+        "implementation_permission",
+    );
+    assert_phrase_blocks(&draft, "SUPERSEDED", "DEFINITIVE", "verified");
+    assert_phrase_blocks(&draft, "NOT_SUPERSEDED", "DEFINITIVE", "accepted");
+    assert_phrase_blocks(&draft, "NO-GO", "DEFINITIVE", "live_authorized");
+    assert_phrase_blocks(
+        &draft,
+        "CONFIRMED_DECISION",
+        "DEFINITIVE",
+        "DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS",
+    );
+    for promotion in &draft.forbidden_promotions {
+        if promotion.from == "NOT_VERIFIED" {
+            assert_eq!(promotion.to, "verified");
+        }
+        let phrase = draft
+            .legacy_phrases
+            .iter()
+            .find(|item| item.phrase == promotion.from)
+            .unwrap_or_else(|| panic!("promotion from unknown phrase {}", promotion.from));
+        assert!(
+            phrase
+                .does_not_imply
+                .iter()
+                .any(|item| item == &promotion.to),
+            "{} does not block {}",
+            promotion.from,
+            promotion.to
+        );
+    }
+    assert!(
+        draft
+            .validation_rules
+            .iter()
+            .any(|rule| rule.contains("NOT_VERIFIED"))
+    );
+    let approvals = read_text(&root.join("contracts/status-model/approval-requests.md"));
+    assert!(approvals.contains("Do not self-approve."));
+    assert!(approvals.contains("Nothing here is approved."));
+    for id in ["SMQ-01", "SMQ-02", "SMQ-03", "SMQ-04", "SMQ-05"] {
+        assert!(approvals.contains(id), "missing {id}");
+    }
+    assert!(!approvals.contains("Decision: approved"));
+}
+
+#[test]
+fn status_model_keeps_register_provenance_and_open_findings() {
+    let root = repo_root();
+    let manifest = json_value(&root, "contracts/source-manifest.json");
+    let files = manifest["files"].as_array().expect("files");
+    assert_eq!(files.len(), 12);
+    let mut reconstructed = 0;
+    for entry in files {
+        let relative = entry["repository_path"].as_str().expect("path");
+        let bytes = fs::read(root.join(relative)).expect("source bytes");
+        assert_eq!(
+            sha256_hex(&bytes),
+            entry["sha256"].as_str().expect("sha"),
+            "current hash drifted for {relative}"
+        );
+        assert_eq!(bytes.len() as u64, entry["bytes"].as_u64().expect("bytes"));
+        assert_eq!(entry["approved"].as_bool(), Some(false));
+        assert_eq!(entry["implemented"].as_bool(), Some(false));
+        if entry["reconstructed_draft"] == true {
+            reconstructed += 1;
+            assert_eq!(
+                entry["design_baseline"],
+                "DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS"
+            );
+            assert_eq!(entry["source_text_status"], "SOURCE_REVIEW_PENDING");
+            assert_eq!(entry["reviewed"].as_bool(), Some(false));
+        }
+    }
+    assert_eq!(reconstructed, 2);
+    assert_eq!(manifest["live_trading_authorized"].as_bool(), Some(false));
+    assert_eq!(
+        manifest["canonical_schemas_published"].as_bool(),
+        Some(false)
+    );
+
+    let adfr = load_adfr(&root);
+    let csv = load_csv(&root);
+    assert_eq!(adfr.entries.len(), 78);
+    assert_eq!(csv.len(), 78);
+    let mut links = BTreeMap::new();
+    let mut superseded = 0;
+    for (entry, row) in adfr.entries.iter().zip(csv.iter()) {
+        assert_eq!(entry.id, row[0]);
+        assert_eq!(entry.verification, "NOT_VERIFIED");
+        assert_eq!(entry.verification, row[5]);
+        if let Some(target) = entry.supersedes.as_deref() {
+            assert!(links.insert(entry.id.as_str(), target).is_none());
+        }
+        if entry.lifecycle == "SUPERSEDED" {
+            superseded += 1;
+            assert_eq!(entry.id, SUPERSEDED_ID);
+            assert_eq!(entry.superseded_by.as_deref(), Some(SUCCESSOR_ID));
+            assert_eq!(entry.status, "PROPOSED_FOR_ACCEPTANCE");
+        }
+    }
+    assert_eq!(superseded, 1);
+    assert_eq!(links.get(SUCCESSOR_ID).copied(), Some(SUPERSEDED_ID));
+    assert_eq!(links.len(), 1);
+    let mut seen = BTreeSet::new();
+    let mut cursor = Some(SUCCESSOR_ID);
+    while let Some(id) = cursor {
+        assert!(seen.insert(id), "supersession cycle at {id}");
+        cursor = links.get(id).copied();
+    }
+    let successor_known = adfr.entries.iter().any(|entry| entry.id == SUCCESSOR_ID);
+    assert!(successor_known, "successor missing from the historical IDs");
+
+    let registry_bytes = fs::read(root.join("contracts/registry/registry.json")).expect("registry");
+    assert_eq!(sha256_hex(&registry_bytes), REGISTRY_SHA256);
+    let registry: Value = serde_json::from_slice(&registry_bytes).expect("registry JSON");
+    assert_eq!(registry["registry_status"], "SKELETON_NOT_CANONICAL");
+    assert_eq!(registry["part_b"], "NO-GO");
+    assert_eq!(
+        registry["canonical_schemas_published"].as_bool(),
+        Some(false)
+    );
+    assert_eq!(registry["live_trading_authorized"].as_bool(), Some(false));
+    assert_eq!(registry["broker_uniqueness_evidence"], "EVIDENCE_PENDING");
+
+    let index = read_text(&root.join("contracts/traceability-index.md"));
+    assert!(
+        index.contains("contracts/status-model/contract-status-model-v1.0.md")
+            || index.contains("status-model/contract-status-model-v1.0.md")
+    );
+    assert!(index.contains("XC-04 remains OPEN"));
+    assert!(index.contains("XC-03-MATRIX"));
+    for finding in [
+        "XC-01",
+        "XC-02-PRED",
+        "XC-03-MATRIX",
+        "XC-05-LOCK",
+        "XC-06",
+        "XC-07-ROUND",
+        "XC-08-IBKR",
+        "XC-09-RESET",
+        "XC-10-ACTION",
+    ] {
+        assert!(index.contains(finding), "traceability dropped {finding}");
+    }
+
+    let unresolved = read_text(&root.join("contracts/domain/unresolved-decisions.md"));
+    assert!(unresolved.contains("TRD-ARCH-03A does not change the UD statuses"));
+    for finding in [
+        "XC-01 stays OPEN",
+        "XC-02-PRED stays OPEN",
+        "XC-03-MATRIX stays OPEN",
+        "XC-05-LOCK stays OPEN",
+        "XC-06 stays OPEN",
+        "XC-07-ROUND stays OPEN",
+        "XC-08-IBKR stays OPEN",
+        "XC-09-RESET stays OPEN",
+        "XC-10-ACTION stays OPEN",
+        "XC-11 status-word disagreement stays OPEN",
+    ] {
+        assert!(unresolved.contains(finding), "unresolved dropped {finding}");
+    }
+    assert!(unresolved.contains("status-model/contract-status-model-v1.0.md"));
+    assert!(unresolved.contains("DESIGN_RESOLVED"));
+    assert!(!unresolved.contains("live_trading_authorized: true"));
+}
+
+fn load_status_draft(root: &Path) -> StatusDraft {
+    let path = root.join("contracts/status-model/status-dimensions-draft-v0.json");
+    let bytes = fs::read(&path).expect("status draft");
+    assert!(
+        !bytes.windows(3).any(|window| window == [0xEF, 0xBB, 0xBF]),
+        "status draft has a BOM"
+    );
+    let text = String::from_utf8(bytes).expect("status draft is UTF-8");
+    assert!(
+        !text.contains("Kanonische owner-spezifische"),
+        "status draft copied an ADFR decision body"
+    );
+    serde_json::from_str(&text).expect("parse status draft")
+}
+
+fn assert_phrase_blocks(draft: &StatusDraft, phrase: &str, status: &str, blocked: &str) {
+    let matches = draft
+        .legacy_phrases
+        .iter()
+        .filter(|item| item.phrase == phrase && item.mapping_status == status)
+        .collect::<Vec<_>>();
+    assert!(!matches.is_empty(), "missing {phrase} as {status}");
+    assert!(
+        matches
+            .iter()
+            .any(|item| item.does_not_imply.iter().any(|value| value == blocked)),
+        "{phrase} does not block {blocked}"
+    );
 }
 
 fn repo_root() -> PathBuf {

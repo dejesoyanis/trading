@@ -52,13 +52,16 @@ const FORBIDDEN_DIRS: &[&str] = &[
     "contracts/examples",
 ];
 
-/// Non-schema JSON that TRD-ARCH-SYNC-01 is required to keep under `contracts/`.
-/// These paths are provenance and a decision-register extract. They are not
-/// published event, command, or API schemas.
+/// Non-schema JSON kept under `contracts/`.
+///
+/// The first three paths are the registry skeleton, provenance, and the ADFR
+/// extract. The status draft is an interpretation file. None of them is a
+/// published event, command, or API schema.
 const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/registry/registry.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
+    "contracts/status-model/status-dimensions-draft-v0.json",
 ];
 
 const EXPECTED: &[(&str, &str)] = &[
@@ -337,7 +340,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton and the two non-schema source artifacts"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, and the non-wire status draft"
     );
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
@@ -364,6 +367,26 @@ fn assert_no_published_schema_tree(root: &Path) {
     assert!(
         !adfr.contains("\"canonical_wire\": true"),
         "ADFR JSON is not a canonical wire schema"
+    );
+
+    let status_draft =
+        fs::read_to_string(root.join("contracts/status-model/status-dimensions-draft-v0.json"))
+            .expect("read status draft");
+    assert!(
+        status_draft.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_DRAFT\""),
+        "status draft must stay a non-wire document"
+    );
+    assert!(
+        status_draft.contains("\"live_trading_authorized\": false"),
+        "status draft must not authorize live trading"
+    );
+    assert!(
+        !status_draft.contains("\"live_trading_authorized\": true"),
+        "status draft must not authorize live trading"
+    );
+    assert!(
+        !status_draft.contains("\"canonical_schemas_published\": true"),
+        "status draft must not publish canonical schemas"
     );
 }
 

@@ -4,7 +4,8 @@
 **Current date:** 2026-11-15  
 **Live trading:** NOT AUTHORIZED  
 **Comparison:** [TRD-ARCH-SYNC-01-report.md](../docs/architecture/TRD-ARCH-SYNC-01-report.md)  
-**Ratification:** [ARCH-DEC-01-bis-03-2026-11-15.md](decisions/ARCH-DEC-01-bis-03-2026-11-15.md) and [TRD-ARCH-SYNC-02-report.md](../docs/architecture/TRD-ARCH-SYNC-02-report.md)
+**Ratification:** [ARCH-DEC-01-bis-03-2026-11-15.md](decisions/ARCH-DEC-01-bis-03-2026-11-15.md) and [TRD-ARCH-SYNC-02-report.md](../docs/architecture/TRD-ARCH-SYNC-02-report.md)  
+**Status model:** [contract-status-model-v1.0.md](status-model/contract-status-model-v1.0.md). Unassigned enums there are `PROPOSED_NOT_RATIFIED`. The model does not replace ADFR `status`, `verification`, or `lifecycle`. Approval questions are [approval-requests.md](status-model/approval-requests.md). The reading record is [TRD-ARCH-03A-report.md](../docs/architecture/TRD-ARCH-03A-report.md).
 
 This index records which architecture sources are in the repository. `source_present` / `PRESENT` means the file bytes are in `contracts/sources/`. For files that TRD-ARCH-SYNC-02 did not amend, those bytes still match the TRD-ARCH-SYNC-01 package hashes in [source-manifest.json](source-manifest.json). Amended files keep `package_sha256` for the intake bytes and a current `sha256` for the amended bytes. `provenance` is where the bytes came from. `NOT_REVIEWED` means this index does not accept the document as independently reviewed source text. `SOURCE_REVIEW_PENDING` means a reconstructed draft is not the missing original Q&A transcript. `design_baseline_approved` is a separate user ratification. It is not review, implementation, or verification. A cross-contract comparison is recorded in the TRD-ARCH-SYNC-01 report. That comparison is not approval.
 
@@ -143,3 +144,9 @@ Part (b), not recorded as done: canonical event and command schemas, golden byte
 [contracts/domain/unresolved-decisions.md](domain/unresolved-decisions.md) still marks each of UD-01 through UD-09 **DESIGN_RESOLVED** and then either **IMPLEMENTED_AND_LOCALLY_TESTED** or **IMPLEMENTATION_PENDING** for the part that was delivered before this index. Broker uniqueness stays **EVIDENCE_PENDING**. This index does not change those UD statuses.
 
 XC-01, XC-02-PRED, XC-03-MATRIX, XC-05-LOCK, XC-06, XC-07-ROUND, XC-08-IBKR, XC-09-RESET, and XC-10-ACTION stay OPEN. The closed sub-findings are only the ones named in this file: register population and supersession (`RESOLVED_BY_ARCH_DEC_02`) and dispatch-reading precedence (`RESOLVED_BY_ARCH_DEC_03`).
+
+## Status vocabulary (TRD-ARCH-03A)
+
+[contract-status-model-v1.0.md](status-model/contract-status-model-v1.0.md) separates provenance, decision lifecycle, implementation, verification, safety authorization, severity, and supersession. [legacy-status-mapping.md](status-model/legacy-status-mapping.md) keeps each historical literal. The machine-readable file [status-dimensions-draft-v0.json](status-model/status-dimensions-draft-v0.json) is a non-runtime, non-wire draft. Its interpretation layer is `PROPOSED_NOT_RATIFIED`. It is not `registry.json` and it does not publish canonical schemas.
+
+The XC-11 status-word disagreement stays OPEN. `OPEN P0` is not equated with `PROPOSED_FOR_ACCEPTANCE` or `DESIGN_RESOLVED`. DET-01 and DET-02 stay `RECONSTRUCTED_DRAFT` and `DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS`. Questions SMQ-01 through SMQ-05 are not decided.

@@ -54,4 +54,4 @@ Both files use the pre-amendment CSV order: `ADFR-CR-B10-001`, then the previous
 
 ## What this register is not
 
-Parsing these files does not publish a schema, authorize live trading, or show that a decision was implemented. Embedded ADFR tables inside other source files are those files' own tables. They are not a second accepted register. The status-word differences among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED` in the older source tables are not reconciled by this amendment.
+Parsing these files does not publish a schema, authorize live trading, or show that a decision was implemented. Embedded ADFR tables inside other source files are those files' own tables. They are not a second accepted register. The status-word differences among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED` in the older source tables are not reconciled by this amendment. The reading of those words is [legacy-status-mapping.md](../status-model/legacy-status-mapping.md). That mapping does not choose a winner.
