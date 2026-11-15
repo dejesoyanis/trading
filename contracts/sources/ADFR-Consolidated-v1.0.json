@@ -1,15 +1,33 @@
 {
   "schema_version": "1.0",
+  "register_revision": "1.0+ARCH-DEC-02-2026-11-15",
   "as_of": "2026-11-14",
+  "amended_on": "2026-11-15",
+  "amendment": "ARCH-DEC-02",
+  "amendment_note": "2026-11-15 register reconciliation under ARCH-DEC-02. The pre-amendment JSON had 77 entries. ADFR-CR-B10-001 is copied from the pre-amendment CSV row and from CR-B10 section 9. ADFR-CROSS-005 keeps its decision, source, status, basis, and verification. Its lifecycle is SUPERSEDED and superseded_by is ADFR-CR-B10-001. ADFR-CR-B10-001 supersedes ADFR-CROSS-005. lifecycle is not a verification status. NOT_SUPERSEDED does not mean accepted, implemented, or verified. verification remains NOT_VERIFIED. DESIGN_RESOLVED is not a test result. Columns were appended in place on the v1.0 filenames. See ADFR-README.md. This file does not authorize trading or publish a schema.",
   "status": "ARCHITECTURE_DRAFT_NOT_IMPLEMENTED",
   "entries": [
+    {
+      "id": "ADFR-CR-B10-001",
+      "decision": "Kanonische owner-spezifische Domain-Typen, unabhängige Status-Enums und versionierte Schema Registry mit Kompatibilitäts-Gates",
+      "source": "CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md",
+      "status": "DESIGN_RESOLVED",
+      "basis": "CR-B10",
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": "ADFR-CROSS-005",
+      "superseded_by": null
+    },
     {
       "id": "ADFR-CROSS-001",
       "decision": "Ein gemeinsamer transaktionaler OMS/Risk/Outbox/Audit-Unit-of-Work",
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-CROSS-002",
@@ -17,7 +35,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-CROSS-003",
@@ -25,7 +46,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-CROSS-004",
@@ -33,7 +57,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-CROSS-005",
@@ -41,7 +68,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": "ADFR-CR-B10-001"
     },
     {
       "id": "ADFR-CROSS-006",
@@ -49,7 +79,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-001",
@@ -57,7 +90,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-002",
@@ -65,7 +101,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-003",
@@ -73,7 +112,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-004",
@@ -81,7 +123,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-005",
@@ -89,7 +134,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-006",
@@ -97,7 +145,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-007",
@@ -105,7 +156,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-008",
@@ -113,7 +167,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-009",
@@ -121,7 +178,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET01-010",
@@ -129,7 +189,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET01",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-001",
@@ -137,7 +200,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-002",
@@ -145,7 +211,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-003",
@@ -153,7 +222,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-004",
@@ -161,7 +233,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-005",
@@ -169,7 +244,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-006",
@@ -177,7 +255,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-007",
@@ -185,7 +266,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-008",
@@ -193,7 +277,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-009",
@@ -201,7 +288,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET02-010",
@@ -209,7 +299,10 @@
       "source": "conversation: confirmed DET-01/02 Q01-Q10",
       "status": "CONFIRMED_DECISION",
       "basis": "DET02",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET03-001",
@@ -217,7 +310,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET03-002",
@@ -225,7 +321,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET03-003",
@@ -233,7 +332,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET03-004",
@@ -241,7 +343,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET04-001",
@@ -249,7 +354,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET04-002",
@@ -257,7 +365,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET04-003",
@@ -265,7 +376,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET04-004",
@@ -273,7 +387,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET05-001",
@@ -281,7 +398,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET05-002",
@@ -289,7 +409,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET05-003",
@@ -297,7 +420,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET06-001",
@@ -305,7 +431,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET06-002",
@@ -313,7 +442,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET06-003",
@@ -321,7 +453,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET07-001",
@@ -329,7 +464,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET07-002",
@@ -337,7 +475,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET07-003",
@@ -345,7 +486,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET07-004",
@@ -353,7 +497,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET08-001",
@@ -361,7 +508,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET08-002",
@@ -369,7 +519,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET08-003",
@@ -377,7 +530,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET08-004",
@@ -385,7 +541,10 @@
       "source": "DET-03-bis-DET-08-Architecture-Contracts-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET03-08",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-001",
@@ -393,7 +552,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-002",
@@ -401,7 +563,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-003",
@@ -409,7 +574,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-004",
@@ -417,7 +585,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-005",
@@ -425,7 +596,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-006",
@@ -433,7 +607,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET09-007",
@@ -441,7 +618,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-001",
@@ -449,7 +629,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-002",
@@ -457,7 +640,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-003",
@@ -465,7 +651,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-004",
@@ -473,7 +662,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-005",
@@ -481,7 +673,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-006",
@@ -489,7 +684,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-007",
@@ -497,7 +695,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-008",
@@ -505,7 +706,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-DET10-009",
@@ -513,7 +717,10 @@
       "source": "DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "DET09-10",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-001",
@@ -521,7 +728,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-002",
@@ -529,7 +739,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-003",
@@ -537,7 +750,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-004",
@@ -545,7 +761,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-005",
@@ -553,7 +772,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-006",
@@ -561,7 +783,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-007",
@@ -569,7 +794,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P0-008",
@@ -577,7 +805,10 @@
       "source": "P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P0",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P1-001",
@@ -585,7 +816,10 @@
       "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P1",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P1-002",
@@ -593,7 +827,10 @@
       "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P1",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P1-003",
@@ -601,7 +838,10 @@
       "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P1",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P1-004",
@@ -609,7 +849,10 @@
       "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P1",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     },
     {
       "id": "ADFR-P1-005",
@@ -617,7 +860,10 @@
       "source": "P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md",
       "status": "PROPOSED_FOR_ACCEPTANCE",
       "basis": "P1",
-      "verification": "NOT_VERIFIED"
+      "verification": "NOT_VERIFIED",
+      "lifecycle": "NOT_SUPERSEDED",
+      "supersedes": null,
+      "superseded_by": null
     }
   ]
 }

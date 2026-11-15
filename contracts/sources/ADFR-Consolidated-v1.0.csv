@@ -1,79 +1,79 @@
-id,decision,source,status,basis,verification
-ADFR-CR-B10-001,"Kanonische owner-spezifische Domain-Typen, unabhängige Status-Enums und versionierte Schema Registry mit Kompatibilitäts-Gates",CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md,DESIGN_RESOLVED,CR-B10,NOT_VERIFIED
-ADFR-CROSS-001,Ein gemeinsamer transaktionaler OMS/Risk/Outbox/Audit-Unit-of-Work,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-CROSS-002,Fenced Dispatch + konservatives Failover unter in-flight Brokeraufrufen,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-CROSS-003,Late-Fill-Kompensation nach Risk-Release,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-CROSS-004,IBKR-Identitäts- und Eindeutigkeitsmatrix,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-CROSS-005,Kanonisches Domain Glossary und Schema Registry,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-CROSS-006,Abnahmefähige Cross-Contract-CI-Gates,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET01-001,Hybrid Workflow Closure mit immutable closure_reason,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-002,Evidenzbasierte Broker-Konfliktauflösung,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-003,Aggregate-Version plus Command/Event-Identitäten,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-004,CAS plus gezielte PostgreSQL-Locks,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-005,Idempotentes Execution Ledger und kontrollierte Korrekturen,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-006,Relationales Order-Aggregate plus Command/Event-Historie,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-007,Konservative Recovery ohne Blind-Retry,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-008,Mehrdimensionale Finalität,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-009,Append-only Correction Events,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET01-010,"Formales Transition Model, Property/Model-Based Tests",conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED
-ADFR-DET02-001,Hierarchisches mehrdimensionales Risk Budget,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-002,Deterministische Deny-Overrides Policy-Komposition und Fail-Closed,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-003,Atomare PostgreSQL-Risk-Reservierungen,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-004,Marktdatenqualität und explizite konservative Fallbacks,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-005,Wirtschaftliche Umbuchung bei Partial Fills,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-006,Evidenzbasierte Risk-Freigabe,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-007,Konservative Risk-Recovery und Reconciliation,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-008,Klassifizierte zeitlich begrenzte Risk Overrides,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-009,Mehrstufige Risk Response,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET02-010,Formale Risk-Invarianten und CI-Gates,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED
-ADFR-DET03-001,UUID-Orderidentität und kontextgebundene Aliasse,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET03-002,Separate Attempt-/Execution-Identitäten,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET03-003,Evidenzbasierter Identity Resolver,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET03-004,Append-only Identity Corrections,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET04-001,Lokale PostgreSQL-Transaktionsautorität,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET04-002,Transactional Outbox + JetStream,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET04-003,Inbox-Idempotenz und ACK nach Commit,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET04-004,DLQ/Retry/Schema-Versionierung,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET05-001,Hexagonaler Broker-Port,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET05-002,Connection State Machine und Capabilities,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET05-003,Raw Evidence und Normalisierungsversion,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET06-001,Mehrdimensionale Readiness-Gates,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET06-002,Aktionsspezifische Berechtigungen,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET06-003,Persistierte Halts und manueller Reset,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET07-001,Single-Writer mit Epoch-Fencing,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET07-002,Persistierter Submission Attempt vor Send,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET07-003,Revalidierendes Submission Gate,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET07-004,Kein blindes Retry; begrenzte Fencing-Garantie,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET08-001,Systemweite evidenzbasierte Reconciliation,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET08-002,Snapshot-Vollständigkeit und Watermarks,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET08-003,Differenzklassifikation und Quarantäne,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET08-004,Gestufte Recovery und Readiness-Gate,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED
-ADFR-DET09-001,Providerunabhängige Beobachtungsidentität,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET09-002,Versionierter Quality Envelope,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET09-003,Fail-Closed und explizite Fallbacks,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET09-004,Deterministische Valuation,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET09-005,Event-/Receive-Time getrennt,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET09-006,Snapshot-gebundenes Replay,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET09-007,Research/Live-Trennung,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-001,Append-only Audit,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-002,"Transaktionale Auditquelle, asynchroner Export",DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-003,Persistierter Incident-Lifecycle,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-004,"Least Privilege, kritische Dual Approval als Standard",DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-005,Begrenztes Break-Glass,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-006,Kill Switch mit separaten Action Gates,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-007,Evidenzbasierte Wiederaufnahme,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-008,Tamper-evident Audit/Retention,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-DET10-009,Korrelierte Observability,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED
-ADFR-P0-001,Konservatives Active-Passive mit exklusiver Broker-Sendefähigkeit,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-002,"DISPATCH_STARTED` vor Socket-Send, Unknown = kein Retry",P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-003,Gemeinsame PostgreSQL-UoW mit kanonischer Sperrordnung,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-004,"READ COMMITTED mit expliziten Guards, CAS und Locks",P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-005,Append-only Risk-Rebooking bei Late Fill/Bust,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-006,IBKR-Alias-Scopes erst nach Verifikation einfrieren,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-007,Quarantäne für unbekannte/mehrdeutige Brokerbeobachtungen,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P0-008,Produktive Freigabe nur nach Nachweis aller P0-Gates,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED
-ADFR-P1-001,"Solo-Operator, Reset & Break-Glass — konservativer Vertragsansatz",P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED
-ADFR-P1-002,"Instrument-, Bewertungs- & Rundungspolicy — konservativer Vertragsansatz",P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED
-ADFR-P1-003,Broker Snapshot Completeness — konservativer Vertragsansatz,P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED
-ADFR-P1-004,Audit-Atomizität & Export — konservativer Vertragsansatz,P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED
-ADFR-P1-005,"Cancel, Modify & Risk Reduction Dispatch — konservativer Vertragsansatz",P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED
+id,decision,source,status,basis,verification,lifecycle,supersedes,superseded_by
+ADFR-CR-B10-001,"Kanonische owner-spezifische Domain-Typen, unabhängige Status-Enums und versionierte Schema Registry mit Kompatibilitäts-Gates",CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md,DESIGN_RESOLVED,CR-B10,NOT_VERIFIED,NOT_SUPERSEDED,ADFR-CROSS-005,
+ADFR-CROSS-001,Ein gemeinsamer transaktionaler OMS/Risk/Outbox/Audit-Unit-of-Work,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-CROSS-002,Fenced Dispatch + konservatives Failover unter in-flight Brokeraufrufen,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-CROSS-003,Late-Fill-Kompensation nach Risk-Release,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-CROSS-004,IBKR-Identitäts- und Eindeutigkeitsmatrix,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-CROSS-005,Kanonisches Domain Glossary und Schema Registry,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,SUPERSEDED,,ADFR-CR-B10-001
+ADFR-CROSS-006,Abnahmefähige Cross-Contract-CI-Gates,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-001,Hybrid Workflow Closure mit immutable closure_reason,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-002,Evidenzbasierte Broker-Konfliktauflösung,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-003,Aggregate-Version plus Command/Event-Identitäten,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-004,CAS plus gezielte PostgreSQL-Locks,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-005,Idempotentes Execution Ledger und kontrollierte Korrekturen,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-006,Relationales Order-Aggregate plus Command/Event-Historie,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-007,Konservative Recovery ohne Blind-Retry,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-008,Mehrdimensionale Finalität,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-009,Append-only Correction Events,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET01-010,"Formales Transition Model, Property/Model-Based Tests",conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET01,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-001,Hierarchisches mehrdimensionales Risk Budget,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-002,Deterministische Deny-Overrides Policy-Komposition und Fail-Closed,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-003,Atomare PostgreSQL-Risk-Reservierungen,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-004,Marktdatenqualität und explizite konservative Fallbacks,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-005,Wirtschaftliche Umbuchung bei Partial Fills,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-006,Evidenzbasierte Risk-Freigabe,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-007,Konservative Risk-Recovery und Reconciliation,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-008,Klassifizierte zeitlich begrenzte Risk Overrides,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-009,Mehrstufige Risk Response,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET02-010,Formale Risk-Invarianten und CI-Gates,conversation: confirmed DET-01/02 Q01-Q10,CONFIRMED_DECISION,DET02,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET03-001,UUID-Orderidentität und kontextgebundene Aliasse,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET03-002,Separate Attempt-/Execution-Identitäten,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET03-003,Evidenzbasierter Identity Resolver,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET03-004,Append-only Identity Corrections,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET04-001,Lokale PostgreSQL-Transaktionsautorität,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET04-002,Transactional Outbox + JetStream,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET04-003,Inbox-Idempotenz und ACK nach Commit,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET04-004,DLQ/Retry/Schema-Versionierung,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET05-001,Hexagonaler Broker-Port,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET05-002,Connection State Machine und Capabilities,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET05-003,Raw Evidence und Normalisierungsversion,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET06-001,Mehrdimensionale Readiness-Gates,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET06-002,Aktionsspezifische Berechtigungen,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET06-003,Persistierte Halts und manueller Reset,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET07-001,Single-Writer mit Epoch-Fencing,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET07-002,Persistierter Submission Attempt vor Send,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET07-003,Revalidierendes Submission Gate,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET07-004,Kein blindes Retry; begrenzte Fencing-Garantie,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET08-001,Systemweite evidenzbasierte Reconciliation,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET08-002,Snapshot-Vollständigkeit und Watermarks,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET08-003,Differenzklassifikation und Quarantäne,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET08-004,Gestufte Recovery und Readiness-Gate,DET-03-bis-DET-08-Architecture-Contracts-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET03-08,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-001,Providerunabhängige Beobachtungsidentität,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-002,Versionierter Quality Envelope,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-003,Fail-Closed und explizite Fallbacks,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-004,Deterministische Valuation,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-005,Event-/Receive-Time getrennt,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-006,Snapshot-gebundenes Replay,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET09-007,Research/Live-Trennung,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-001,Append-only Audit,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-002,"Transaktionale Auditquelle, asynchroner Export",DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-003,Persistierter Incident-Lifecycle,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-004,"Least Privilege, kritische Dual Approval als Standard",DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-005,Begrenztes Break-Glass,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-006,Kill Switch mit separaten Action Gates,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-007,Evidenzbasierte Wiederaufnahme,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-008,Tamper-evident Audit/Retention,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-DET10-009,Korrelierte Observability,DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md,PROPOSED_FOR_ACCEPTANCE,DET09-10,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-001,Konservatives Active-Passive mit exklusiver Broker-Sendefähigkeit,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-002,"DISPATCH_STARTED` vor Socket-Send, Unknown = kein Retry",P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-003,Gemeinsame PostgreSQL-UoW mit kanonischer Sperrordnung,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-004,"READ COMMITTED mit expliziten Guards, CAS und Locks",P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-005,Append-only Risk-Rebooking bei Late Fill/Bust,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-006,IBKR-Alias-Scopes erst nach Verifikation einfrieren,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-007,Quarantäne für unbekannte/mehrdeutige Brokerbeobachtungen,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P0-008,Produktive Freigabe nur nach Nachweis aller P0-Gates,P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P0,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P1-001,"Solo-Operator, Reset & Break-Glass — konservativer Vertragsansatz",P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P1-002,"Instrument-, Bewertungs- & Rundungspolicy — konservativer Vertragsansatz",P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P1-003,Broker Snapshot Completeness — konservativer Vertragsansatz,P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P1-004,Audit-Atomizität & Export — konservativer Vertragsansatz,P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED,NOT_SUPERSEDED,,
+ADFR-P1-005,"Cancel, Modify & Risk Reduction Dispatch — konservativer Vertragsansatz",P1-Resolution-Contracts-CR-B05-bis-CR-B09-v1.0.md,PROPOSED_FOR_ACCEPTANCE,P1,NOT_VERIFIED,NOT_SUPERSEDED,,

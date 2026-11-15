@@ -48,3 +48,15 @@ Dieses Register konsolidiert die im Gespräch bestätigten DET-01/02-Entscheidun
 ## Nächster Arbeitsauftrag (separate Freigabe erforderlich)
 
 Zuerst CR-B10 ist als Entwurf dokumentiert; ausführbare Schema Registry und CI-Gates implementieren, danach die exakten DET-01/02-Zustands- und Policy-Tabellen sowie PostgreSQL-Constraints und API-Contracts kanonisieren. Anschliessend einen testorientierten Implementierungsplan mit überprüfbaren Milestones und CI-Gates erstellen. Kein Cursor-Prompt zum Live-Trading ohne explizite Freigabe.
+
+## Nachtrag 2026-11-15 — ARCH-DEC-01, ARCH-DEC-02, ARCH-DEC-03
+
+Die Abschnitte oben sind die Momentaufnahme vom 2026-11-14. Ihr Wortlaut bleibt stehen, einschliesslich des Satzes „78 eindeutige Register-IDs“ und der Aufzählung `DET01=10, DET02=10, DET03–08=22, DET09/10 einschließlich CROSS=22, P0=8, P1=5`, die 77 ergibt. Dieser Nachtrag schreibt die Momentaufnahme nicht um und führt keinen Auftrag aus dem Abschnitt „Nächster Arbeitsauftrag“ aus.
+
+**ARCH-DEC-01.** Die rekonstruierten DET-01- und DET-02-Dateien sind ab 2026-11-15 eine Design-Baseline mit Ausnahme aller dort als offen, nicht definiert, unbestätigt oder verifikationspflichtig gekennzeichneten Details (`DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS`). Die Provenienz bleibt `RECONSTRUCTED_DRAFT`. Original-Q&A-Transkripte werden nicht behauptet. Die Ratifizierung gibt keine Transition-Matrix, keine `OrderClosure`-Gründe, keine wirtschaftliche Finalität, keine Risk-Buchung und keine technische Ausführung frei.
+
+**ARCH-DEC-02.** Verbindliche Registerzählung ab 2026-11-15: 78 historische IDs in JSON und CSV, dieselbe Menge. Genau eine historische ID ist superseded: `ADFR-CROSS-005`. Nachfolger ist `ADFR-CR-B10-001`. 77 historische IDs sind nicht superseded. Diese 77 sind eine Zählung, keine Aussage über Implementierung oder Verifikation. `verification` bleibt `NOT_VERIFIED`. `DESIGN_RESOLVED` ist kein Testnachweis. Der JSON-Rootstatus bleibt `ARCHITECTURE_DRAFT_NOT_IMPLEMENTED`.
+
+**ARCH-DEC-03.** Für das Dispatch-/Failover-Design hat CR-B01 Vorrang vor widersprechenden oder weniger restriktiven Aussagen aus DET-07. Kein automatischer Takeover, solange der bisherige Writer noch senden könnte oder Submission-Ergebnisse ungeklärt sind. Ein Zeitablauf oder Lease-Timeout allein ist kein Nachweis sicherer Übernahme. Das ist Design-Vorrang, kein implementiertes Fencing und kein nachgewiesenes IBKR-Verhalten. Punkt 2 der historischen Vorrangliste bleibt die Momentaufnahme vom 2026-11-14.
+
+Der Nachweis steht in `contracts/decisions/ARCH-DEC-01-bis-03-2026-11-15.md`. Keine Live-Freigabe.
