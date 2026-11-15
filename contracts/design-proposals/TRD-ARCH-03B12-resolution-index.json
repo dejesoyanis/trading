@@ -1,0 +1,187 @@
+{
+  "document_role": "NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX",
+  "task": "TRD-ARCH-03B.1.2",
+  "date": "2026-11-15",
+  "record_label": "RATIFIED_DESIGN_POLICY_ONLY",
+  "implementation": "NOT_IMPLEMENTED",
+  "verification": "NOT_VERIFIED",
+  "record_labels_are_not_a_canonical_enum": true,
+  "decision_record": "contracts/decisions/ARCH-DEC-09-bis-20-2026-11-15.md",
+  "proposal_package_historical_ratification": "NOT_RATIFIED",
+  "proposal_questions_historical_status": "USER_DECISION_PENDING",
+  "live_trading_authorized": false,
+  "canonical_schemas_published": false,
+  "canonical_schema_published_by_this_index": false,
+  "part_b": "NO-GO",
+  "broker_uniqueness_evidence": "EVIDENCE_PENDING",
+  "registry_status_required": "SKELETON_NOT_CANONICAL",
+  "order_state_machine_implemented": false,
+  "state_transitions_implemented": false,
+  "order_closure_vocabulary": "NOT_APPROVED",
+  "order_closure_enum_approved": false,
+  "transition_edges": "NOT_APPROVED",
+  "matrix_version_approved": false,
+  "economic_finality_predicate_approved": false,
+  "automatic_economic_posting_approved": false,
+  "risk_release_approved": false,
+  "broker_terminal_acceptance_approved": false,
+  "modify_or_replace_dispatch_approved": false,
+  "implementation_authorized": false,
+  "closes_xc_findings": false,
+  "external_evidence_claimed": false,
+  "evidence_uri": null,
+  "signature_artifact": null,
+  "xc_03_matrix": "OPEN",
+  "cr_b01_precedence_over_det07": "IN_FORCE",
+  "omsq05_overrides_omsq08_single_match_posting": true,
+  "omsq04_does_not_authorize_risk_release": true,
+  "omsq02_is_strategy_only": true,
+  "omsq09_accepts_no_terminal_observation": true,
+  "questions": [
+    {
+      "id": "OMSQ-01",
+      "decision_id": "ARCH-DEC-09",
+      "choice": "A",
+      "wording": "Ein ursprünglicher Abschlussdatensatz, spätere Fakten separat",
+      "scope_code": "NO_CLOSURE_WRITER_NO_CORRECTION_RECORD_NO_REOPEN",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-02",
+      "decision_id": "ARCH-DEC-10",
+      "choice": "C",
+      "wording": "Grundfamilie plus unabhängige Finalitätsfelder",
+      "scope_code": "STRATEGY_ONLY_NO_TOKENS_NO_ENUM_NO_FIELDS_NO_EDGE",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-03",
+      "decision_id": "ARCH-DEC-11",
+      "choice": "A",
+      "wording": "Keine Schliessung ohne neue autorisierte Aktion und positive Evidenz",
+      "scope_code": "NO_UNKNOWN_SEND_CLOSURE_NO_AUTO_RETRY_NO_TAKEOVER",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-04",
+      "decision_id": "ARCH-DEC-12",
+      "choice": "A",
+      "wording": "Alle Fakten behalten; Closure und Risk nur bei ausreichender Evidenz",
+      "scope_code": "RETAIN_FACTS_NO_RISK_RELEASE_PREDICATE_NOT_SATISFIED",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-05",
+      "decision_id": "ARCH-DEC-13",
+      "choice": "B",
+      "wording": "Alle wirtschaftlichen Effekte zunächst manuell prüfen",
+      "scope_code": "QUARANTINE_ALL_ECONOMIC_EFFECTS_NO_POSTING",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-06",
+      "decision_id": "ARCH-DEC-14",
+      "choice": "A",
+      "wording": "Kein Finalitätsprädikat akzeptieren; Risk Release verboten",
+      "scope_code": "NO_PREDICATE_NO_RELEASE_CHECKLIST_B_NOT_ADOPTED",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-07",
+      "decision_id": "ARCH-DEC-15",
+      "choice": "A",
+      "wording": "Vollständige Szenarien, Negativfälle und eigene Version verlangen",
+      "scope_code": "ACCEPTANCE_BAR_ONLY_NO_MATRIX_VERSION_NO_EDGE",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-08",
+      "decision_id": "ARCH-DEC-16",
+      "choice": "A",
+      "wording": "Quarantäne und strukturierte autorisierte Entscheidung",
+      "scope_code": "QUARANTINE_EXCEPT_IDENTICAL_REPLAY_NO_SINGLE_MATCH_POSTING",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-09",
+      "decision_id": "ARCH-DEC-17",
+      "choice": "A",
+      "wording": "Keine terminale Brokerbeobachtung akzeptieren",
+      "scope_code": "NO_TERMINAL_ACCEPTANCE",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-10",
+      "decision_id": "ARCH-DEC-18",
+      "choice": "A",
+      "wording": "Sperrreihenfolge und Isolation bleiben unbestätigter Vorschlag",
+      "scope_code": "LOCK_ORDER_AND_ISOLATION_UNADOPTED_NO_BROKER_RESEND",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-11",
+      "decision_id": "ARCH-DEC-19",
+      "choice": "A",
+      "wording": "Separaten transaktionalen Auditdatensatz verlangen",
+      "scope_code": "DISTINCT_AUDIT_RECORD_NO_TABLE_NAME",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    },
+    {
+      "id": "OMSQ-12",
+      "decision_id": "ARCH-DEC-20",
+      "choice": "A",
+      "wording": "Modify und implizites Cancel-Replace blockieren",
+      "scope_code": "NO_MODIFY_NO_IMPLICIT_CANCEL_REPLACE_NO_DISPATCH",
+      "policy_only": true,
+      "implemented": false,
+      "verification": "NOT_VERIFIED"
+    }
+  ],
+  "open_findings": [
+    "XC-01",
+    "XC-02-PRED",
+    "XC-03-MATRIX",
+    "XC-05-LOCK",
+    "XC-06",
+    "XC-07-ROUND",
+    "XC-08-IBKR",
+    "XC-09-RESET",
+    "XC-10-ACTION"
+  ],
+  "partial_findings": [
+    {
+      "finding": "XC-04",
+      "closed_part": "design_precedence",
+      "by": "RESOLVED_BY_ARCH_DEC_03",
+      "remainder": "OPEN"
+    },
+    {
+      "finding": "XC-11",
+      "closed_part": "population_and_supersession",
+      "by": "RESOLVED_BY_ARCH_DEC_02",
+      "remainder": "OPEN"
+    }
+  ]
+}

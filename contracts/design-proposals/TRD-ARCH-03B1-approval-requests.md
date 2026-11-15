@@ -405,3 +405,26 @@ Shared binding context for every question: ARCH-DEC-01 through ARCH-DEC-08, as r
 - No `OrderClosure` vocabulary is approved.
 - No transition edge is approved.
 - Live trading stays unauthorized. Canonical schemas stay unpublished. `part_b` stays `NO-GO`. `broker_uniqueness_evidence` stays `EVIDENCE_PENDING`.
+
+## Resolution index (2026-11-15, TRD-ARCH-03B.1.2)
+
+The questions OMSQ-01 through OMSQ-12 above are unchanged historical text, including their alternatives, consequence tables, and recommendations. They are not rewritten as approvals. The creation-time status lines stay as they were written. This addendum does not change those lines and does not record a second decision.
+
+On 2026-11-15 the user ratified a design-policy choice for each question. The decision record is [ARCH-DEC-09-bis-20-2026-11-15.md](../decisions/ARCH-DEC-09-bis-20-2026-11-15.md). The map below points at that record. It is not a signature and not an evidence URI. The record labels there are documentary. They are not a canonical status enum.
+
+| Question | Decision | Option | User wording |
+| --- | --- | --- | --- |
+| OMSQ-01 | ARCH-DEC-09 | A | Ein ursprünglicher Abschlussdatensatz, spätere Fakten separat |
+| OMSQ-02 | ARCH-DEC-10 | C | Grundfamilie plus unabhängige Finalitätsfelder |
+| OMSQ-03 | ARCH-DEC-11 | A | Keine Schliessung ohne neue autorisierte Aktion und positive Evidenz |
+| OMSQ-04 | ARCH-DEC-12 | A | Alle Fakten behalten; Closure und Risk nur bei ausreichender Evidenz |
+| OMSQ-05 | ARCH-DEC-13 | B | Alle wirtschaftlichen Effekte zunächst manuell prüfen |
+| OMSQ-06 | ARCH-DEC-14 | A | Kein Finalitätsprädikat akzeptieren; Risk Release verboten |
+| OMSQ-07 | ARCH-DEC-15 | A | Vollständige Szenarien, Negativfälle und eigene Version verlangen |
+| OMSQ-08 | ARCH-DEC-16 | A | Quarantäne und strukturierte autorisierte Entscheidung |
+| OMSQ-09 | ARCH-DEC-17 | A | Keine terminale Brokerbeobachtung akzeptieren |
+| OMSQ-10 | ARCH-DEC-18 | A | Sperrreihenfolge und Isolation bleiben unbestätigter Vorschlag |
+| OMSQ-11 | ARCH-DEC-19 | A | Separaten transaktionalen Auditdatensatz verlangen |
+| OMSQ-12 | ARCH-DEC-20 | A | Modify und implizites Cancel-Replace blockieren |
+
+The proposal package above stays a proposal. Its header remains the creation-time request. The later record approves design policy only. It does not approve an `OrderClosure` vocabulary, a token list, a transition edge, a matrix version, an economic-finality predicate, automatic economic posting, risk release, broker terminal acceptance, modify or replace dispatch, a lock order, an isolation level, or an audit table. `XC-03-MATRIX` stays OPEN. OMSQ-05 option B overrides any reading of the OMSQ-08 proposal text that would post a single identity match automatically. OMSQ-06 option A leaves the predicate undefined, so OMSQ-04 does not release risk. OMSQ-02 option C is a modeling strategy only. OMSQ-09 option A accepts no broker observation as authoritative terminal. Live trading stays NOT AUTHORIZED. No evidence record is created here.

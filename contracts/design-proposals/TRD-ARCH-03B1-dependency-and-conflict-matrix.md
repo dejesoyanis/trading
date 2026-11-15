@@ -78,3 +78,13 @@ If a later user accepted every recommendation in the approval-request file, the 
 - `canonical_schemas_published` would remain false, `part_b` would remain `NO-GO`, and `live_trading_authorized` would remain false.
 
 ARCH-03B.2 is the risk decision set that would have to address OMSQ-05's posting effects and OMSQ-06's predicate, together with XC-02-PRED and XC-07-ROUND. ARCH-03B.3 is the broker decision set that would have to address OMSQ-03, OMSQ-09, and OMSQ-12, together with XC-01, XC-08-IBKR, and the open remainder of XC-04. Neither task is started. Neither task is authorized by this file.
+
+## 5. Dated policy record (2026-11-15, TRD-ARCH-03B.1.2)
+
+Sections 1 through 4 are the proposal-time conflict map. They are not rewritten. A later user decision, recorded in [ARCH-DEC-09-bis-20-2026-11-15.md](../decisions/ARCH-DEC-09-bis-20-2026-11-15.md), selects design policy for OMSQ-01 through OMSQ-12. That selection does not close a finding in section 1. This file still records no broker evidence.
+
+Still OPEN after that policy record: XC-01, XC-02-PRED, XC-03-MATRIX, XC-05-LOCK, XC-06, XC-07-ROUND, XC-08-IBKR, XC-09-RESET, and XC-10-ACTION. XC-04 stays OPEN apart from design precedence (`RESOLVED_BY_ARCH_DEC_03`). XC-11 status-word disagreement stays OPEN. Population and supersession stay `RESOLVED_BY_ARCH_DEC_02`.
+
+CR-B01 precedence over conflicting or less restrictive DET-07 text stays in force. ARCH-03B.2 and ARCH-03B.3 are not started.
+
+OMSQ-05 option B quarantines every proposed economic effect and overrides any reading of the OMSQ-08 proposal text that would post a single identity match automatically. OMSQ-06 option A leaves the economic-finality predicate undefined, so OMSQ-04 does not release risk. OMSQ-07 option A is an acceptance bar and does not accept `XC-03-MATRIX` or any edge. OMSQ-02 option C is a modeling strategy only. OMSQ-09 option A accepts no broker observation as authoritative terminal. OMSQ-10 and OMSQ-11 do not adopt a lock order, an isolation level, or an audit table name. OMSQ-12 does not authorize cancel during halt. XC-10-ACTION stays OPEN. No automatic economic posting, risk release, or broker dispatch is approved.
