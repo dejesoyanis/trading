@@ -55,6 +55,14 @@ Broker identity, snapshot completeness, and unknown-send recovery. Ratification:
 | [TRD-ARCH-03B3-broker-identity-semantics-and-invariants.md](TRD-ARCH-03B3-broker-identity-semantics-and-invariants.md) | Namespaces, trust boundaries, and candidate evidence. Not a tuple. |
 | [TRD-ARCH-03B3-snapshot-completeness-and-reconciliation-coverage-draft.md](TRD-ARCH-03B3-snapshot-completeness-and-reconciliation-coverage-draft.md) | Coverage rows. Not a completeness proof. |
 | [TRD-ARCH-03B3-identity-snapshot-and-recovery-options.md](TRD-ARCH-03B3-identity-snapshot-and-recovery-options.md) | Three approaches on each axis. The unsafe contrast is not ratifiable. |
-| [TRD-ARCH-03B3-approval-requests.md](TRD-ARCH-03B3-approval-requests.md) | BROKERQ-01 through BROKERQ-14. `USER_DECISION_PENDING`. |
+| [TRD-ARCH-03B3-approval-requests.md](TRD-ARCH-03B3-approval-requests.md) | BROKERQ-01 through BROKERQ-14. Creation-time status lines stay `USER_DECISION_PENDING`. A dated resolution addendum at the end points at ARCH-DEC-35 through ARCH-DEC-48. |
 | [TRD-ARCH-03B3-dependency-and-conflict-matrix.md](TRD-ARCH-03B3-dependency-and-conflict-matrix.md) | Open XC findings and the handoff that does not authorize later work. |
 | [TRD-ARCH-03B3-proposal-index.json](TRD-ARCH-03B3-proposal-index.json) | Non-runtime index. `NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX`. Not a registry and not a wire schema. |
+
+The proposal index repeats the creation-time pending statuses. It is unchanged by TRD-ARCH-03B.3.2.
+
+## Later policy record (TRD-ARCH-03B.3.2)
+
+On 2026-11-15 the user ratified design-policy choices for BROKERQ-01 through BROKERQ-14. The record is ARCH-DEC-35 through ARCH-DEC-48 in [ARCH-DEC-35-bis-48-2026-11-15.md](../decisions/ARCH-DEC-35-bis-48-2026-11-15.md). The machine-readable map is [TRD-ARCH-03B32-resolution-index.json](TRD-ARCH-03B32-resolution-index.json). That map is `NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX`. It is not a registry, not the historical proposal index, and not a wire schema. Its labels are not a canonical enum.
+
+The `NOT_RATIFIED` line above is the creation-time package status. The proposal files keep their creation-time text. The later record approves design policy only. Options are B, B, B, B, B, B, A, B, B, B, B, B, B, B. It does not approve a canonical identity tuple, a uniqueness index, a resolver, a schema, a completeness token, economic posting, an economic-finality predicate, reservation release, an OMS transition, broker dispatch, a role, a resubmit, or live trading. `XC-01` stays OPEN. `XC-08-IBKR` stays OPEN. `XC-02-PRED` stays OPEN. The XC-04 operational remainder stays OPEN. ARCH-DEC-03, ARCH-DEC-13, ARCH-DEC-14, ARCH-DEC-17, ARCH-DEC-26, ARCH-DEC-33, and ARCH-DEC-34 stay binding. External broker cases stay `NOT_EXECUTED`. **NO IMPLEMENTATION.** **NO VERIFICATION.**

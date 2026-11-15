@@ -2924,7 +2924,8 @@ fn risk_design_policy_21_through_34_stays_unimplemented() {
     assert!(
         !decision_names
             .iter()
-            .any(|name| name.contains("ARCH-DEC-35"))
+            .any(|name| name.contains("ARCH-DEC-49")),
+        "ARCH-DEC-49 stays unused after ARCH-DEC-35 through ARCH-DEC-48"
     );
     let decision = read_text(&root.join(index.decision_record));
     assert!(decision.contains("2026-11-15"));
@@ -3634,6 +3635,766 @@ fn broker_identity_proposals_stay_unratified_and_dispatch_stays_forbidden() {
             .count(),
         1
     );
+
+    const {
+        assert!(!trading_domain::ORDER_STATE_MACHINE_IMPLEMENTED);
+        assert!(!trading_domain::STATE_TRANSITIONS_IMPLEMENTED);
+        assert!(!trading_domain::IDENTITY_RESOLVER_IMPLEMENTED);
+        assert!(!trading_domain::FINANCIAL_ROUNDING_IMPLEMENTED);
+        assert!(!trading_domain::BROKER_DISPATCH_IMPLEMENTED);
+        assert!(!trading_domain::RISK_EVALUATION_IMPLEMENTED);
+    }
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct BrokerPolicyIndex {
+    document_role: String,
+    task: String,
+    date: String,
+    record_label: String,
+    implementation: String,
+    verification: String,
+    record_labels_are_not_a_canonical_enum: bool,
+    decision_record: String,
+    source_approval_document: String,
+    instruction_archive: String,
+    historical_proposal_index: String,
+    historical_approval_requests: String,
+    historical_approval_prefix_bytes: u64,
+    historical_approval_prefix_sha256: String,
+    proposal_package_historical_ratification: String,
+    proposal_questions_historical_status: String,
+    not_a_schema: bool,
+    not_registry_json: bool,
+    not_the_historical_proposal_index: bool,
+    implementation_authorized: bool,
+    uniqueness_guaranteed: bool,
+    uniqueness_index_approved: bool,
+    completeness_proof_approved: bool,
+    canonical_schemas_published: bool,
+    canonical_schema_published_by_this_index: bool,
+    canonical_broker_identity_tuple_approved: bool,
+    economic_posting_approved: bool,
+    risk_release_approved: bool,
+    economic_finality_predicate_approved: bool,
+    oms_transitions_approved: bool,
+    broker_dispatch_approved: bool,
+    live_trading_authorized: bool,
+    closes_xc_findings: bool,
+    conflict_closure: bool,
+    part_b: String,
+    broker_uniqueness_evidence: String,
+    registry_status_required: String,
+    order_state_machine_implemented: bool,
+    state_transitions_implemented: bool,
+    identity_resolver_implemented: bool,
+    broker_dispatch_implemented: bool,
+    order_closure_enum_approved: bool,
+    tests_executed: bool,
+    tests_executed_scope: String,
+    documentation_regression_tests_are_not_broker_evidence: bool,
+    external_evidence_claimed: bool,
+    external_broker_requests_executed: bool,
+    evidence_uri: Option<String>,
+    signature_artifact: Option<String>,
+    authority: String,
+    recommendation_is_approval: bool,
+    option_c: String,
+    choice_checksum: String,
+    choice_b_count: u64,
+    choice_a_count: u64,
+    xc_01: String,
+    xc_01_evidence: String,
+    xc_08_ibkr: String,
+    xc_08_ibkr_evidence: String,
+    xc_04_precedence: String,
+    xc_04_remainder: String,
+    xc_02_pred: String,
+    xc_03_matrix: String,
+    xc_05_lock: String,
+    xc_06: String,
+    xc_07_round: String,
+    xc_09_reset: String,
+    xc_10_action: String,
+    xc_11_status_words: String,
+    design_resolved_is_not_verification: bool,
+    det03_d04_single_match_books_subordinate_to_arch_dec_13_and_26: bool,
+    cr_b01_precedence_over_det07: String,
+    arch_dec_03_remains_binding: bool,
+    arch_dec_13_quarantine_remains_binding: bool,
+    arch_dec_14_no_predicate_no_release_remains_binding: bool,
+    arch_dec_17_no_terminal_broker_observation_remains_binding: bool,
+    arch_dec_26_quarantine_remains_binding: bool,
+    arch_dec_33_no_role_remains_binding: bool,
+    arch_dec_34_no_resubmit_remains_binding: bool,
+    brokerq01_b_records_supplied_fields_only: bool,
+    brokerq02_b_singleton_is_not_authorization: bool,
+    brokerq03_b_missing_perm_id_is_not_zero: bool,
+    brokerq04_b_identical_replay_has_no_economic_effect: bool,
+    brokerq05_b_does_not_invent_a_link: bool,
+    brokerq06_b_coverage_stays_unknown: bool,
+    brokerq07_a_stores_no_completeness_token: bool,
+    brokerq08_b_local_gap_is_not_an_ibkr_sequence: bool,
+    brokerq09_b_reconnect_is_not_a_negative_send_proof: bool,
+    brokerq10_b_authorizes_no_resend: bool,
+    brokerq11_b_fence_is_not_broker_acceptance: bool,
+    brokerq12_b_marker_is_not_a_role: bool,
+    brokerq13_b_has_no_blanket_winner: bool,
+    brokerq13_option_a_is_not_authority: bool,
+    brokerq14_b_external_cases_not_executed: bool,
+    brokerq14_option_a_is_not_verification: bool,
+    brokerq14_requires_positive_and_negative_external_evidence: bool,
+    depends_on: Vec<String>,
+    questions: Vec<RiskPolicyChoice>,
+    open_findings: Vec<String>,
+    partial_findings: Vec<OmsPartialFinding>,
+    principle_only_findings: Vec<String>,
+}
+
+#[test]
+fn broker_design_policy_35_through_48_stays_unimplemented() {
+    let root = repo_root();
+    let expected = [
+        (
+            "BROKERQ-01",
+            "ARCH-DEC-35",
+            "B",
+            r#"Vorhandene Broker-/Konto-/Umgebungs-/Session-/Aliasfelder, Client und Adapter-Epoch sowie Evidence-ID nur soweit tatsächlich geliefert als mögliche zukünftige Evidenzkomponenten erfassen. Fehlend bleibt fehlend. Feldgleichheit ist weder Merge noch Uniqueness; kein Schema."#,
+            "## BROKERQ-01 — Identity tuple for a future record",
+            "SUPPLIED_SCOPE_NO_MERGE_NO_SCHEMA",
+        ),
+        (
+            "BROKERQ-02",
+            "ARCH-DEC-36",
+            "B",
+            r#"Zukünftige Kandidatenmenge `A(e)` und Unsicherheitslabel erlauben; selbst `|A(e)|=1` ist `SINGLE_CANDIDATE_NOT_AUTHORIZATION`; 0/mehrere/Widerspruch ebenso nicht autorisierend. Keine automatische Zuordnung mit wirtschaftlicher Wirkung."#,
+            "## BROKERQ-02 — Ambiguity and candidate sets",
+            "CANDIDATE_SET_NOT_AUTHORIZATION",
+        ),
+        (
+            "BROKERQ-03",
+            "ARCH-DEC-37",
+            "B",
+            r#"Beobachtung auch ohne `permId` behalten; fehlend/null/zero nicht stillschweigend gleichsetzen. Spätere `permId` als neue Evidenz, kein Overwrite. Null-/Zero-Semantik bleibt extern ungeprüft."#,
+            "## BROKERQ-03 — Missing permId",
+            "RETAIN_ABSENT_PERMID_NO_ZERO_EQUATION",
+        ),
+        (
+            "BROKERQ-04",
+            "ARCH-DEC-38",
+            "B",
+            r#"Identischer Rohpayload bei Wiederholung idempotent als erneut gesehen; abweichender Payload unter scheinbar gleichem Schlüssel `CONTRADICTION`, beide Originale erhalten. Keine zweite Ausführung/Buchung, keine Bytes löschen."#,
+            "## BROKERQ-04 — Duplicate executions",
+            "IDENTICAL_REPLAY_OR_CONTRADICTION_KEEP_BOTH",
+        ),
+        (
+            "BROKERQ-05",
+            "ARCH-DEC-39",
+            "B",
+            r#"Correction/Bust append-only mit Original-Evidenz verknüpfen, nur wenn die neue Evidenz selbst einen Bezug liefert. Kein erfundener Link, keine Reversal-Buchung, kein Release, keine Closure-Änderung."#,
+            "## BROKERQ-05 — Correction and bust chain",
+            "APPEND_LINK_ONLY_IF_EVIDENCE_NAMES_IT",
+        ),
+        (
+            "BROKERQ-06",
+            "ARCH-DEC-40",
+            "B",
+            r#"Angefragten Account-/Client-/Session-/Dataset-/Zeitfenster-Scope soweit vorhanden dokumentieren; Coverage bleibt `UNKNOWN`, nicht global, keine `COMPLETE`-Behauptung."#,
+            "## BROKERQ-06 — Snapshot scope",
+            "REQUESTED_SCOPE_COVERAGE_UNKNOWN",
+        ),
+        (
+            "BROKERQ-07",
+            "ARCH-DEC-41",
+            "A",
+            r#"Keine Completeness-Tokens speichern. Kein `COMPLETE`-Marker und kein externer Token-Platzhalter als Ratifikation; leere Antwort ist kein Nicht-Existenz-/Finalitäts-/Release-Beweis."#,
+            "## BROKERQ-07 — Completeness proof",
+            "NO_COMPLETENESS_TOKEN",
+        ),
+        (
+            "BROKERQ-08",
+            "ARCH-DEC-42",
+            "B",
+            r#"Nur tatsächlich lokal beobachtete Capture-Gaps (z.B. kurze Seite, fehlendes Antwortende, Drop) markieren; kein erfundener IBKR-Sequenzzähler, keine Interpolation, Scope bleibt unvollständig, keine Folgeaktion."#,
+            "## BROKERQ-08 — Gap detection",
+            "LOCAL_CAPTURE_GAP_NOT_IBKR_SEQUENCE",
+        ),
+        (
+            "BROKERQ-09",
+            "ARCH-DEC-43",
+            "B",
+            r#"Reconnect erzeugt neuen Session-Kontext; alte Evidenz behalten, IDs nicht ohne nachgewiesene Bindung über Session-Grenzen übernehmen. Reconnect ist kein Send-Negativbeweis."#,
+            "## BROKERQ-09 — Reconnect",
+            "NEW_SESSION_NO_CROSS_SESSION_ID_CARRY",
+        ),
+        (
+            "BROKERQ-10",
+            "ARCH-DEC-44",
+            "B",
+            r#"CR-B01-Crash-/Dispatch-Fenster als Labels dokumentieren. Nach `DISPATCH_STARTED` möglicherweise gesendet; kein Fenster dieses Pakets erlaubt Resend, Cancel, Release oder Dispatch."#,
+            "## BROKERQ-10 — Unknown send",
+            "WINDOW_LABELS_NO_RESEND",
+        ),
+        (
+            "BROKERQ-11",
+            "ARCH-DEC-45",
+            "B",
+            r#"Lokale Fence-Fakten (Epoch, Lease-Deadline, Authority-Label) von Broker-Akzeptanz strikt trennen; Successor blockiert solange früherer Writer noch senden könnte oder Sendestatus unbekannt ist. Lease-Ablauf/neuere Epoch beweist kein externes Fencing. Keine Implementierung oder TTL."#,
+            "## BROKERQ-11 — Epoch fencing and broker acceptance",
+            "LOCAL_FENCE_NOT_BROKER_ACCEPTANCE",
+        ),
+        (
+            "BROKERQ-12",
+            "ARCH-DEC-46",
+            "B",
+            r#"Nur nicht-autorisierenden Eskalationsmarker für spätere menschliche Prüfung vorsehen; keine Rolle, kein Post-/Release-/Dispatch-/Reset-Recht. Fehlende erforderliche zweite Person bedeutet Deny, nicht simulierte Zustimmung."#,
+            "## BROKERQ-12 — Manual escalation",
+            "ESCALATION_MARKER_NO_ROLE",
+        ),
+        (
+            "BROKERQ-13",
+            "ARCH-DEC-47",
+            "B",
+            r#"Broker-Rohbeobachtung und lokale Attempt-Fakten bei Widerspruch beide erhalten; Vergleich als Inferenz kennzeichnen. Keine Seite gewinnt pauschal, kein wirtschaftlicher Schluss, kein Cancel."#,
+            "## BROKERQ-13 — Evidence authority",
+            "RETAIN_BOTH_NO_WINNER",
+        ),
+        (
+            "BROKERQ-14",
+            "ARCH-DEC-48",
+            "B",
+            r#"Für spätere Verifikation tatsächlich beschaffte offizielle Unterlagen, reproduzierbare positive/negative Fälle, Umgebung, Brokerprodukt/API-Version, Zeitstempel und Rohpayloads verlangen. Heute alles `NOT_EXECUTED`/`EXTERNAL_EVIDENCE_PENDING`; Dokumentations-/Unit-Tests sind keine Broker-Evidenz."#,
+            "## BROKERQ-14 — Future verification bar",
+            "EXTERNAL_BAR_NOT_EXECUTED",
+        ),
+    ];
+
+    let proposal_path = root.join("contracts/design-proposals/TRD-ARCH-03B3-proposal-index.json");
+    let proposal_bytes = fs::read(&proposal_path).expect("historical broker proposal index");
+    assert_eq!(proposal_bytes.len(), 13593);
+    assert_eq!(
+        sha256_hex(&proposal_bytes),
+        "e808dcf8a2339845b4ef49085275b7aad9094862086830d57d13a415841703ce"
+    );
+    let proposal_text = String::from_utf8(proposal_bytes).expect("proposal index utf-8");
+    assert!(proposal_text.contains("\"ratification\": \"NOT_RATIFIED\""));
+    assert!(proposal_text.contains("\"USER_DECISION_PENDING\""));
+    assert!(!proposal_text.contains("ARCH-DEC-35"));
+    assert!(!proposal_text.contains("\"decision_id\""));
+
+    let index_path = root.join("contracts/design-proposals/TRD-ARCH-03B32-resolution-index.json");
+    let index_bytes = fs::read(&index_path).expect("broker policy index");
+    assert!(!index_bytes.starts_with(&[0xEF, 0xBB, 0xBF]));
+    let index: BrokerPolicyIndex =
+        serde_json::from_slice(&index_bytes).expect("parse broker policy index");
+    assert_eq!(index.document_role, "NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX");
+    assert_ne!(index.document_role, "NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX");
+    assert_eq!(index.task, "TRD-ARCH-03B.3.2");
+    assert_eq!(index.date, "2026-11-15");
+    assert_eq!(index.record_label, "RATIFIED_DESIGN_POLICY_ONLY");
+    assert_eq!(index.implementation, "NOT_IMPLEMENTED");
+    assert_eq!(index.verification, "NOT_VERIFIED");
+    assert!(index.record_labels_are_not_a_canonical_enum);
+    assert_eq!(
+        index.decision_record,
+        "contracts/decisions/ARCH-DEC-35-bis-48-2026-11-15.md"
+    );
+    assert_eq!(index.source_approval_document, index.decision_record);
+    assert_eq!(
+        index.instruction_archive,
+        "docs/cursor-prompts/trading/TRD-ARCH-03B3.2-Ratify-Broker-Design-Decisions.md"
+    );
+    assert_eq!(
+        index.historical_proposal_index,
+        "contracts/design-proposals/TRD-ARCH-03B3-proposal-index.json"
+    );
+    assert_eq!(
+        index.historical_approval_requests,
+        "contracts/design-proposals/TRD-ARCH-03B3-approval-requests.md"
+    );
+    assert_eq!(index.historical_approval_prefix_bytes, 31525);
+    assert_eq!(
+        index.historical_approval_prefix_sha256,
+        "0ae902d63e138833545b85fe23efa745ef20f9a1f1a07d4790af76374290975f"
+    );
+    assert_eq!(
+        index.proposal_package_historical_ratification,
+        "NOT_RATIFIED"
+    );
+    assert_eq!(
+        index.proposal_questions_historical_status,
+        "USER_DECISION_PENDING"
+    );
+    assert!(index.not_a_schema);
+    assert!(index.not_registry_json);
+    assert!(index.not_the_historical_proposal_index);
+    assert!(!index.implementation_authorized);
+    assert!(!index.uniqueness_guaranteed);
+    assert!(!index.uniqueness_index_approved);
+    assert!(!index.completeness_proof_approved);
+    assert!(!index.canonical_schemas_published);
+    assert!(!index.canonical_schema_published_by_this_index);
+    assert!(!index.canonical_broker_identity_tuple_approved);
+    assert!(!index.economic_posting_approved);
+    assert!(!index.risk_release_approved);
+    assert!(!index.economic_finality_predicate_approved);
+    assert!(!index.oms_transitions_approved);
+    assert!(!index.broker_dispatch_approved);
+    assert!(!index.live_trading_authorized);
+    assert!(!index.closes_xc_findings);
+    assert!(!index.conflict_closure);
+    assert_eq!(index.part_b, "NO-GO");
+    assert_eq!(index.broker_uniqueness_evidence, "EVIDENCE_PENDING");
+    assert_eq!(index.registry_status_required, "SKELETON_NOT_CANONICAL");
+    assert!(!index.order_state_machine_implemented);
+    assert!(!index.state_transitions_implemented);
+    assert!(!index.identity_resolver_implemented);
+    assert!(!index.broker_dispatch_implemented);
+    assert!(!index.order_closure_enum_approved);
+    assert!(!index.tests_executed);
+    assert_eq!(
+        index.tests_executed_scope,
+        "external_broker_and_coverage_tests"
+    );
+    assert!(index.documentation_regression_tests_are_not_broker_evidence);
+    assert!(!index.external_evidence_claimed);
+    assert!(!index.external_broker_requests_executed);
+    assert!(index.evidence_uri.is_none());
+    assert!(index.signature_artifact.is_none());
+    assert_eq!(index.authority, "user_ratification_dated_2026-11-15");
+    assert!(!index.recommendation_is_approval);
+    assert_eq!(index.option_c, "CONFLICTS_WITH_BINDING_POLICY");
+    assert_eq!(index.choice_checksum, "B,B,B,B,B,B,A,B,B,B,B,B,B,B");
+    assert_eq!(index.choice_b_count, 13);
+    assert_eq!(index.choice_a_count, 1);
+    assert_eq!(index.xc_01, "OPEN");
+    assert_eq!(index.xc_01_evidence, "EVIDENCE_PENDING");
+    assert_eq!(index.xc_08_ibkr, "OPEN");
+    assert_eq!(index.xc_08_ibkr_evidence, "EXTERNAL_EVIDENCE_PENDING");
+    assert_eq!(index.xc_04_precedence, "RESOLVED_BY_ARCH_DEC_03");
+    assert_eq!(index.xc_04_remainder, "OPEN");
+    assert_eq!(index.xc_02_pred, "OPEN");
+    assert_eq!(index.xc_03_matrix, "OPEN");
+    assert_eq!(index.xc_05_lock, "OPEN");
+    assert_eq!(index.xc_06, "OPEN");
+    assert_eq!(index.xc_07_round, "OPEN");
+    assert_eq!(index.xc_09_reset, "OPEN");
+    assert_eq!(index.xc_10_action, "OPEN");
+    assert_eq!(index.xc_11_status_words, "OPEN");
+    assert!(index.design_resolved_is_not_verification);
+    assert!(index.det03_d04_single_match_books_subordinate_to_arch_dec_13_and_26);
+    assert_eq!(index.cr_b01_precedence_over_det07, "IN_FORCE");
+    assert!(index.arch_dec_03_remains_binding);
+    assert!(index.arch_dec_13_quarantine_remains_binding);
+    assert!(index.arch_dec_14_no_predicate_no_release_remains_binding);
+    assert!(index.arch_dec_17_no_terminal_broker_observation_remains_binding);
+    assert!(index.arch_dec_26_quarantine_remains_binding);
+    assert!(index.arch_dec_33_no_role_remains_binding);
+    assert!(index.arch_dec_34_no_resubmit_remains_binding);
+    assert!(index.brokerq01_b_records_supplied_fields_only);
+    assert!(index.brokerq02_b_singleton_is_not_authorization);
+    assert!(index.brokerq03_b_missing_perm_id_is_not_zero);
+    assert!(index.brokerq04_b_identical_replay_has_no_economic_effect);
+    assert!(index.brokerq05_b_does_not_invent_a_link);
+    assert!(index.brokerq06_b_coverage_stays_unknown);
+    assert!(index.brokerq07_a_stores_no_completeness_token);
+    assert!(index.brokerq08_b_local_gap_is_not_an_ibkr_sequence);
+    assert!(index.brokerq09_b_reconnect_is_not_a_negative_send_proof);
+    assert!(index.brokerq10_b_authorizes_no_resend);
+    assert!(index.brokerq11_b_fence_is_not_broker_acceptance);
+    assert!(index.brokerq12_b_marker_is_not_a_role);
+    assert!(index.brokerq13_b_has_no_blanket_winner);
+    assert!(index.brokerq13_option_a_is_not_authority);
+    assert!(index.brokerq14_b_external_cases_not_executed);
+    assert!(index.brokerq14_option_a_is_not_verification);
+    assert!(index.brokerq14_requires_positive_and_negative_external_evidence);
+    assert!(!index.depends_on.is_empty());
+    for finding in [
+        "XC-01",
+        "XC-02-PRED",
+        "XC-03-MATRIX",
+        "XC-05-LOCK",
+        "XC-06",
+        "XC-07-ROUND",
+        "XC-08-IBKR",
+        "XC-09-RESET",
+        "XC-10-ACTION",
+    ] {
+        assert!(
+            index.open_findings.iter().any(|item| item == finding),
+            "missing {finding}"
+        );
+    }
+    assert_eq!(index.partial_findings.len(), 2);
+    assert_eq!(index.partial_findings[0].finding, "XC-04");
+    assert_eq!(index.partial_findings[0].closed_part, "design_precedence");
+    assert_eq!(index.partial_findings[0].by, "RESOLVED_BY_ARCH_DEC_03");
+    assert_eq!(index.partial_findings[0].remainder, "OPEN");
+    assert_eq!(index.partial_findings[1].finding, "XC-11");
+    assert_eq!(
+        index.partial_findings[1].closed_part,
+        "population_and_supersession"
+    );
+    assert_eq!(index.partial_findings[1].by, "RESOLVED_BY_ARCH_DEC_02");
+    assert_eq!(index.partial_findings[1].remainder, "OPEN");
+    for principle in [
+        "XC-02-ALIGN",
+        "XC-03-BOOK",
+        "XC-05-OUTBOX",
+        "XC-07-FX",
+        "XC-08-RULE",
+        "XC-09-SOLO",
+        "XC-10-RACE",
+    ] {
+        assert!(
+            index
+                .principle_only_findings
+                .iter()
+                .any(|item| item == principle),
+            "missing {principle}"
+        );
+    }
+
+    assert_eq!(index.questions.len(), expected.len());
+    let mut seen_questions = BTreeSet::new();
+    let mut seen_decisions = BTreeSet::new();
+    let mut choices = String::new();
+    for (question, row) in index.questions.iter().zip(expected) {
+        let (id, decision_id, choice, wording, source_anchor, scope_code) = row;
+        assert!(seen_questions.insert(id), "duplicate {id}");
+        assert!(
+            seen_decisions.insert(decision_id),
+            "duplicate {decision_id}"
+        );
+        assert_eq!(question.id, id);
+        assert_eq!(question.decision_id, decision_id);
+        assert_eq!(question.choice, choice);
+        assert_eq!(question.wording, wording);
+        assert_eq!(question.source_anchor, source_anchor);
+        assert_eq!(question.ratification_date, "2026-11-15");
+        assert_eq!(question.scope_code, scope_code);
+        assert!(!question.depends_on.is_empty());
+        assert!(question.policy_only);
+        assert!(!question.implemented);
+        assert_eq!(question.verification, "NOT_VERIFIED");
+        assert_eq!(question.verification, "NOT_VERIFIED");
+        if !choices.is_empty() {
+            choices.push(',');
+        }
+        choices.push_str(choice);
+    }
+    assert_eq!(choices, "B,B,B,B,B,B,A,B,B,B,B,B,B,B");
+    assert_eq!(seen_questions.len(), 14);
+    assert_eq!(seen_decisions.len(), 14);
+    assert_eq!(
+        index
+            .questions
+            .iter()
+            .filter(|question| question.choice == "A")
+            .map(|question| question.id.as_str())
+            .collect::<Vec<_>>(),
+        vec!["BROKERQ-07"]
+    );
+    assert_eq!(
+        index
+            .questions
+            .iter()
+            .filter(|question| question.choice == "B")
+            .count(),
+        13
+    );
+
+    let decision_names = fs::read_dir(root.join("contracts/decisions"))
+        .expect("decisions")
+        .map(|item| {
+            item.expect("entry")
+                .file_name()
+                .to_string_lossy()
+                .into_owned()
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        decision_names
+            .iter()
+            .filter(|name| name.contains("ARCH-DEC-35"))
+            .count(),
+        1
+    );
+    assert!(
+        !decision_names
+            .iter()
+            .any(|name| name.contains("ARCH-DEC-49"))
+    );
+    let decision = read_text(&root.join(index.decision_record));
+    assert!(decision.contains("2026-11-15"));
+    assert!(decision.contains("RATIFIED_DESIGN_POLICY_ONLY"));
+    assert!(decision.contains("NOT_IMPLEMENTED"));
+    assert!(decision.contains("NOT_VERIFIED"));
+    assert!(decision.contains("NON_RUNTIME_NON_WIRE"));
+    assert!(decision.contains("not a canonical status enum"));
+    assert!(decision.contains("No evidence URI is recorded"));
+    assert!(decision.contains("none is invented"));
+    assert!(decision.contains("**NO IMPLEMENTATION.**"));
+    assert!(decision.contains("**NO VERIFICATION.**"));
+    for (id, decision_id, choice, wording, source_anchor, scope_code) in expected {
+        assert_eq!(
+            decision.matches(&format!("## {decision_id}")).count(),
+            1,
+            "{decision_id} must be one heading"
+        );
+        assert!(decision.contains(&format!("| {decision_id} | {id} | {choice} | {wording} |")));
+        assert!(decision.contains(&format!("Scope code: `{scope_code}`")));
+        assert!(decision.contains(source_anchor));
+        assert!(
+            decision.matches(wording).count() >= 2,
+            "{decision_id} wording must appear in the index and the decision body"
+        );
+    }
+    assert!(root.join(&index.instruction_archive).is_file());
+    for required in [
+        "Missing `permId` does not equal zero and does not equal another missing value.",
+        "A singleton candidate is `SINGLE_CANDIDATE_NOT_AUTHORIZATION`.",
+        "Identical raw payload replay creates no economic effect and no second execution.",
+        "A contradiction keeps both original payloads.",
+        "A correction link is stored only when the new evidence itself names one.",
+        "No invented link is authorized.",
+        "Coverage stays `UNKNOWN`.",
+        "No completeness token is stored.",
+        "An empty response is not a negative proof",
+        "A local capture gap is not an IBKR sequence number.",
+        "Reconnect creates a new session context.",
+        "Reconnect is not proof that the previous send did not happen.",
+        "Unknown send does not authorize resubmit or takeover.",
+        "Lease expiry does not authorize takeover.",
+        "A local fence is not broker acceptance.",
+        "An escalation marker is not a role.",
+        "Neither the broker observation nor the local record wins.",
+        "Positive and negative external cases are required later and are `NOT_EXECUTED`.",
+        "Documentation tests are not broker evidence.",
+        "`DESIGN_RESOLVED` is not verification.",
+        "The DET-03-D04 and CR-B04 §4.3 single-match booking sentence stays subordinate to ARCH-DEC-13 and ARCH-DEC-26.",
+        "CR-B01 keeps design precedence",
+        "`XC-01` stays OPEN",
+        "`XC-08-IBKR` stays OPEN",
+        "`XC-02-PRED` stays OPEN",
+        "The remainder of XC-04 stays OPEN. XC-04 design precedence stays `RESOLVED_BY_ARCH_DEC_03`.",
+        "`XC-03-MATRIX` stays OPEN",
+        "`XC-05-LOCK` stays OPEN",
+        "`XC-07-ROUND` stays OPEN",
+        "`XC-09-RESET` stays OPEN",
+        "`XC-10-ACTION` stays OPEN",
+        "status-word remainder stays OPEN",
+        "This record states no IBKR guarantee",
+        "EXTERNAL_EVIDENCE_PENDING",
+        "NOT_EXECUTED",
+    ] {
+        assert!(decision.contains(required), "decision missing {required}");
+    }
+    assert!(!decision.contains("```rust"));
+    assert!(!decision.contains("enum OrderClosure"));
+    assert!(!decision.contains("UNIQUE index is approved"));
+
+    let approval_bytes =
+        fs::read(root.join("contracts/design-proposals/TRD-ARCH-03B3-approval-requests.md"))
+            .expect("broker approval requests");
+    const BROKER_REQUEST_HISTORICAL_BYTES: usize = 31525;
+    assert_eq!(
+        sha256_hex(&approval_bytes[..BROKER_REQUEST_HISTORICAL_BYTES]),
+        "0ae902d63e138833545b85fe23efa745ef20f9a1f1a07d4790af76374290975f"
+    );
+    let historical = std::str::from_utf8(&approval_bytes[..BROKER_REQUEST_HISTORICAL_BYTES])
+        .expect("historical broker request utf-8");
+    assert!(historical.contains("USER_DECISION_PENDING"));
+    assert!(historical.contains("NOT_RATIFIED"));
+    assert!(historical.contains("## BROKERQ-07 — Completeness proof"));
+    assert!(!historical.contains("ARCH-DEC-35"));
+    assert!(approval_bytes.len() > BROKER_REQUEST_HISTORICAL_BYTES);
+    let addendum = std::str::from_utf8(&approval_bytes[BROKER_REQUEST_HISTORICAL_BYTES..])
+        .expect("addendum utf-8");
+    assert!(addendum.contains("## Resolution index (2026-11-15, TRD-ARCH-03B.3.2)"));
+    assert!(addendum.contains("NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX"));
+    assert!(addendum.contains("BROKERQ-07"));
+    assert!(addendum.contains("| A |"));
+
+    let unchanged = [
+        (
+            "contracts/design-proposals/TRD-ARCH-03B3-broker-identity-semantics-and-invariants.md",
+            "51f098c9b4e4caa0f9d204496c8976c113139e2ff6a74a8654637202637a3583",
+            18980_usize,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B3-identity-snapshot-and-recovery-options.md",
+            "5939cb69b1fc198d961904e1f4c9371afe2d7810e33c5ff168734b220ec6e2c8",
+            13127,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B3-snapshot-completeness-and-reconciliation-coverage-draft.md",
+            "5252d0d5a6864273e065bde7cfd0d2d0ecb75b70f7d43334b9ba4c967b515173",
+            17455,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B3-dependency-and-conflict-matrix.md",
+            "479ee5cf92d9f09ba80d5fd780d85218ae61c8746d268c85c7b13e14b40020c7",
+            7916,
+        ),
+        (
+            "contracts/source-manifest.json",
+            "82b205d27172ad234d46cfa2a59f0f4785128dd7a6282dea1aab32b412fc2808",
+            17945,
+        ),
+        (
+            "contracts/sources/ADFR-Consolidated-v1.0.json",
+            "272a6dabdb411701a25dd708577dbb498c7a7cd2754d83c612e85454a178a1d5",
+            29880,
+        ),
+        (
+            "contracts/sources/ADFR-Consolidated-v1.0.csv",
+            "b5577302650e3d497465b93063d149313ec1197a38ddad3a9e7a6f223757ec32",
+            13138,
+        ),
+        (
+            "contracts/registry/registry.json",
+            "7abed2af5363726403175c6524bd7a4d05d36b8735ad48442fc26941f8d98197",
+            44332,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-01-bis-03-2026-11-15.md",
+            "9f946806667a3700cb45d5033e509355aeefc60d2216262647f2dbbae034e30a",
+            9761,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md",
+            "af2cd4b5c35912fe97d3a8ea36c459259aabf0a7b7d54657fdb7b7bce6149ddc",
+            13679,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-09-bis-20-2026-11-15.md",
+            "ddaffca4b9d1d69c430a3241db14460e49adf1e8d54a33ac9f0f07b5b957a7a2",
+            24820,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-21-bis-34-2026-11-15.md",
+            "a3afc65a0e1a965ac85a9015acc60da858be0ee57ffe104098f2cf56407e5b07",
+            31894,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json",
+            "96dc34c61db04bc0d4eb0576a98f787fddb5632816b903985b1163993afc73cc",
+            3654,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B12-resolution-index.json",
+            "e4bd482d2b8b971612e241e069009e86810bfde3cf499784725e6d3b5019ca00",
+            6179,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json",
+            "6520b2d64ebcdd00793872ac97a618c9c635e0283d3cf479f7926fc83dac62e6",
+            7035,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B22-resolution-index.json",
+            "5a09d0daedef4bd9faebfd2ab1f22844fefc8bdb6ac1f906222aea94adb54718",
+            10530,
+        ),
+        (
+            "Cargo.toml",
+            "5843ca50c51c0c316bf716c7e3412e4d1be1d9a3870d278c6ef0ef09cd186d3f",
+            1473,
+        ),
+        (
+            "Cargo.lock",
+            "76fd3cefad9eef856ec2d784b1ae373d53ba25a5030a77be00a77d9b8adb80f0",
+            50294,
+        ),
+    ];
+    for (relative, expected_hash, expected_len) in unchanged {
+        let bytes = fs::read(root.join(relative)).expect(relative);
+        assert_eq!(bytes.len(), expected_len, "{relative}");
+        assert_eq!(sha256_hex(&bytes), expected_hash, "{relative}");
+    }
+
+    let registry_text =
+        fs::read_to_string(root.join("contracts/registry/registry.json")).expect("registry text");
+    assert!(!registry_text.contains("TRD-ARCH-03B32"));
+    assert!(!registry_text.contains("ARCH-DEC-35"));
+    assert!(!root.join("contracts/sql").exists());
+    assert!(!root.join("contracts/events").exists());
+
+    let manifest_bytes = fs::read(root.join("contracts/source-manifest.json")).expect("manifest");
+    let manifest: Value = serde_json::from_slice(&manifest_bytes).expect("manifest JSON");
+    let files = manifest["files"].as_array().expect("files");
+    assert_eq!(files.len(), 12);
+    for entry in files {
+        let relative = entry["repository_path"].as_str().expect("path");
+        let filename = entry["filename"].as_str().expect("filename");
+        let bytes = fs::read(root.join(relative)).expect(relative);
+        assert_eq!(bytes.len() as u64, entry["bytes"].as_u64().expect("bytes"));
+        assert_eq!(
+            sha256_hex(&bytes),
+            entry["sha256"].as_str().expect("sha256")
+        );
+        assert!(!entry["reviewed"].as_bool().expect("reviewed"));
+        assert!(!entry["approved"].as_bool().expect("approved"));
+        if filename.starts_with("DET-01") || filename.starts_with("DET-02") {
+            assert!(entry["reconstructed_draft"].as_bool().expect("draft"));
+            assert_eq!(entry["source_text_status"], "SOURCE_REVIEW_PENDING");
+        }
+    }
+
+    let adfr = load_adfr(&root);
+    let csv = load_csv(&root);
+    assert_eq!(adfr.entries.len(), 78);
+    assert_eq!(csv.len(), 78);
+    let json_ids: Vec<&str> = adfr.entries.iter().map(|entry| entry.id.as_str()).collect();
+    let csv_ids: Vec<&str> = csv.iter().map(|row| row[0].as_str()).collect();
+    assert_eq!(json_ids, csv_ids);
+    assert!(
+        adfr.entries
+            .iter()
+            .all(|entry| entry.verification == "NOT_VERIFIED")
+    );
+    assert_eq!(
+        adfr.entries
+            .iter()
+            .filter(|entry| entry.lifecycle == "SUPERSEDED")
+            .count(),
+        1
+    );
+    let superseded = adfr
+        .entries
+        .iter()
+        .find(|entry| entry.lifecycle == "SUPERSEDED")
+        .expect("superseded");
+    assert_eq!(superseded.id, "ADFR-CROSS-005");
+    assert_eq!(superseded.superseded_by.as_deref(), Some("ADFR-CR-B10-001"));
+
+    fn walk_src(dir: &std::path::Path) {
+        for item in fs::read_dir(dir).expect("read src tree") {
+            let path = item.expect("entry").path();
+            if path.is_dir() {
+                walk_src(&path);
+            } else if path
+                .components()
+                .any(|component| component.as_os_str() == "src")
+            {
+                let bytes = fs::read(&path).unwrap_or_default();
+                let text = String::from_utf8_lossy(&bytes);
+                assert!(
+                    !text.contains("ARCH-DEC-35"),
+                    "production source must not embed the broker policy record: {}",
+                    path.display()
+                );
+            }
+        }
+    }
+    for top in ["crates", "apps"] {
+        let base = root.join(top);
+        if base.is_dir() {
+            walk_src(&base);
+        }
+    }
 
     const {
         assert!(!trading_domain::ORDER_STATE_MACHINE_IMPLEMENTED);
