@@ -62,6 +62,7 @@ const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/design-proposals/TRD-ARCH-03B12-resolution-index.json",
     "contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json",
     "contracts/design-proposals/TRD-ARCH-03B22-resolution-index.json",
+    "contracts/design-proposals/TRD-ARCH-03B3-proposal-index.json",
     "contracts/registry/registry.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
@@ -344,7 +345,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, and the non-wire risk policy resolution index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, and the unratified broker proposal index"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
@@ -451,6 +452,44 @@ fn assert_no_published_schema_tree(root: &Path) {
     assert!(!risk_policy.contains("\"oms_transitions_approved\": true"));
     assert!(!risk_policy.contains("\"broker_dispatch_approved\": true"));
     assert!(!risk_policy.contains("\"tests_executed\": true"));
+
+    let broker = fs::read_to_string(
+        root.join("contracts/design-proposals/TRD-ARCH-03B3-proposal-index.json"),
+    )
+    .expect("broker proposal index");
+    assert!(broker.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX\""));
+    assert!(broker.contains("\"ratification\": \"NOT_RATIFIED\""));
+    assert!(broker.contains("\"not_a_schema\": true"));
+    assert!(broker.contains("\"not_registry_json\": true"));
+    assert!(broker.contains("\"implementation_authorized\": false"));
+    assert!(broker.contains("\"broker_dispatch_authorized\": false"));
+    assert!(broker.contains("\"economic_posting_authorized\": false"));
+    assert!(broker.contains("\"risk_release_authorized\": false"));
+    assert!(broker.contains("\"economic_finality_predicate_approved\": false"));
+    assert!(broker.contains("\"oms_transitions_approved\": false"));
+    assert!(broker.contains("\"canonical_broker_identity_tuple_approved\": false"));
+    assert!(broker.contains("\"uniqueness_index_approved\": false"));
+    assert!(broker.contains("\"identity_resolver_implemented\": false"));
+    assert!(broker.contains("\"closes_xc_findings\": false"));
+    assert!(broker.contains("\"verification_executed\": false"));
+    assert!(broker.contains("\"external_broker_requests_executed\": false"));
+    assert!(broker.contains("\"xc_01\": \"OPEN\""));
+    assert!(broker.contains("\"xc_08_ibkr\": \"OPEN\""));
+    assert!(broker.contains("\"xc_02_pred\": \"OPEN\""));
+    assert!(broker.contains("\"xc_04_remainder\": \"OPEN\""));
+    assert!(broker.contains("\"part_b\": \"NO-GO\""));
+    assert!(broker.contains("\"registry_status_required\": \"SKELETON_NOT_CANONICAL\""));
+    assert!(broker.contains("\"live_trading_authorized\": false"));
+    assert!(broker.contains("\"canonical_schemas_published\": false"));
+    assert!(broker.contains("\"canonical_schema_published_by_this_index\": false"));
+    assert!(!broker.contains("\"live_trading_authorized\": true"));
+    assert!(!broker.contains("\"canonical_schemas_published\": true"));
+    assert!(!broker.contains("\"implementation_authorized\": true"));
+    assert!(!broker.contains("\"broker_dispatch_authorized\": true"));
+    assert!(!broker.contains("\"economic_posting_authorized\": true"));
+    assert!(!broker.contains("\"risk_release_authorized\": true"));
+    assert!(!broker.contains("\"verification_executed\": true"));
+    assert!(!broker.contains("\"external_broker_requests_executed\": true"));
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
         .expect("read contracts/source-manifest.json");

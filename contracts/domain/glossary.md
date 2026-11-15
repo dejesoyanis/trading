@@ -115,3 +115,5 @@ M0-02B-a adds the registry skeleton under `contracts/registry/`. Canonical schem
 TRD-ARCH-03B.2 asks RISKQ-01 through RISKQ-14 and does not approve a reservation writer, a release, an economic posting, or an economic-finality predicate. `Released` stays a draft label. `XC-02-PRED` stays OPEN. `RoundingPolicy` still does not round.
 
 ARCH-DEC-21 through ARCH-DEC-34 (2026-11-15) record design policy for those questions and still do not approve a reservation writer, a release, a posting, a predicate, a rounding operation, or an FX conversion. `RoundingPolicy` still does not round. The labels `RATIFIED_DESIGN_POLICY_ONLY`, `NOT_IMPLEMENTED`, and `NOT_VERIFIED` are documentary. They are not a canonical enum.
+
+TRD-ARCH-03B.3 asks BROKERQ-01 through BROKERQ-14 and does not approve a canonical broker identity tuple, a uniqueness index, an identity resolver, a snapshot completeness proof, a broker dispatch, an economic posting, or a reservation release. `BrokerIdentityContext` stays unverified. `XC-01` and `XC-08-IBKR` stay OPEN. Structural equality of an alias is still not a merge.

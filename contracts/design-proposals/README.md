@@ -25,7 +25,7 @@ The proposal files above keep their creation-time text. Their `NOT_RATIFIED` lin
 
 ## TRD-ARCH-03B.2
 
-Risk reservation, partial fills, corrections, and economic finality. Ratification: `NOT_RATIFIED`. `XC-02-PRED` stays OPEN. No economic-finality predicate is approved. No reservation release is approved. No economic posting is approved. Live trading is not authorized. ARCH-03B.3 is not started.
+Risk reservation, partial fills, corrections, and economic finality. Ratification: `NOT_RATIFIED`. `XC-02-PRED` stays OPEN. No economic-finality predicate is approved. No reservation release is approved. No economic posting is approved. Live trading is not authorized. That package did not start ARCH-03B.3.
 
 | File | Role |
 | --- | --- |
@@ -44,4 +44,17 @@ The proposal index repeats the creation-time pending statuses. It is unchanged b
 
 On 2026-11-15 the user ratified design-policy choices for RISKQ-01 through RISKQ-14. The record is ARCH-DEC-21 through ARCH-DEC-34 in [ARCH-DEC-21-bis-34-2026-11-15.md](../decisions/ARCH-DEC-21-bis-34-2026-11-15.md). The machine-readable map is [TRD-ARCH-03B22-resolution-index.json](TRD-ARCH-03B22-resolution-index.json). That map is `NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX`. It is not a registry, not the historical proposal index, and not a wire schema. Its labels are not a canonical enum.
 
-The proposal files above keep their creation-time text. Their `NOT_RATIFIED` lines and the pending question statuses are the historical request. The later record approves design policy only. Options are B, A, A, A, A, A, A, A, A, B, B, A, A, B. It does not approve budget arithmetic, a reservation writer, reservation release, economic posting, an economic-finality predicate, a rounding mode, a lock order, an audit table, a role, a policy migration, an OMS transition, broker dispatch, or live trading. `XC-02-PRED` stays OPEN. ARCH-DEC-13 and ARCH-DEC-14 stay binding. ARCH-03B.3 is not started. **NO IMPLEMENTATION.** **NO VERIFICATION.**
+The proposal files above keep their creation-time text. Their `NOT_RATIFIED` lines and the pending question statuses are the historical request. The later record approves design policy only. Options are B, A, A, A, A, A, A, A, A, B, B, A, A, B. It does not approve budget arithmetic, a reservation writer, reservation release, economic posting, an economic-finality predicate, a rounding mode, a lock order, an audit table, a role, a policy migration, an OMS transition, broker dispatch, or live trading. `XC-02-PRED` stays OPEN. ARCH-DEC-13 and ARCH-DEC-14 stay binding. That record did not start ARCH-03B.3. **NO IMPLEMENTATION.** **NO VERIFICATION.**
+
+## TRD-ARCH-03B.3
+
+Broker identity, snapshot completeness, and unknown-send recovery. Ratification: `NOT_RATIFIED`. BROKERQ-01 through BROKERQ-14 are `USER_DECISION_PENDING`. A recommendation is not a decision. `XC-01` stays OPEN. `XC-08-IBKR` stays OPEN. XC-04 design precedence stays `RESOLVED_BY_ARCH_DEC_03`, and the operational remainder stays OPEN. No canonical identity tuple, uniqueness index, resolver, economic posting, reservation release, OMS transition, or broker dispatch is approved. Live trading is not authorized.
+
+| File | Role |
+| --- | --- |
+| [TRD-ARCH-03B3-broker-identity-semantics-and-invariants.md](TRD-ARCH-03B3-broker-identity-semantics-and-invariants.md) | Namespaces, trust boundaries, and candidate evidence. Not a tuple. |
+| [TRD-ARCH-03B3-snapshot-completeness-and-reconciliation-coverage-draft.md](TRD-ARCH-03B3-snapshot-completeness-and-reconciliation-coverage-draft.md) | Coverage rows. Not a completeness proof. |
+| [TRD-ARCH-03B3-identity-snapshot-and-recovery-options.md](TRD-ARCH-03B3-identity-snapshot-and-recovery-options.md) | Three approaches on each axis. The unsafe contrast is not ratifiable. |
+| [TRD-ARCH-03B3-approval-requests.md](TRD-ARCH-03B3-approval-requests.md) | BROKERQ-01 through BROKERQ-14. `USER_DECISION_PENDING`. |
+| [TRD-ARCH-03B3-dependency-and-conflict-matrix.md](TRD-ARCH-03B3-dependency-and-conflict-matrix.md) | Open XC findings and the handoff that does not authorize later work. |
+| [TRD-ARCH-03B3-proposal-index.json](TRD-ARCH-03B3-proposal-index.json) | Non-runtime index. `NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX`. Not a registry and not a wire schema. |
