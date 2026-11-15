@@ -65,6 +65,7 @@ const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/design-proposals/TRD-ARCH-03B3-proposal-index.json",
     "contracts/design-proposals/TRD-ARCH-03B32-resolution-index.json",
     "contracts/registry/registry.json",
+    "contracts/verification-plans/TRD-ARCH-03B4-plan-index.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
     "contracts/status-model/status-dimensions-draft-v0.json",
@@ -346,7 +347,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, and the non-wire broker policy resolution index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, and the non-wire IBKR verification plan index"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
@@ -543,6 +544,59 @@ fn assert_no_published_schema_tree(root: &Path) {
     assert!(!broker_policy.contains("\"broker_dispatch_approved\": true"));
     assert!(!broker_policy.contains("\"tests_executed\": true"));
     assert!(!broker_policy.contains("\"conflict_closure\": true"));
+
+    let plan =
+        fs::read_to_string(root.join("contracts/verification-plans/TRD-ARCH-03B4-plan-index.json"))
+            .expect("IBKR verification plan index");
+    assert!(plan.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_VERIFICATION_PLAN_INDEX\""));
+    assert!(plan.contains("\"task\": \"TRD-ARCH-03B.4\""));
+    assert!(plan.contains("\"ratification\": \"NOT_RATIFIED\""));
+    assert!(plan.contains("\"questions_status\": \"USER_DECISION_PENDING\""));
+    assert!(plan.contains("\"execution\": \"NOT_EXECUTED\""));
+    assert!(plan.contains("\"external_evidence\": \"EXTERNAL_EVIDENCE_PENDING\""));
+    assert!(plan.contains("\"not_a_schema\": true"));
+    assert!(plan.contains("\"not_registry_json\": true"));
+    assert!(plan.contains("\"not_a_wire_schema\": true"));
+    assert!(plan.contains("\"added_to_canonical_registry\": false"));
+    assert!(plan.contains("\"implementation_authorized\": false"));
+    assert!(plan.contains("\"testing_authorized\": false"));
+    assert!(plan.contains("\"broker_connection_authorized\": false"));
+    assert!(plan.contains("\"order_send_authorized\": false"));
+    assert!(plan.contains("\"read_only_broker_access_authorized\": false"));
+    assert!(plan.contains("\"paper_trading_authorized\": false"));
+    assert!(plan.contains("\"uniqueness_guaranteed\": false"));
+    assert!(plan.contains("\"completeness_proof_approved\": false"));
+    assert!(plan.contains("\"completeness_token_ratified\": false"));
+    assert!(plan.contains("\"economic_posting_approved\": false"));
+    assert!(plan.contains("\"risk_release_approved\": false"));
+    assert!(plan.contains("\"economic_finality_predicate_approved\": false"));
+    assert!(plan.contains("\"oms_transitions_approved\": false"));
+    assert!(plan.contains("\"broker_dispatch_approved\": false"));
+    assert!(plan.contains("\"closes_xc_findings\": false"));
+    assert!(plan.contains("\"conflict_closure\": false"));
+    assert!(plan.contains("\"tests_executed\": false"));
+    assert!(plan.contains("\"external_broker_requests_executed\": false"));
+    assert!(plan.contains("\"documentation_regression_tests_are_not_broker_evidence\": true"));
+    assert!(plan.contains("\"human_checkpoint\": \"STOP\""));
+    assert!(plan.contains("\"evidence_uri\": null"));
+    assert!(plan.contains("\"signature_artifact\": null"));
+    assert!(plan.contains("\"recommendation_is_approval\": false"));
+    assert!(plan.contains("\"xc_01\": \"OPEN\""));
+    assert!(plan.contains("\"xc_08_ibkr\": \"OPEN\""));
+    assert!(plan.contains("\"xc_04_remainder\": \"OPEN\""));
+    assert!(plan.contains("\"xc_02_pred\": \"OPEN\""));
+    assert!(plan.contains("\"live_trading_authorized\": false"));
+    assert!(plan.contains("\"canonical_schemas_published\": false"));
+    assert!(!plan.contains("\"live_trading_authorized\": true"));
+    assert!(!plan.contains("\"canonical_schemas_published\": true"));
+    assert!(!plan.contains("\"testing_authorized\": true"));
+    assert!(!plan.contains("\"broker_connection_authorized\": true"));
+    assert!(!plan.contains("\"order_send_authorized\": true"));
+    assert!(!plan.contains("\"uniqueness_guaranteed\": true"));
+    assert!(!plan.contains("\"completeness_token_ratified\": true"));
+    assert!(!plan.contains("\"tests_executed\": true"));
+    assert!(!plan.contains("\"external_broker_requests_executed\": true"));
+    assert!(!plan.contains("\"conflict_closure\": true"));
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
         .expect("read contracts/source-manifest.json");

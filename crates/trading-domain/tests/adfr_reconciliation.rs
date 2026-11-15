@@ -4406,6 +4406,446 @@ fn broker_design_policy_35_through_48_stays_unimplemented() {
     }
 }
 
+#[test]
+fn ibkr_evidence_verification_plan_stays_unexecuted() {
+    let root = repo_root();
+    let plan_dir = root.join("contracts/verification-plans");
+    for name in [
+        "README.md",
+        "TRD-ARCH-03B4-ibkr-evidence-inventory.md",
+        "TRD-ARCH-03B4-ibkr-verification-protocol.md",
+        "TRD-ARCH-03B4-ibkr-test-matrix.md",
+        "TRD-ARCH-03B4-ibkr-evidence-capture-and-provenance.md",
+        "TRD-ARCH-03B4-dependency-and-conflict-matrix.md",
+        "TRD-ARCH-03B4-approval-requests.md",
+        "TRD-ARCH-03B4-plan-index.json",
+    ] {
+        assert!(plan_dir.join(name).is_file(), "missing {name}");
+    }
+
+    let index_bytes = fs::read(plan_dir.join("TRD-ARCH-03B4-plan-index.json")).expect("plan index");
+    assert!(!index_bytes.starts_with(&[0xEF, 0xBB, 0xBF]));
+    let index: Value = serde_json::from_slice(&index_bytes).expect("parse plan index");
+    assert_eq!(
+        index["document_role"],
+        "NON_RUNTIME_NON_WIRE_VERIFICATION_PLAN_INDEX"
+    );
+    assert_eq!(index["task"], "TRD-ARCH-03B.4");
+    assert_eq!(index["ratification"], "NOT_RATIFIED");
+    assert_eq!(index["questions_status"], "USER_DECISION_PENDING");
+    assert_eq!(index["execution"], "NOT_EXECUTED");
+    assert_eq!(index["external_evidence"], "EXTERNAL_EVIDENCE_PENDING");
+    assert_eq!(index["authorization"], "NOT_AUTHORIZED");
+    assert_eq!(index["implementation"], "NOT_IMPLEMENTED");
+    assert_eq!(index["verification"], "NOT_VERIFIED");
+    assert_eq!(index["human_checkpoint"], "STOP");
+    assert_eq!(index["part_b"], "NO-GO");
+    assert_eq!(index["broker_uniqueness_evidence"], "EVIDENCE_PENDING");
+    assert_eq!(index["registry_status_required"], "SKELETON_NOT_CANONICAL");
+    assert_eq!(index["cr_b01_precedence_over_det07"], "IN_FORCE");
+    assert_eq!(index["xc_01"], "OPEN");
+    assert_eq!(index["xc_01_evidence"], "EVIDENCE_PENDING");
+    assert_eq!(index["xc_08_ibkr"], "OPEN");
+    assert_eq!(index["xc_08_ibkr_evidence"], "EXTERNAL_EVIDENCE_PENDING");
+    assert_eq!(index["xc_04_precedence"], "RESOLVED_BY_ARCH_DEC_03");
+    assert_eq!(index["xc_04_remainder"], "OPEN");
+    assert_eq!(index["xc_02_pred"], "OPEN");
+    assert!(index["not_a_schema"].as_bool().expect("not_a_schema"));
+    assert!(index["not_registry_json"].as_bool().expect("not_registry"));
+    assert!(index["not_a_wire_schema"].as_bool().expect("not_wire"));
+    assert!(
+        index["documentation_regression_tests_are_not_broker_evidence"]
+            .as_bool()
+            .expect("doc tests flag")
+    );
+    assert!(
+        index["design_resolved_is_not_verification"]
+            .as_bool()
+            .expect("design flag")
+    );
+    assert!(
+        index["det03_d04_single_match_books_subordinate_to_arch_dec_13_and_26"]
+            .as_bool()
+            .expect("det03 flag")
+    );
+    for flag in [
+        "added_to_canonical_registry",
+        "implementation_authorized",
+        "testing_authorized",
+        "broker_connection_authorized",
+        "order_send_authorized",
+        "read_only_broker_access_authorized",
+        "paper_trading_authorized",
+        "uniqueness_guaranteed",
+        "uniqueness_index_approved",
+        "completeness_proof_approved",
+        "completeness_token_ratified",
+        "canonical_schemas_published",
+        "canonical_schema_published_by_this_index",
+        "canonical_broker_identity_tuple_approved",
+        "economic_posting_approved",
+        "risk_release_approved",
+        "economic_finality_predicate_approved",
+        "oms_transitions_approved",
+        "broker_dispatch_approved",
+        "live_trading_authorized",
+        "closes_xc_findings",
+        "conflict_closure",
+        "tests_executed",
+        "external_evidence_claimed",
+        "external_broker_requests_executed",
+        "stage_e0_authorized",
+        "stage_e1_authorized",
+        "stage_e2_authorized",
+        "stage_e3_authorized",
+        "stage_e4_authorized",
+        "recommendation_is_approval",
+        "supersedes_prior_decisions",
+    ] {
+        assert_eq!(index[flag], false, "{flag} must stay false");
+    }
+    assert!(index["evidence_uri"].is_null());
+    assert!(index["signature_artifact"].is_null());
+    assert_eq!(
+        index["tests_executed_scope"],
+        "external_broker_and_coverage_tests"
+    );
+
+    let inventory = read_text(&plan_dir.join("TRD-ARCH-03B4-ibkr-evidence-inventory.md"));
+    let protocol = read_text(&plan_dir.join("TRD-ARCH-03B4-ibkr-verification-protocol.md"));
+    let matrix = read_text(&plan_dir.join("TRD-ARCH-03B4-ibkr-test-matrix.md"));
+    let capture =
+        read_text(&plan_dir.join("TRD-ARCH-03B4-ibkr-evidence-capture-and-provenance.md"));
+    let conflicts = read_text(&plan_dir.join("TRD-ARCH-03B4-dependency-and-conflict-matrix.md"));
+    let questions = read_text(&plan_dir.join("TRD-ARCH-03B4-approval-requests.md"));
+    for text in [
+        &inventory, &protocol, &matrix, &capture, &conflicts, &questions,
+    ] {
+        assert!(text.contains("NON_RUNTIME_NON_WIRE_VERIFICATION_PLAN"));
+        assert!(text.contains("NOT_EXECUTED"));
+        assert!(text.contains("EXTERNAL_EVIDENCE_PENDING"));
+        assert!(!text.contains("https://"));
+        assert!(!text.contains("http://"));
+    }
+    assert!(inventory.contains("HYPOTHESIS"));
+    assert!(inventory.contains("UNVERIFIED_RESEARCH_TOPIC"));
+    assert!(inventory.contains("`orderId`"));
+    assert!(inventory.contains("`permId`"));
+    assert!(inventory.contains("`execId`"));
+    assert!(inventory.contains("DISPATCH_STARTED"));
+    assert!(inventory.contains("WriterEpoch"));
+    assert!(inventory.contains("not a standalone uniqueness guarantee"));
+    assert!(protocol.contains("Documentation tests are not broker evidence."));
+    assert!(protocol.contains("HUMAN_STOP_GO_CHECKPOINT"));
+    assert!(protocol.contains("PROOF_OBLIGATION_OWNER_PLACEHOLDER"));
+    assert!(protocol.contains("not an operator role"));
+    assert!(capture.contains("not a canonical schema"));
+    assert!(conflicts.contains("XC-01"));
+    assert!(conflicts.contains("stays OPEN"));
+    assert!(questions.contains("does not grant testing authority"));
+    assert!(questions.contains("CONFLICTS_WITH_BINDING_POLICY"));
+
+    let claims = index["claims"].as_array().expect("claims");
+    assert!(claims.len() >= 27, "claim count {}", claims.len());
+    let mut seen_claims = BTreeSet::new();
+    for claim in claims {
+        let id = claim["id"].as_str().expect("claim id");
+        assert!(seen_claims.insert(id.to_string()), "duplicate {id}");
+        assert_eq!(claim["status"], "HYPOTHESIS");
+        assert_eq!(claim["evidence"], "EXTERNAL_EVIDENCE_PENDING");
+        assert_eq!(claim["execution"], "NOT_EXECUTED");
+        assert_eq!(claim["authorization"], "NOT_AUTHORIZED");
+        assert!(!claim["blocker"].as_str().expect("blocker").is_empty());
+        let section = section_after(&inventory, &format!("## {id}"));
+        assert!(section.contains("HYPOTHESIS"), "{id} hypothesis");
+        assert!(section.contains("NOT_EXECUTED"), "{id} execution");
+        assert!(
+            section.contains("EXTERNAL_EVIDENCE_PENDING"),
+            "{id} evidence"
+        );
+        assert!(section.contains("NOT_AUTHORIZED"), "{id} authorization");
+        assert!(
+            section.contains("UNVERIFIED_RESEARCH_TOPIC"),
+            "{id} research topic"
+        );
+    }
+    assert!(seen_claims.contains("IBKR-CLM-01"));
+    assert!(seen_claims.contains("IBKR-CLM-27"));
+
+    let scenarios = index["scenarios"].as_array().expect("scenarios");
+    assert!(scenarios.len() >= 36, "scenario count {}", scenarios.len());
+    let mut seen_scenarios = BTreeSet::new();
+    for scenario in scenarios {
+        let id = scenario["id"].as_str().expect("scenario id");
+        assert!(seen_scenarios.insert(id.to_string()), "duplicate {id}");
+        assert_eq!(scenario["execution"], "NOT_EXECUTED");
+        assert_eq!(scenario["evidence"], "EXTERNAL_EVIDENCE_PENDING");
+        assert_eq!(scenario["authorization"], "NOT_AUTHORIZED");
+        let action = scenario["action"].as_str().expect("action");
+        assert!(
+            matches!(action, "offline" | "read-only" | "controlled"),
+            "{id} action {action}"
+        );
+        let blocker = scenario["blocker"].as_str().expect("blocker");
+        assert!(!blocker.is_empty());
+        let sources = scenario["sources"].as_array().expect("sources");
+        assert!(!sources.is_empty(), "{id} sources");
+        let claims_for_row = scenario["claims"].as_array().expect("row claims");
+        assert!(!claims_for_row.is_empty(), "{id} claims");
+        for claim_id in claims_for_row {
+            let claim_id = claim_id.as_str().expect("claim id str");
+            assert!(
+                seen_claims.contains(claim_id),
+                "{id} cites unknown {claim_id}"
+            );
+        }
+        let section = section_after(&matrix, &format!("### {id}"));
+        assert!(section.contains("NOT_EXECUTED"), "{id}");
+        assert!(section.contains("EXTERNAL_EVIDENCE_PENDING"), "{id}");
+        assert!(section.contains(blocker), "{id} blocker {blocker}");
+        let source = sources[0].as_str().expect("source");
+        assert!(section.contains(source), "{id} missing {source}");
+        assert!(section.contains("Safety prohibition"), "{id} safety");
+        assert!(section.contains("Oracle limits"), "{id} oracle");
+    }
+    for required in [
+        "IBKR-SCN-A01",
+        "IBKR-SCN-A04",
+        "IBKR-SCN-A07",
+        "IBKR-SCN-A08",
+        "IBKR-SCN-A10",
+        "IBKR-SCN-A12",
+        "IBKR-SCN-A13",
+        "IBKR-SCN-B01",
+        "IBKR-SCN-B03",
+        "IBKR-SCN-B06",
+        "IBKR-SCN-C01",
+        "IBKR-SCN-C02",
+        "IBKR-SCN-C08",
+        "IBKR-SCN-C09",
+        "IBKR-SCN-C10",
+        "IBKR-SCN-D01",
+        "IBKR-SCN-D02",
+        "IBKR-SCN-D03",
+        "IBKR-SCN-D04",
+        "IBKR-SCN-D05",
+        "IBKR-SCN-D06",
+    ] {
+        assert!(seen_scenarios.contains(required), "missing {required}");
+    }
+
+    let question_rows = index["questions"].as_array().expect("questions");
+    assert!(
+        question_rows.len() >= 12,
+        "question count {}",
+        question_rows.len()
+    );
+    let mut seen_questions = BTreeSet::new();
+    for question in question_rows {
+        let id = question["id"].as_str().expect("question id");
+        assert!(seen_questions.insert(id.to_string()), "duplicate {id}");
+        assert_eq!(question["status"], "USER_DECISION_PENDING");
+        assert_eq!(question["ratification"], "NOT_RATIFIED");
+        assert!(question["choice"].is_null(), "{id} must stay undecided");
+        assert_eq!(question["option_c"], "CONFLICTS_WITH_BINDING_POLICY");
+        assert!(
+            !question["sources"]
+                .as_array()
+                .expect("q sources")
+                .is_empty()
+        );
+        assert!(!question["blocker"].as_str().expect("q blocker").is_empty());
+        let section = section_after(&questions, &format!("## {id}"));
+        assert!(section.contains("USER_DECISION_PENDING"), "{id}");
+        assert!(section.contains("NOT_RATIFIED"), "{id}");
+        assert!(section.contains("CONFLICTS_WITH_BINDING_POLICY"), "{id}");
+        assert!(section.contains("Non-binding recommendation"), "{id}");
+        assert!(
+            section.contains("This recommendation is not an approval"),
+            "{id}"
+        );
+    }
+    assert!(seen_questions.contains("IBKREVQ-01"));
+    assert!(seen_questions.contains("IBKREVQ-14"));
+
+    let registry_text =
+        fs::read_to_string(root.join("contracts/registry/registry.json")).expect("registry");
+    assert!(!registry_text.contains("TRD-ARCH-03B4"));
+    assert!(!registry_text.contains("IBKREVQ"));
+    let registry_bytes = fs::read(root.join("contracts/registry/registry.json")).expect("registry");
+    assert_eq!(registry_bytes.len(), 44332);
+    assert_eq!(
+        sha256_hex(&registry_bytes),
+        "7abed2af5363726403175c6524bd7a4d05d36b8735ad48442fc26941f8d98197"
+    );
+
+    let unchanged = [
+        (
+            "contracts/source-manifest.json",
+            "82b205d27172ad234d46cfa2a59f0f4785128dd7a6282dea1aab32b412fc2808",
+            17945_usize,
+        ),
+        (
+            "contracts/sources/ADFR-Consolidated-v1.0.json",
+            "272a6dabdb411701a25dd708577dbb498c7a7cd2754d83c612e85454a178a1d5",
+            29880,
+        ),
+        (
+            "contracts/sources/ADFR-Consolidated-v1.0.csv",
+            "b5577302650e3d497465b93063d149313ec1197a38ddad3a9e7a6f223757ec32",
+            13138,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-01-bis-03-2026-11-15.md",
+            "9f946806667a3700cb45d5033e509355aeefc60d2216262647f2dbbae034e30a",
+            9761,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md",
+            "af2cd4b5c35912fe97d3a8ea36c459259aabf0a7b7d54657fdb7b7bce6149ddc",
+            13679,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-09-bis-20-2026-11-15.md",
+            "ddaffca4b9d1d69c430a3241db14460e49adf1e8d54a33ac9f0f07b5b957a7a2",
+            24820,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-21-bis-34-2026-11-15.md",
+            "a3afc65a0e1a965ac85a9015acc60da858be0ee57ffe104098f2cf56407e5b07",
+            31894,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-35-bis-48-2026-11-15.md",
+            "5c16bc15b2a67fac16f476437d998de834ce823972f40f584647bf607e26b4f5",
+            48595,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json",
+            "96dc34c61db04bc0d4eb0576a98f787fddb5632816b903985b1163993afc73cc",
+            3654,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B12-resolution-index.json",
+            "e4bd482d2b8b971612e241e069009e86810bfde3cf499784725e6d3b5019ca00",
+            6179,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json",
+            "6520b2d64ebcdd00793872ac97a618c9c635e0283d3cf479f7926fc83dac62e6",
+            7035,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B22-resolution-index.json",
+            "5a09d0daedef4bd9faebfd2ab1f22844fefc8bdb6ac1f906222aea94adb54718",
+            10530,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B3-proposal-index.json",
+            "e808dcf8a2339845b4ef49085275b7aad9094862086830d57d13a415841703ce",
+            13593,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B32-resolution-index.json",
+            "e962623370a87fc7e93acc0c90b92728ccfae4678d4247fade0d5f2259e5a6a9",
+            14376,
+        ),
+        (
+            "Cargo.toml",
+            "5843ca50c51c0c316bf716c7e3412e4d1be1d9a3870d278c6ef0ef09cd186d3f",
+            1473,
+        ),
+        (
+            "Cargo.lock",
+            "76fd3cefad9eef856ec2d784b1ae373d53ba25a5030a77be00a77d9b8adb80f0",
+            50294,
+        ),
+    ];
+    for (relative, expected_hash, expected_len) in unchanged {
+        let bytes = fs::read(root.join(relative)).expect(relative);
+        assert_eq!(bytes.len(), expected_len, "{relative}");
+        assert_eq!(sha256_hex(&bytes), expected_hash, "{relative}");
+    }
+
+    let manifest_bytes = fs::read(root.join("contracts/source-manifest.json")).expect("manifest");
+    let manifest: Value = serde_json::from_slice(&manifest_bytes).expect("manifest JSON");
+    let files = manifest["files"].as_array().expect("files");
+    assert_eq!(files.len(), 12);
+    for entry in files {
+        let relative = entry["repository_path"].as_str().expect("path");
+        let bytes = fs::read(root.join(relative)).expect(relative);
+        assert_eq!(bytes.len() as u64, entry["bytes"].as_u64().expect("bytes"));
+        assert_eq!(
+            sha256_hex(&bytes),
+            entry["sha256"].as_str().expect("sha256")
+        );
+    }
+
+    let adfr = load_adfr(&root);
+    let csv = load_csv(&root);
+    assert_eq!(adfr.entries.len(), 78);
+    assert_eq!(csv.len(), 78);
+    assert_eq!(adfr.status, "ARCHITECTURE_DRAFT_NOT_IMPLEMENTED");
+    assert!(
+        adfr.entries
+            .iter()
+            .all(|entry| entry.verification == "NOT_VERIFIED")
+    );
+    let superseded = adfr
+        .entries
+        .iter()
+        .filter(|entry| entry.lifecycle == "SUPERSEDED")
+        .collect::<Vec<_>>();
+    assert_eq!(superseded.len(), 1);
+    assert_eq!(superseded[0].id, "ADFR-CROSS-005");
+    assert_eq!(
+        superseded[0].superseded_by.as_deref(),
+        Some("ADFR-CR-B10-001")
+    );
+
+    let decision_count = fs::read_dir(root.join("contracts/decisions"))
+        .expect("decisions")
+        .count();
+    assert_eq!(decision_count, 5);
+    assert!(
+        !root
+            .join("contracts/decisions")
+            .read_dir()
+            .expect("decisions")
+            .any(|item| item
+                .expect("entry")
+                .file_name()
+                .to_string_lossy()
+                .contains("ARCH-DEC-49"))
+    );
+
+    let prompt = root.join(
+        "docs/cursor-prompts/trading/TRD-ARCH-03B4-IBKR-Evidence-and-Verification-Planning.md",
+    );
+    assert!(prompt.is_file(), "prompt archive");
+    // A passing documentation test is not IBKR evidence and does not execute a scenario.
+    assert!(
+        !index["external_broker_requests_executed"]
+            .as_bool()
+            .expect("executed flag")
+    );
+    assert_eq!(seen_scenarios.len(), scenarios.len());
+    assert_eq!(seen_questions.len(), question_rows.len());
+}
+
+fn section_after<'a>(text: &'a str, heading: &str) -> &'a str {
+    let start = text
+        .find(heading)
+        .unwrap_or_else(|| panic!("missing heading {heading}"));
+    let rest = &text[start + heading.len()..];
+    let end = ["\n### ", "\n## "]
+        .iter()
+        .filter_map(|marker| rest.find(marker))
+        .min()
+        .unwrap_or(rest.len());
+    &rest[..end]
+}
+
 fn hex_encode(bytes: impl AsRef<[u8]>) -> String {
     const HEX: &[u8; 16] = b"0123456789abcdef";
     let bytes = bytes.as_ref();
