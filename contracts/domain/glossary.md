@@ -1,6 +1,6 @@
 # Domain glossary
 
-**Status:** draft shell, M0-02A.2. Each UD is DESIGN_RESOLVED. Implementation status is per decision in [unresolved-decisions.md](unresolved-decisions.md). Not production-proven. `DESIGN_RESOLVED` here is not verification and not live authorization. The separate status vocabulary is [contract-status-model-v1.0.md](../status-model/contract-status-model-v1.0.md).  
+**Status:** draft shell, M0-02A.2. Each UD is DESIGN_RESOLVED. Implementation status is per decision in [unresolved-decisions.md](unresolved-decisions.md). Not production-proven. `DESIGN_RESOLVED` here is not verification and not live authorization. ARCH-DEC-04 does not make that word win over `OPEN P0` or `PROPOSED_FOR_ACCEPTANCE`. The separate status vocabulary is [contract-status-model-v1.0.md](../status-model/contract-status-model-v1.0.md). Interpretation constraints are [ARCH-DEC-04-bis-08-2026-11-15.md](../decisions/ARCH-DEC-04-bis-08-2026-11-15.md).  
 **Source:** CR-B10 v1.0-draft, read as draft names rather than a transition model. Provisional details are refined by the architecture resolution. At M0-02A.2 the DET bodies were not supplied and were not reviewed. As of TRD-ARCH-SYNC-01 they are present under `contracts/sources/` and indexed as `PRESENT / NOT_REVIEWED`. This glossary was not rewritten from them. DET-01 and DET-02 are reconstructed drafts.  
 **Code:** `crates/trading-domain`.  
 **Decisions:** [unresolved-decisions.md](unresolved-decisions.md).  

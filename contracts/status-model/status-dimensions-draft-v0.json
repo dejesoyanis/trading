@@ -3,6 +3,9 @@
   "artifact_class": "STATUS_MODEL_INTERPRETATION_DRAFT",
   "version": "0.1-draft",
   "interpretation_layer_ratification": "PROPOSED_NOT_RATIFIED",
+  "interpretation_constraints_ratification": "CITED_FROM_DATED_USER_DECISION",
+  "interpretation_constraints_record": "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md",
+  "interpretation_constraints_do_not_ratify_token_sets": true,
   "records_ratified_citations": true,
   "not_a_canonical_wire_schema": true,
   "not_a_registry": true,
@@ -27,13 +30,19 @@
   "ratified_fact_citations": [
     "ARCH-DEC-01: DET-01 and DET-02 are DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS and remain RECONSTRUCTED_DRAFT. Q01-Q10 verification stays OPEN. CONFIRMED_DECISION rows are not reclassified as verified.",
     "ARCH-DEC-02: 78 historical IDs. ADFR-CROSS-005 lifecycle SUPERSEDED with successor ADFR-CR-B10-001. 77 NOT_SUPERSEDED. Every verification value remains NOT_VERIFIED. Status-word precedence was not decided.",
-    "ARCH-DEC-03: CR-B01 has design precedence over conflicting or less restrictive DET-07 text. Automatic takeover is not authorized. Fencing is not implemented."
+    "ARCH-DEC-03: CR-B01 has design precedence over conflicting or less restrictive DET-07 text. Automatic takeover is not authorized. Fencing is not implemented.",
+    "ARCH-DEC-04: No winning status among OPEN P0, PROPOSED_FOR_ACCEPTANCE, and DESIGN_RESOLVED. Historical words stay. No default precedence. XC-11 status-word disagreement stays OPEN. P0, P1, and P2 are not a decision-lifecycle state. No precedence is not equivalence.",
+    "ARCH-DEC-05: The proposed closed lifecycle enum is not ratified. Lifecycle facts in force remain SUPERSEDED and NOT_SUPERSEDED. Superseded is not withdrawn or rejected.",
+    "ARCH-DEC-06: IMPLEMENTED_AND_LOCALLY_TESTED is scoped evidence for an explicitly named type-shell part. It is not whole-UD verification, not broker or database verification, not remote CI, and not ADFR verification. All 78 NOT_VERIFIED values and EVIDENCE_PENDING stay.",
+    "ARCH-DEC-07: Any future ADFR verification promotion requires a dated explicit user approval and an evidence record with URI or stable artifact reference, method, environment, timestamp, exact claim and scope, and limitations. This decision does not promote any current verification value.",
+    "ARCH-DEC-08: Manifest placement, intake and current hashes, reconstructed_draft, reviewed, approved, and source_text_status stay. Other package files are not labeled original or unknown. DET-01 and DET-02 stay reconstructed."
   ],
   "source_references": [
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
     "contracts/sources/ADFR-Consolidated-v1.0.csv",
     "contracts/decisions/ARCH-DEC-01-bis-03-2026-11-15.md",
+    "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md",
     "contracts/traceability-index.md",
     "contracts/registry/registry.json",
     "docs/architecture/TRD-ARCH-SYNC-01-report.md",
@@ -74,7 +83,23 @@
     },
     {
       "id": "INV-NO-XC-CLOSURE",
-      "statement": "This draft does not close XC findings. Status-word disagreement remains REQUIRES_USER_DECISION."
+      "statement": "This draft does not close XC findings. ARCH-DEC-04 refuses a winning status among OPEN P0, PROPOSED_FOR_ACCEPTANCE, and DESIGN_RESOLVED. XC-11 status-word disagreement stays OPEN. The cross-source mapping remains REQUIRES_USER_DECISION. Refusing precedence does not make the historical words equivalent."
+    },
+    {
+      "id": "INV-NO-CLOSED-LIFECYCLE-ENUM",
+      "statement": "ARCH-DEC-05 does not ratify the closed lifecycle enum. SUPERSEDED is not withdrawn or rejected."
+    },
+    {
+      "id": "INV-SCOPED-LOCAL-TESTS",
+      "statement": "ARCH-DEC-06 keeps IMPLEMENTED_AND_LOCALLY_TESTED scoped to the named type-shell part. It does not change ADFR verification or broker, database, or remote CI evidence."
+    },
+    {
+      "id": "INV-EVIDENCE-GATE",
+      "statement": "ARCH-DEC-07 requires a dated explicit user approval and an evidence record with URI or stable artifact reference, method, environment, timestamp, exact claim and scope, and limitations before any ADFR verification value leaves NOT_VERIFIED. No current row is promoted."
+    },
+    {
+      "id": "INV-PROVENANCE-PLACEMENT",
+      "statement": "ARCH-DEC-08 keeps manifest placement and provenance fields. Package files are not labeled original or unknown by this draft."
     }
   ],
   "dimensions": [
@@ -197,8 +222,8 @@
       "context": "DET-09/10 ADFR-CROSS-001..004",
       "mapping_status": "REQUIRES_USER_DECISION",
       "dimensions": ["severity", "historical_composite"],
-      "safe_interpretation": "Historical table cell. P0 is priority. The cell is not the ADFR status field.",
-      "does_not_imply": ["PROPOSED_FOR_ACCEPTANCE", "DESIGN_RESOLVED", "verified", "implemented", "ratified"],
+      "safe_interpretation": "Historical table cell. P0 is priority, not a decision-lifecycle state (ARCH-DEC-04). The cell is not the ADFR status field. No winning status is established, and the word is not equivalent to PROPOSED_FOR_ACCEPTANCE or DESIGN_RESOLVED.",
+      "does_not_imply": ["PROPOSED_FOR_ACCEPTANCE", "DESIGN_RESOLVED", "verified", "implemented", "ratified", "equivalent_status"],
       "sources": ["contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md"]
     },
     {
@@ -206,8 +231,8 @@
       "context": "DET-09/10 ADFR-CROSS-006",
       "mapping_status": "REQUIRES_USER_DECISION",
       "dimensions": ["severity", "historical_composite"],
-      "safe_interpretation": "Historical table cell for ADFR-CROSS-006. P1 is priority.",
-      "does_not_imply": ["PROPOSED_FOR_ACCEPTANCE", "DESIGN_RESOLVED", "verified", "implemented"],
+      "safe_interpretation": "Historical table cell for ADFR-CROSS-006. P1 is priority, not a decision-lifecycle state (ARCH-DEC-04).",
+      "does_not_imply": ["PROPOSED_FOR_ACCEPTANCE", "DESIGN_RESOLVED", "verified", "implemented", "equivalent_status"],
       "sources": ["contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md"]
     },
     {
@@ -215,8 +240,8 @@
       "context": "DET-09/10 ADFR-CROSS-005 cell",
       "mapping_status": "REQUIRES_USER_DECISION",
       "dimensions": ["severity", "historical_composite"],
-      "safe_interpretation": "Historical table cell left in place. Register lifecycle SUPERSEDED does not rewrite this cell.",
-      "does_not_imply": ["verified", "deleted", "status_rewritten"],
+      "safe_interpretation": "Historical table cell left in place. Register lifecycle SUPERSEDED does not rewrite this cell. P2 is priority, not a decision-lifecycle state (ARCH-DEC-04).",
+      "does_not_imply": ["verified", "deleted", "status_rewritten", "equivalent_status"],
       "sources": ["contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md"]
     },
     {
@@ -224,8 +249,8 @@
       "context": "ADFR status field, 57 rows",
       "mapping_status": "REQUIRES_USER_DECISION",
       "dimensions": ["historical_status_word"],
-      "safe_interpretation": "Retained ADFR status word, including on superseded ADFR-CROSS-005. Not a ratified lifecycle enum.",
-      "does_not_imply": ["DESIGN_RESOLVED", "OPEN P0", "verified", "implemented", "accepted"],
+      "safe_interpretation": "Retained ADFR status word, including on superseded ADFR-CROSS-005. Not a ratified lifecycle enum. ARCH-DEC-04 does not make it the winner over OPEN P0 or DESIGN_RESOLVED.",
+      "does_not_imply": ["DESIGN_RESOLVED", "OPEN P0", "verified", "implemented", "accepted", "equivalent_status"],
       "sources": ["contracts/sources/ADFR-Consolidated-v1.0.json"]
     },
     {
@@ -242,8 +267,8 @@
       "context": "source self-label and one ADFR row",
       "mapping_status": "REQUIRES_USER_DECISION",
       "dimensions": ["historical_status_word"],
-      "safe_interpretation": "A source's claim that a design text exists. ARCH-DEC-02 left its relationship to OPEN P0 and PROPOSED_FOR_ACCEPTANCE undecided. On ADFR-CR-B10-001 the status field is this word and verification is NOT_VERIFIED.",
-      "does_not_imply": ["verified", "implemented", "live_authorized", "PROPOSED_FOR_ACCEPTANCE", "test_pass"],
+      "safe_interpretation": "A source's claim that a design text exists. ARCH-DEC-02 left its relationship to OPEN P0 and PROPOSED_FOR_ACCEPTANCE undecided, and ARCH-DEC-04 decides there is no winner and no equivalence. On ADFR-CR-B10-001 the status field is this word and verification is NOT_VERIFIED.",
+      "does_not_imply": ["verified", "implemented", "live_authorized", "PROPOSED_FOR_ACCEPTANCE", "test_pass", "equivalent_status"],
       "sources": ["contracts/sources/ADFR-Consolidated-v1.0.json", "contracts/sources/CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md", "contracts/sources/P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md"]
     },
     {
@@ -357,11 +382,11 @@
     {
       "phrase": "IMPLEMENTED_AND_LOCALLY_TESTED",
       "context": "UD delivered type-shell part",
-      "mapping_status": "REQUIRES_USER_DECISION",
+      "mapping_status": "DEFINITIVE",
       "dimensions": ["implementation"],
-      "safe_interpretation": "The named UD part has local type-shell tests. Whether any broader verification label may be used is undecided.",
-      "does_not_imply": ["externally_verified", "broker_correct", "database_correct", "adfr_row_verified"],
-      "sources": ["contracts/domain/unresolved-decisions.md"]
+      "safe_interpretation": "ARCH-DEC-06. Scoped evidence for the explicitly named type-shell part only. Not the whole UD, not broker or database verification, not remote CI, and not ADFR verification.",
+      "does_not_imply": ["externally_verified", "broker_correct", "database_correct", "adfr_row_verified", "remote_ci", "whole_ud"],
+      "sources": ["contracts/domain/unresolved-decisions.md", "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md"]
     },
     {
       "phrase": "IMPLEMENTATION_PENDING",
@@ -584,7 +609,10 @@
     "Reject a mapping that sends NO_CONFLICT_FOUND to implementation_permission.",
     "Do not assign proposed_values_not_ratified onto a register row.",
     "Do not treat this file as registry.json or as a canonical wire schema.",
-    "Do not close an XC finding from this file."
+    "Do not close an XC finding from this file.",
+    "Reject a reading that treats the absence of status precedence as equivalence of OPEN P0, PROPOSED_FOR_ACCEPTANCE, and DESIGN_RESOLVED.",
+    "Reject a reading that ratifies the proposed decision-lifecycle enum.",
+    "Reject a reading that promotes IMPLEMENTED_AND_LOCALLY_TESTED to ADFR verification or to broker, database, or remote CI evidence."
   ],
   "forbidden_promotions": [
     {"from": "NOT_VERIFIED", "to": "verified"},
@@ -600,6 +628,12 @@
     {"from": "NOT_SUPERSEDED", "to": "accepted"},
     {"from": "NO-GO", "to": "live_authorized"},
     {"from": "SKELETON_NOT_CANONICAL", "to": "canonical_schemas_published"},
-    {"from": "IMPLEMENTED_AND_LOCALLY_TESTED", "to": "externally_verified"}
+    {"from": "IMPLEMENTED_AND_LOCALLY_TESTED", "to": "externally_verified"},
+    {"from": "IMPLEMENTED_AND_LOCALLY_TESTED", "to": "remote_ci"},
+    {"from": "OPEN P0", "to": "equivalent_status"},
+    {"from": "PROPOSED_FOR_ACCEPTANCE", "to": "equivalent_status"},
+    {"from": "DESIGN_RESOLVED", "to": "equivalent_status"},
+    {"from": "SUPERSEDED", "to": "withdrawn"},
+    {"from": "SUPERSEDED", "to": "rejected"}
   ]
 }

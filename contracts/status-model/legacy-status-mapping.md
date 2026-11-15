@@ -3,14 +3,23 @@
 **Role:** source-grounded reading of status phrases already present in the repository. This file does not rewrite those sources and does not choose a winner where they disagree.
 **Model:** [contract-status-model-v1.0.md](contract-status-model-v1.0.md)
 **Machine companion:** [status-dimensions-draft-v0.json](status-dimensions-draft-v0.json). Phrase rows below match that draft. The draft is PROPOSED_NOT_RATIFIED as an interpretation layer.
+**Interpretation constraints:** [ARCH-DEC-04-bis-08-2026-11-15.md](../decisions/ARCH-DEC-04-bis-08-2026-11-15.md), dated 2026-11-15. Those decisions constrain readings. They do not delete a phrase row and they do not make conflicting historical status words equivalent.
 **Date:** 2026-11-15
 **Live trading:** NOT AUTHORIZED
 
-DEFINITIVE means the home-field reading and the forbidden implications are fixed by an existing source or by ARCH-DEC-01, ARCH-DEC-02, or ARCH-DEC-03. PROVISIONAL means a later document explains the cell without rewriting it. REQUIRES_USER_DECISION means two readings remain possible and this file does not pick one. See [approval-requests.md](approval-requests.md).
+DEFINITIVE means the home-field reading and the forbidden implications are fixed by an existing source or by ARCH-DEC-01, ARCH-DEC-02, ARCH-DEC-03, or, where named below, ARCH-DEC-04 through ARCH-DEC-08. PROVISIONAL means a later document explains the cell without rewriting it. REQUIRES_USER_DECISION means the cross-source mapping is unresolved and this file does not pick a winner. See [approval-requests.md](approval-requests.md). ARCH-DEC-04 keeps that unresolved mapping for status precedence. A decision to have no precedence is not a decision that the historical statuses are equivalent.
 
 ## Readings that stay explicit
 
-**XC-11 status words.** contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md section ## ADFR-CROSS says OPEN P0 for ADFR-CROSS-001 through ADFR-CROSS-004, OPEN P2 for ADFR-CROSS-005, and OPEN P1 for ADFR-CROSS-006. The ADFR JSON and CSV say PROPOSED_FOR_ACCEPTANCE and NOT_VERIFIED for those rows, and DESIGN_RESOLVED / NOT_VERIFIED for ADFR-CR-B10-001. The P0 file says DESIGN_RESOLVED and P0_DESIGN_RESOLVED. The P1 file says P1_DESIGN_RESOLVED. The 2026-11-14 consolidation sentence that calls OPEN P0 a historical cross-reference is still in that file. ARCH-DEC-02 says which of OPEN P0, PROPOSED_FOR_ACCEPTANCE, and DESIGN_RESOLVED wins was not decided. Those equivalences are REQUIRES_USER_DECISION. The original sentences are not edited to agree.
+**XC-11 status words.** contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md section ## ADFR-CROSS says OPEN P0 for ADFR-CROSS-001 through ADFR-CROSS-004, OPEN P2 for ADFR-CROSS-005, and OPEN P1 for ADFR-CROSS-006. The ADFR JSON and CSV say PROPOSED_FOR_ACCEPTANCE and NOT_VERIFIED for those rows, and DESIGN_RESOLVED / NOT_VERIFIED for ADFR-CR-B10-001. The P0 file says DESIGN_RESOLVED and P0_DESIGN_RESOLVED. The P1 file says P1_DESIGN_RESOLVED. The 2026-11-14 consolidation sentence that calls OPEN P0 a historical cross-reference is still in that file. ARCH-DEC-02 says which of OPEN P0, PROPOSED_FOR_ACCEPTANCE, and DESIGN_RESOLVED wins was not decided. ARCH-DEC-04 decides that there is no winner and no default precedence, and that historical P0, P1, and P2 are not a decision-lifecycle state. The XC-11 status-word disagreement stays OPEN. The crosswalk stays REQUIRES_USER_DECISION. The words are not equivalent. The original sentences are not edited to agree.
+
+**ARCH-DEC-05.** The closed lifecycle enum is not ratified. SUPERSEDED is not withdrawn or rejected. The 41 phrase rows below stay. No historical record is labeled REJECTED or WITHDRAWN by these decisions.
+
+**ARCH-DEC-06.** IMPLEMENTED_AND_LOCALLY_TESTED is scoped evidence for the named type-shell part only. It does not verify an ADFR row, a broker, a database, or remote CI. That phrase's home-field reading is now DEFINITIVE for that scope. The historical literal is unchanged.
+
+**ARCH-DEC-07.** A future ADFR verification change needs a dated user decision and an evidence record with a URI or stable artifact reference, method, environment, timestamp, exact claim and scope, and limitations. No present row is promoted. NOT_VERIFIED stays the only register verification literal.
+
+**ARCH-DEC-08.** Manifest placement and provenance flags stay. DET-01 and DET-02 stay RECONSTRUCTED_DRAFT. Other package files are not labeled original or unknown. Q01-Q10 verification cells stay OPEN. DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS is unchanged.
 
 **ARCH-DEC-01.** DET-01 and DET-02 are DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS. Provenance remains RECONSTRUCTED_DRAFT. Q01-Q10 verification cells remain OPEN. The twenty CONFIRMED_DECISION rows are not relabeled and are not marked verified.
 
@@ -42,7 +51,7 @@ DEFINITIVE means the home-field reading and the forbidden implications are fixed
 | NO_CONFLICT_FOUND | TRD-ARCH-SYNC-01 principle rows | DEFINITIVE |
 | ARCHITECTURE_DRAFT_NOT_IMPLEMENTED | ADFR JSON root status | DEFINITIVE |
 | TESTS_NOT_EXECUTED | CR-B10 section 9 and consolidation header | DEFINITIVE |
-| IMPLEMENTED_AND_LOCALLY_TESTED | UD delivered type-shell part | REQUIRES_USER_DECISION |
+| IMPLEMENTED_AND_LOCALLY_TESTED | UD delivered type-shell part | DEFINITIVE |
 | IMPLEMENTATION_PENDING | UD undelivered remainder | DEFINITIVE |
 | P0_DESIGN_RESOLVED | P0 file Gesamtstatus | REQUIRES_USER_DECISION |
 | P1_DESIGN_RESOLVED | P1 file section 0 | REQUIRES_USER_DECISION |
@@ -73,32 +82,32 @@ DEFINITIVE means the home-field reading and the forbidden implications are fixed
 - **Historical literal:** OPEN P0
 - **Dimensions:** severity, historical_composite
 - **Sources:** contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md
-- **Safe interpretation:** Historical table cell. P0 is priority. The cell is not the ADFR status field.
-- **Does not imply:** PROPOSED_FOR_ACCEPTANCE, DESIGN_RESOLVED, verified, implemented, ratified
+- **Safe interpretation:** Historical table cell. P0 is priority, not a decision-lifecycle state (ARCH-DEC-04). The cell is not the ADFR status field. No winning status is established, and the word is not equivalent to PROPOSED_FOR_ACCEPTANCE or DESIGN_RESOLVED.
+- **Does not imply:** PROPOSED_FOR_ACCEPTANCE, DESIGN_RESOLVED, verified, implemented, ratified, equivalent_status
 
 ### OPEN P1 (DET-09/10 ADFR-CROSS-006) — REQUIRES_USER_DECISION
 
 - **Historical literal:** OPEN P1
 - **Dimensions:** severity, historical_composite
 - **Sources:** contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md
-- **Safe interpretation:** Historical table cell for ADFR-CROSS-006. P1 is priority.
-- **Does not imply:** PROPOSED_FOR_ACCEPTANCE, DESIGN_RESOLVED, verified, implemented
+- **Safe interpretation:** Historical table cell for ADFR-CROSS-006. P1 is priority, not a decision-lifecycle state (ARCH-DEC-04).
+- **Does not imply:** PROPOSED_FOR_ACCEPTANCE, DESIGN_RESOLVED, verified, implemented, equivalent_status
 
 ### OPEN P2 (DET-09/10 ADFR-CROSS-005 cell) — REQUIRES_USER_DECISION
 
 - **Historical literal:** OPEN P2
 - **Dimensions:** severity, historical_composite
 - **Sources:** contracts/sources/DET-09-bis-DET-10-und-Cross-Contract-Review-v1.0.md
-- **Safe interpretation:** Historical table cell left in place. Register lifecycle SUPERSEDED does not rewrite this cell.
-- **Does not imply:** verified, deleted, status_rewritten
+- **Safe interpretation:** Historical table cell left in place. Register lifecycle SUPERSEDED does not rewrite this cell. P2 is priority, not a decision-lifecycle state (ARCH-DEC-04).
+- **Does not imply:** verified, deleted, status_rewritten, equivalent_status
 
 ### PROPOSED_FOR_ACCEPTANCE (ADFR status field, 57 rows) — REQUIRES_USER_DECISION
 
 - **Historical literal:** PROPOSED_FOR_ACCEPTANCE
 - **Dimensions:** historical_status_word
 - **Sources:** contracts/sources/ADFR-Consolidated-v1.0.json
-- **Safe interpretation:** Retained ADFR status word, including on superseded ADFR-CROSS-005. Not a ratified lifecycle enum.
-- **Does not imply:** DESIGN_RESOLVED, OPEN P0, verified, implemented, accepted
+- **Safe interpretation:** Retained ADFR status word, including on superseded ADFR-CROSS-005. Not a ratified lifecycle enum. ARCH-DEC-04 does not make it the winner over OPEN P0 or DESIGN_RESOLVED.
+- **Does not imply:** DESIGN_RESOLVED, OPEN P0, verified, implemented, accepted, equivalent_status
 
 ### CONFIRMED_DECISION (ADFR status field, 20 DET-01/02 rows) — DEFINITIVE
 
@@ -113,8 +122,8 @@ DEFINITIVE means the home-field reading and the forbidden implications are fixed
 - **Historical literal:** DESIGN_RESOLVED
 - **Dimensions:** historical_status_word
 - **Sources:** contracts/sources/ADFR-Consolidated-v1.0.json; contracts/sources/CR-B10-Domain-Glossary-and-Schema-Registry-v1.0.md; contracts/sources/P0-Resolution-Contracts-CR-B01-bis-CR-B04-v1.0.md
-- **Safe interpretation:** A source's claim that a design text exists. ARCH-DEC-02 left its relationship to OPEN P0 and PROPOSED_FOR_ACCEPTANCE undecided. On ADFR-CR-B10-001 the status field is this word and verification is NOT_VERIFIED.
-- **Does not imply:** verified, implemented, live_authorized, PROPOSED_FOR_ACCEPTANCE, test_pass
+- **Safe interpretation:** A source's claim that a design text exists. ARCH-DEC-02 left its relationship to OPEN P0 and PROPOSED_FOR_ACCEPTANCE undecided, and ARCH-DEC-04 decides there is no winner and no equivalence. On ADFR-CR-B10-001 the status field is this word and verification is NOT_VERIFIED.
+- **Does not imply:** verified, implemented, live_authorized, PROPOSED_FOR_ACCEPTANCE, test_pass, equivalent_status
 
 ### DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS (DET-01 and DET-02 manifest design_baseline) — DEFINITIVE
 
@@ -154,7 +163,7 @@ DEFINITIVE means the home-field reading and the forbidden implications are fixed
 - **Dimensions:** supersession
 - **Sources:** contracts/sources/ADFR-Consolidated-v1.0.json; contracts/decisions/ARCH-DEC-01-bis-03-2026-11-15.md
 - **Safe interpretation:** Historical row retained. superseded_by is ADFR-CR-B10-001. status stays PROPOSED_FOR_ACCEPTANCE and verification stays NOT_VERIFIED.
-- **Does not imply:** verified, rejected, withdrawn, deleted, status_rewritten
+- **Does not imply:** verified, rejected, withdrawn, deleted, status_rewritten. ARCH-DEC-05 does not treat SUPERSEDED as rejected or withdrawn.
 
 ### NOT_SUPERSEDED (lifecycle of the other 77 IDs) — DEFINITIVE
 
@@ -212,13 +221,13 @@ DEFINITIVE means the home-field reading and the forbidden implications are fixed
 - **Safe interpretation:** Named tests, including B10-T01 through B10-T12, are specified and not passed.
 - **Does not imply:** test_pass, verified, B10-T01_passed
 
-### IMPLEMENTED_AND_LOCALLY_TESTED (UD delivered type-shell part) — REQUIRES_USER_DECISION
+### IMPLEMENTED_AND_LOCALLY_TESTED (UD delivered type-shell part) — DEFINITIVE
 
 - **Historical literal:** IMPLEMENTED_AND_LOCALLY_TESTED
 - **Dimensions:** implementation
-- **Sources:** contracts/domain/unresolved-decisions.md
-- **Safe interpretation:** The named UD part has local type-shell tests. Whether any broader verification label may be used is undecided.
-- **Does not imply:** externally_verified, broker_correct, database_correct, adfr_row_verified
+- **Sources:** contracts/domain/unresolved-decisions.md; contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md
+- **Safe interpretation:** ARCH-DEC-06. Scoped evidence for the explicitly named type-shell part only. Not the whole UD, not broker or database verification, not remote CI, and not ADFR verification.
+- **Does not imply:** externally_verified, broker_correct, database_correct, adfr_row_verified, remote_ci, whole_ud
 
 ### IMPLEMENTATION_PENDING (UD undelivered remainder) — DEFINITIVE
 

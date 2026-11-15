@@ -484,6 +484,9 @@ struct StatusDraft {
     artifact_class: String,
     version: String,
     interpretation_layer_ratification: String,
+    interpretation_constraints_ratification: String,
+    interpretation_constraints_record: String,
+    interpretation_constraints_do_not_ratify_token_sets: bool,
     records_ratified_citations: bool,
     not_a_canonical_wire_schema: bool,
     not_a_registry: bool,
@@ -613,12 +616,37 @@ fn status_draft_is_non_runtime_and_unratified() {
     assert_eq!(draft.broker_uniqueness_evidence, "EVIDENCE_PENDING");
     assert_eq!(draft.dispatch_readiness, "NOT_AUTHORIZED");
     assert!(draft.who_may_approve.contains("does not approve"));
-    assert!(draft.ratified_fact_citations.len() >= 3);
+    assert!(draft.ratified_fact_citations.len() >= 8);
+    assert_eq!(
+        draft.interpretation_constraints_ratification,
+        "CITED_FROM_DATED_USER_DECISION"
+    );
+    assert_eq!(
+        draft.interpretation_constraints_record,
+        "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md"
+    );
+    assert!(draft.interpretation_constraints_do_not_ratify_token_sets);
+    for id in [
+        "ARCH-DEC-01",
+        "ARCH-DEC-02",
+        "ARCH-DEC-03",
+        "ARCH-DEC-04",
+        "ARCH-DEC-05",
+        "ARCH-DEC-06",
+        "ARCH-DEC-07",
+        "ARCH-DEC-08",
+    ] {
+        assert!(
+            draft
+                .ratified_fact_citations
+                .iter()
+                .any(|citation| citation.contains(id)),
+            "missing citation {id}"
+        );
+    }
     for citation in &draft.ratified_fact_citations {
         assert!(
-            citation.contains("ARCH-DEC-01")
-                || citation.contains("ARCH-DEC-02")
-                || citation.contains("ARCH-DEC-03"),
+            citation.contains("ARCH-DEC-0"),
             "citation is not an ARCH-DEC fact: {citation}"
         );
     }
@@ -1035,6 +1063,263 @@ fn status_model_keeps_register_provenance_and_open_findings() {
     assert!(unresolved.contains("status-model/contract-status-model-v1.0.md"));
     assert!(unresolved.contains("DESIGN_RESOLVED"));
     assert!(!unresolved.contains("live_trading_authorized: true"));
+}
+
+#[test]
+fn interpretation_decisions_04_through_08_stay_conservative() {
+    let root = repo_root();
+    let decision_path = root.join("contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md");
+    let decision = read_text(&decision_path);
+    let names = fs::read_dir(root.join("contracts/decisions"))
+        .expect("decisions")
+        .map(|item| {
+            item.expect("entry")
+                .file_name()
+                .to_string_lossy()
+                .into_owned()
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(
+        names
+            .iter()
+            .filter(|name| name.contains("ARCH-DEC-04"))
+            .count(),
+        1,
+        "ARCH-DEC-04 must be recorded in one file"
+    );
+
+    for (heading, smq, wording) in [
+        (
+            "## ARCH-DEC-04",
+            "| ARCH-DEC-04 | SMQ-01 | DECIDED | Alternative 1 |",
+            "Keine Priorität; historische Statusbegriffe unverändert lassen",
+        ),
+        (
+            "## ARCH-DEC-05",
+            "| ARCH-DEC-05 | SMQ-02 | DECIDED | Alternative 1 |",
+            "Kein neues Enum und keine zusätzlichen Lifecycle-Zuordnungen",
+        ),
+        (
+            "## ARCH-DEC-06",
+            "| ARCH-DEC-06 | SMQ-03 | DECIDED | Alternative 1 |",
+            "Nur konkret getestete Teilkomponenten als lokal getestet behandeln",
+        ),
+        (
+            "## ARCH-DEC-07",
+            "| ARCH-DEC-07 | SMQ-04 | DECIDED | Alternative 1 |",
+            "Datierter Nutzerentscheid plus geeigneter Evidenznachweis",
+        ),
+        (
+            "## ARCH-DEC-08",
+            "| ARCH-DEC-08 | SMQ-05 | DECIDED | Alternative 1 |",
+            "Bestehende Manifestangaben beibehalten",
+        ),
+    ] {
+        assert_eq!(
+            decision.matches(heading).count(),
+            1,
+            "{heading} must be recorded once"
+        );
+        assert!(decision.contains(smq), "missing map {smq}");
+        assert!(
+            decision.contains(wording),
+            "missing user wording for {heading}"
+        );
+        assert!(decision.contains("2026-11-15"));
+    }
+    assert!(decision.contains("Alternative 1"));
+    assert!(decision.contains("does not ratify"));
+    assert!(decision.contains("No evidence URI is recorded"));
+    assert!(decision.contains("not approval of any present verification promotion"));
+    assert!(decision.contains("IMPLEMENTED_AND_LOCALLY_TESTED"));
+    assert!(decision.contains("not ADFR verification"));
+    assert!(decision.contains("NOT_VERIFIED"));
+    assert!(decision.contains("EVIDENCE_PENDING"));
+    assert!(decision.contains("RECONSTRUCTED_DRAFT"));
+    assert!(decision.contains("No default precedence"));
+    assert!(decision.contains("is not a decision that the historical statuses are equivalent"));
+    assert!(decision.contains("XC-11"));
+    assert!(decision.contains("stays OPEN"));
+    for field in [
+        "URI or other stable artifact reference",
+        "method",
+        "environment",
+        "timestamp",
+        "exact claim",
+        "scope",
+        "limitations",
+        "dated explicit user approval",
+    ] {
+        assert!(decision.contains(field), "evidence gate missing {field}");
+    }
+    for finding in [
+        "XC-01",
+        "XC-02-PRED",
+        "XC-03-MATRIX",
+        "XC-05-LOCK",
+        "XC-06",
+        "XC-07-ROUND",
+        "XC-08-IBKR",
+        "XC-09-RESET",
+        "XC-10-ACTION",
+    ] {
+        assert!(decision.contains(finding), "decision dropped {finding}");
+    }
+    assert!(decision.contains("status-word remainder stays OPEN"));
+    for banned in [
+        "live_trading_authorized: true",
+        "canonical_schemas_published: true",
+        "verification` = `VERIFIED",
+        "the closed lifecycle enum is ratified",
+    ] {
+        assert!(
+            !decision.contains(banned),
+            "decision contradicts itself with {banned}"
+        );
+    }
+
+    let approvals = read_text(&root.join("contracts/status-model/approval-requests.md"));
+    for alternative in [
+        "1. No winner. Keep every literal in its source.",
+        "1. Do not add the enum and do not assign `rejected` or `withdrawn`.",
+        "1. Scoped evidence for the named type-shell part only.",
+        "1. A dated user decision plus an evidence record naming URI, method, environment, timestamp, scope, and limitations.",
+        "1. Leave those files on their manifest placement and `NOT_REVIEWED`.",
+        "Nothing here is approved.",
+        "Do not self-approve.",
+        "## Resolution index (2026-11-15, TRD-ARCH-03A.2)",
+    ] {
+        assert!(
+            approvals.contains(alternative),
+            "approval text lost: {alternative}"
+        );
+    }
+    assert!(!approvals.contains("Decision: approved"));
+
+    let model = read_text(&root.join("contracts/status-model/contract-status-model-v1.0.md"));
+    assert!(model.contains("PROPOSED_NOT_RATIFIED"));
+    assert!(model.contains("no default precedence"));
+    assert!(model.contains("does not ratify the closed lifecycle enum"));
+    assert!(model.contains("XC-11 status-word disagreement stays OPEN"));
+    assert!(model.contains("NON_RUNTIME_NON_WIRE_DRAFT"));
+
+    let draft = load_status_draft(&root);
+    assert_eq!(draft.legacy_phrases.len(), 41);
+    assert_eq!(
+        draft.interpretation_layer_ratification,
+        "PROPOSED_NOT_RATIFIED"
+    );
+    assert!(draft.interpretation_constraints_do_not_ratify_token_sets);
+    assert_phrase_blocks(
+        &draft,
+        "IMPLEMENTED_AND_LOCALLY_TESTED",
+        "DEFINITIVE",
+        "adfr_row_verified",
+    );
+    assert_phrase_blocks(
+        &draft,
+        "OPEN P0",
+        "REQUIRES_USER_DECISION",
+        "equivalent_status",
+    );
+    let lifecycle = draft
+        .dimensions
+        .iter()
+        .find(|dimension| dimension.id == "decision_lifecycle")
+        .expect("lifecycle");
+    for value in [
+        "proposed",
+        "open",
+        "ratified_with_exceptions",
+        "superseded",
+        "rejected",
+        "withdrawn",
+    ] {
+        assert!(
+            lifecycle
+                .proposed_values_not_ratified
+                .iter()
+                .any(|item| item == value),
+            "closed enum token disappeared: {value}"
+        );
+    }
+    assert!(lifecycle.proposed_values_are_not_assigned);
+
+    let json_bytes =
+        fs::read(root.join("contracts/sources/ADFR-Consolidated-v1.0.json")).expect("ADFR JSON");
+    let csv_bytes =
+        fs::read(root.join("contracts/sources/ADFR-Consolidated-v1.0.csv")).expect("ADFR CSV");
+    assert_eq!(
+        sha256_hex(&json_bytes),
+        "272a6dabdb411701a25dd708577dbb498c7a7cd2754d83c612e85454a178a1d5"
+    );
+    assert_eq!(json_bytes.len(), 29880);
+    assert_eq!(
+        sha256_hex(&csv_bytes),
+        "b5577302650e3d497465b93063d149313ec1197a38ddad3a9e7a6f223757ec32"
+    );
+    assert_eq!(csv_bytes.len(), 13138);
+    let manifest = json_value(&root, "contracts/source-manifest.json");
+    for entry in manifest["files"].as_array().expect("files") {
+        let name = entry["filename"].as_str().expect("filename");
+        if name == "ADFR-Consolidated-v1.0.json" {
+            assert_eq!(
+                entry["sha256"].as_str(),
+                Some("272a6dabdb411701a25dd708577dbb498c7a7cd2754d83c612e85454a178a1d5")
+            );
+        }
+        if name == "ADFR-Consolidated-v1.0.csv" {
+            assert_eq!(
+                entry["sha256"].as_str(),
+                Some("b5577302650e3d497465b93063d149313ec1197a38ddad3a9e7a6f223757ec32")
+            );
+        }
+        let placement = entry["placement"].as_str().expect("placement");
+        assert!(
+            matches!(
+                placement,
+                "COPIED_VERBATIM" | "REUSED_BYTE_IDENTICAL_EXISTING" | "AMENDED_BY_ARCH_DEC_02"
+            ),
+            "{name} placement {placement}"
+        );
+        let source_text = entry["source_text_status"].as_str().expect("source text");
+        assert!(source_text != "original" && source_text != "unknown");
+        assert_eq!(entry["approved"].as_bool(), Some(false));
+        assert_eq!(entry["reviewed"].as_bool(), Some(false));
+    }
+    let adfr = load_adfr(&root);
+    let csv = load_csv(&root);
+    assert_eq!(adfr.entries.len(), 78);
+    assert_eq!(csv.len(), 78);
+    let mut superseded = 0;
+    for (entry, row) in adfr.entries.iter().zip(csv.iter()) {
+        assert_eq!(entry.id, row[0]);
+        assert_eq!(entry.verification, "NOT_VERIFIED");
+        if entry.lifecycle == "SUPERSEDED" {
+            superseded += 1;
+            assert_eq!(entry.id, SUPERSEDED_ID);
+            assert_eq!(entry.superseded_by.as_deref(), Some(SUCCESSOR_ID));
+        }
+    }
+    assert_eq!(superseded, 1);
+    assert_eq!(
+        adfr.entries
+            .iter()
+            .filter(|entry| entry.lifecycle == "NOT_SUPERSEDED")
+            .count(),
+        77
+    );
+
+    let registry_bytes = fs::read(root.join("contracts/registry/registry.json")).expect("registry");
+    assert_eq!(sha256_hex(&registry_bytes), REGISTRY_SHA256);
+    assert_eq!(registry_bytes.len(), 44332);
+    let registry: Value = serde_json::from_slice(&registry_bytes).expect("registry JSON");
+    assert_eq!(registry["registry_status"], "SKELETON_NOT_CANONICAL");
+    assert_eq!(registry["canonical_schemas_published"], false);
+    assert_eq!(registry["live_trading_authorized"], false);
+    assert_eq!(registry["part_b"], "NO-GO");
+    assert_eq!(registry["broker_uniqueness_evidence"], "EVIDENCE_PENDING");
+    assert!(!root.join("contracts/evidence").exists());
 }
 
 fn load_status_draft(root: &Path) -> StatusDraft {

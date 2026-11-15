@@ -6,12 +6,13 @@
 **Approval requests:** [approval-requests.md](approval-requests.md)  
 **Date:** 2026-11-15  
 **Task:** TRD-ARCH-03A  
+**Amendment:** 2026-11-15, TRD-ARCH-03A.2. [ARCH-DEC-04-bis-08-2026-11-15.md](../decisions/ARCH-DEC-04-bis-08-2026-11-15.md) records interpretation constraints. Those constraints do not ratify the proposed token sets and do not make this file a canonical schema.  
 **Live trading:** NOT AUTHORIZED  
 **Canonical schemas:** not published  
 
 This model separates provenance, decision and design lifecycle, implementation, verification, safety authorization, severity, and supersession. A value in one dimension does not set a value in another. Existing `status`, `verification`, `lifecycle`, `supersedes`, and `superseded_by` fields stay the stored words. This file interprets them. It does not rewrite historical source text, dates, hashes, or register rows.
 
-`PROPOSED_NOT_RATIFIED` means the closed list under that heading is a proposal for a later user decision. This task does not approve it. No register row, manifest flag, or registry flag is moved onto a proposed value.
+`PROPOSED_NOT_RATIFIED` means the closed token list under that heading is not a ratified enum. ARCH-DEC-04 through ARCH-DEC-08 are ratified interpretation constraints. They refuse a status-word winner, refuse the closed lifecycle enum, scope local-test claims, set an evidence gate without using it, and keep manifest placement. They do not move a register row, a manifest flag, or a registry flag onto a proposed token. The machine-readable draft stays `PROPOSED_NOT_RATIFIED` and `NON_RUNTIME_NON_WIRE_DRAFT`.
 
 ## 1. Ratified citations and proposed vocabulary
 
@@ -22,15 +23,20 @@ These citations are already in force in the named records. This file repeats the
 | ARCH-DEC-01 | DET-01 and DET-02 files are `DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS`. Provenance stays `RECONSTRUCTED_DRAFT`. `SOURCE_REVIEW_PENDING` stays. Details those files mark open, undefined, unconfirmed, or verification-required stay open. Q01–Q10 verification cells stay `OPEN`. The twenty `CONFIRMED_DECISION` rows keep `conversation: confirmed DET-01/02 Q01-Q10` and are not reclassified as verified. | [ARCH-DEC-01-bis-03-2026-11-15.md](../decisions/ARCH-DEC-01-bis-03-2026-11-15.md); manifest rows for the two files |
 | ARCH-DEC-02 | 78 historical IDs in JSON and CSV. Exactly one lifecycle `SUPERSEDED`: `ADFR-CROSS-005`, `superseded_by` `ADFR-CR-B10-001`. That successor exists, `supersedes` `ADFR-CROSS-005`, and its lifecycle is `NOT_SUPERSEDED`. The other 77 lifecycle values are `NOT_SUPERSEDED`. That count is not acceptance. Every `verification` value stays `NOT_VERIFIED`. JSON root `status` stays `ARCHITECTURE_DRAFT_NOT_IMPLEMENTED`. Which of `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED` wins is not decided. | ADFR JSON and CSV; decision record |
 | ARCH-DEC-03 | For dispatch and failover design, CR-B01 has precedence over conflicting or less restrictive DET-07 text. No automatic takeover while the previous writer might still send or submission results are unresolved. Elapsed time or a lease timeout alone is not proof of a safe takeover. This is design precedence. It is not an implemented fence and not demonstrated IBKR behavior. XC-04 stays open apart from that precedence sub-finding. | decision record; CR-B01; DET-07 |
+| ARCH-DEC-04 | SMQ-01, Alternative 1. No winning status among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED`. Source words stay. No default precedence. Historical `P0`, `P1`, and `P2` are not a decision-lifecycle state. The XC-11 status-word disagreement stays OPEN. No precedence is not equivalence. | [ARCH-DEC-04-bis-08-2026-11-15.md](../decisions/ARCH-DEC-04-bis-08-2026-11-15.md) |
+| ARCH-DEC-05 | SMQ-02, Alternative 1. The closed lifecycle enum is not ratified. No new lifecycle assignment. In-force lifecycle facts remain `SUPERSEDED` and `NOT_SUPERSEDED`. Supersession is not withdrawal or rejection. | same decision record |
+| ARCH-DEC-06 | SMQ-03, Alternative 1. `IMPLEMENTED_AND_LOCALLY_TESTED` is scoped to the named type-shell part. It is not the whole UD, not broker or database verification, not remote CI, and not ADFR verification. All 78 `NOT_VERIFIED` values and `EVIDENCE_PENDING` stay. | same decision record |
+| ARCH-DEC-07 | SMQ-04, Alternative 1. A future move of ADFR `verification` off `NOT_VERIFIED` needs a dated explicit user approval and an evidence record with a URI or stable artifact reference, method, environment, timestamp, exact claim and scope, and limitations. Evidence must fit the claim. This decision does not promote any current row. | same decision record |
+| ARCH-DEC-08 | SMQ-05, Alternative 1. Manifest `placement`, intake and current hashes, `reconstructed_draft`, `reviewed`, `approved`, and `source_text_status` stay. The other ten package files are not labeled `original` or `unknown`. DET-01 and DET-02 stay reconstructed, with the ARCH-DEC-01 baseline and exceptions. | same decision record; source manifest, unchanged |
 
-The following closed sets are `PROPOSED_NOT_RATIFIED`. They are defined so a later decision can accept or reject them. They are not assigned to any file or row by this task.
+The following closed sets are `PROPOSED_NOT_RATIFIED`. ARCH-DEC-04 through ARCH-DEC-08 refuse to adopt them. Refusal is not a ratification of the set, and it is not an assignment of any proposed token.
 
 | Proposed set | Values | Why it is not in force |
 | --- | --- | --- |
-| Provenance class | `original`, `reconstructed`, `external_evidence`, `unknown` | DET-01 and DET-02 are already `RECONSTRUCTED_DRAFT`. The other package files are not labeled with this four-value set. See SMQ-05. |
-| Decision lifecycle | `proposed`, `open`, `ratified_with_exceptions`, `superseded`, `rejected`, `withdrawn` | The register lifecycle field has only `SUPERSEDED` and `NOT_SUPERSEDED`. No row is `rejected` or `withdrawn`. `OPEN P0` is not defined as `proposed`. See SMQ-01 and SMQ-02. |
-| Implementation | `not_implemented`, `partial`, `implemented` | Stored literals differ (`NOT_IMPLEMENTED`, `IMPLEMENTATION_PENDING`, `IMPLEMENTED_AND_LOCALLY_TESTED`, `SKELETON_NOT_CANONICAL`). `partial` is not a stored value. See SMQ-03. |
-| Verification | `not_verified`, `evidence_pending`, `tested_locally`, `externally_verified`, `failed_or_blocked` | ADFR `verification` is only `NOT_VERIFIED`. `failed_or_blocked` is not a stored register value. `tested_locally` is not written onto ADFR rows. See SMQ-03 and SMQ-04. |
+| Provenance class | `original`, `reconstructed`, `external_evidence`, `unknown` | DET-01 and DET-02 are already `RECONSTRUCTED_DRAFT`. ARCH-DEC-08 keeps the other package files on their manifest placement and does not label them `original` or `unknown`. |
+| Decision lifecycle | `proposed`, `open`, `ratified_with_exceptions`, `superseded`, `rejected`, `withdrawn` | ARCH-DEC-05 does not ratify this enum. The register lifecycle field has only `SUPERSEDED` and `NOT_SUPERSEDED`. No row is `rejected` or `withdrawn`. `OPEN P0` is not defined as `proposed`. |
+| Implementation | `not_implemented`, `partial`, `implemented` | Stored literals differ (`NOT_IMPLEMENTED`, `IMPLEMENTATION_PENDING`, `IMPLEMENTED_AND_LOCALLY_TESTED`, `SKELETON_NOT_CANONICAL`). ARCH-DEC-06 scopes the local-test phrase and does not store `partial`. |
+| Verification | `not_verified`, `evidence_pending`, `tested_locally`, `externally_verified`, `failed_or_blocked` | ADFR `verification` is only `NOT_VERIFIED`. ARCH-DEC-07 sets a gate for a future change and does not write `tested_locally` or `externally_verified` onto a row. |
 
 ## 2. Interpretation layer
 
@@ -66,7 +72,7 @@ Provenance is not approval. Design ratification is not implementation. Implement
 
 **Proposed, not ratified, and not assigned:** `original`, `reconstructed`, `external_evidence`, `unknown`.
 
-`RECONSTRUCTED_DRAFT` is the in-force word for the two reconstructed files. The proposed token `reconstructed` is not written onto them in place of that word. No package file is labeled `original`. No broker evidence file is accepted as `external_evidence`. Calling the remaining package files `unknown` would drop the fact that their bytes are the package text, so that assignment is withheld (SMQ-05).
+`RECONSTRUCTED_DRAFT` is the in-force word for the two reconstructed files. The proposed token `reconstructed` is not written onto them in place of that word. No package file is labeled `original`. No broker evidence file is accepted as `external_evidence`. ARCH-DEC-08 keeps the other ten package files on `placement`, `reconstructed_draft`, `reviewed`, `approved`, and `source_text_status`. It does not label them `original` or `unknown`, and it does not claim original Q&A provenance for them.
 
 **Transitions in force.** A user decision may add a design baseline without changing provenance. ARCH-DEC-01 did that. A transition from `RECONSTRUCTED_DRAFT` to original transcript requires the transcript bytes and a user decision. Neither is present.
 
@@ -92,11 +98,11 @@ Provenance is not approval. Design ratification is not implementation. Implement
 | `OPEN` | DET-01 §2 and DET-02 §2, Q01–Q10 verification cells | Those verification cells stay open after the baseline. This `OPEN` is a verification-cell word, not the ADFR `status` field. |
 | Design precedence | ARCH-DEC-03 | CR-B01 is the design reading where DET-07 conflicts or is less restrictive. Precedence is not a lifecycle value on either contract's ADFR rows. |
 
-**Historical status words that are not a lifecycle enum.** `PROPOSED_FOR_ACCEPTANCE`, `CONFIRMED_DECISION`, `DESIGN_RESOLVED`, `OPEN P0`, `OPEN P1`, and `OPEN P2` remain the literals of the sources that use them. ARCH-DEC-02 did not choose a winner among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED`. That remainder of XC-11 stays open. The mapping marks the crosswalk `REQUIRES_USER_DECISION`.
+**Historical status words that are not a lifecycle enum.** `PROPOSED_FOR_ACCEPTANCE`, `CONFIRMED_DECISION`, `DESIGN_RESOLVED`, `OPEN P0`, `OPEN P1`, and `OPEN P2` remain the literals of the sources that use them. ARCH-DEC-02 did not choose a winner among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED`. ARCH-DEC-04 decides that there is still no winner and no default precedence. The XC-11 status-word disagreement stays OPEN. The mapping keeps the crosswalk at `REQUIRES_USER_DECISION`. That unresolved mapping means the words are not equated. It does not mean a later reader may pick a default.
 
 `CONFIRMED_DECISION` is the retained `status` of twenty rows. ARCH-DEC-01 does not make that word mean `DESIGN_BASELINE_RATIFIED_WITH_EXCEPTIONS` and does not mark the rows verified.
 
-**Rejected or withdrawn.** No ADFR row uses those words. CR-B10 §9 says alternatives were rejected for `ADFR-CR-B10-001`. That sentence is about discarded design alternatives, not a lifecycle of `ADFR-CROSS-005`. `rejected` and `withdrawn` are `PROPOSED_NOT_RATIFIED` and are not assigned (SMQ-02).
+**Rejected or withdrawn.** No ADFR row uses those words. CR-B10 §9 says alternatives were rejected for `ADFR-CR-B10-001`. That sentence is about discarded design alternatives, not a lifecycle of `ADFR-CROSS-005`. ARCH-DEC-05 does not ratify the closed lifecycle enum and does not assign `rejected` or `withdrawn`. `SUPERSEDED` is not conflated with either word. The proposed tokens stay `PROPOSED_NOT_RATIFIED` and unassigned.
 
 **Transitions in force**
 
@@ -104,7 +110,7 @@ Provenance is not approval. Design ratification is not implementation. Implement
 2. Baseline with exceptions. A dated user decision may set `design_baseline` on a reconstructed file without setting `approved`, `reviewed`, or `implemented`, and without closing the file's open details. The only authorized instance is ARCH-DEC-01 for DET-01 and DET-02.
 3. Design precedence. A dated user decision may rank one contract's design reading over another without implementing it. The only authorized instance is ARCH-DEC-03.
 
-**Proposed transitions, not ratified.** `proposed` to `ratified_with_exceptions`, any state to `rejected` or `withdrawn`, and any unification of `OPEN P0` with `PROPOSED_FOR_ACCEPTANCE` or `DESIGN_RESOLVED`. No such transition is applied.
+**Proposed transitions, not ratified.** `proposed` to `ratified_with_exceptions`, any state to `rejected` or `withdrawn`, and any unification of `OPEN P0` with `PROPOSED_FOR_ACCEPTANCE` or `DESIGN_RESOLVED`. ARCH-DEC-04 and ARCH-DEC-05 refuse those transitions. No such transition is applied.
 
 **Forbidden implications.** A baseline does not close exceptions, release `OrderClosure` reasons, release a transition matrix, or authorize economic finality, risk postings, or technical execution. Supersession does not verify the old row or the successor. `DESIGN_RESOLVED` does not mean verified, implemented, or live-authorized. `NOT_SUPERSEDED` does not mean ratified.
 
@@ -129,7 +135,7 @@ Provenance is not approval. Design ratification is not implementation. Implement
 | `INTERNAL_DRAFT_SHELL` | Registry rows that exist as draft shells. |
 | Manifest `implemented: false` | The source file is not an implementation record. |
 
-**Proposed, not ratified, and not assigned:** `not_implemented`, `partial`, `implemented`. A UD line that names both `IMPLEMENTED_AND_LOCALLY_TESTED` and `IMPLEMENTATION_PENDING` is scoped delivery of one part. Calling that line `partial` is not a stored status (SMQ-03).
+**Proposed, not ratified, and not assigned:** `not_implemented`, `partial`, `implemented`. ARCH-DEC-06 reads `IMPLEMENTED_AND_LOCALLY_TESTED` as scoped evidence for the explicitly named type-shell part on that UD line. The same line's `IMPLEMENTATION_PENDING` remainder stays undelivered. The phrase is not the whole UD, not broker or database verification, not remote CI, and not an ADFR `verification` change. Calling that line `partial` is not a stored status.
 
 **Transitions.** A later implementation task may record scoped evidence. This task records none and changes no UD line. No transition from design ratification to `implemented` is authorized.
 
@@ -160,15 +166,15 @@ Provenance is not approval. Design ratification is not implementation. Implement
 
 **Proposed, not ratified, and not assigned:** `not_verified`, `evidence_pending`, `tested_locally`, `externally_verified`, `failed_or_blocked`.
 
-No ADFR row is `externally_verified`. No row is `failed_or_blocked`. `tested_locally` is not written onto the register. `IMPLEMENTED_AND_LOCALLY_TESTED` stays an implementation-scope phrase for UD type shells. It is not a promotion of `verification` (SMQ-03).
+No ADFR row is `externally_verified`. No row is `failed_or_blocked`. `tested_locally` is not written onto the register. ARCH-DEC-06 keeps `IMPLEMENTED_AND_LOCALLY_TESTED` as an implementation-scope phrase for the named UD type shell. It is not a promotion of `verification`.
 
-**Evidence required before `verification` may leave `NOT_VERIFIED`.** This requirement is `PROPOSED_NOT_RATIFIED` as a gate (SMQ-04). The proposed record has all of: evidence URI, method, environment, timestamp, scope, and limitations. A local `cargo test` exit code does not fill that record for broker behavior or database correctness. An ignored database test is not a pass. Remote CI that was not run is not a pass.
+**Evidence required before `verification` may leave `NOT_VERIFIED`.** ARCH-DEC-07 ratifies this procedural gate. It is not approval of any present promotion, and it does not ratify the proposed verification token set. Before any ADFR `verification` value changes, a dated explicit user approval must name the row and the claim, and an evidence record must be appropriate to that claim. The record contains all of: a URI or other stable artifact reference, the method, the environment, a timestamp, the exact claim and scope, and the limitations. Ignored tests are not a pass. Remote CI that was not run is not a pass. `DESIGN_RESOLVED` is not external proof. An isolated local test is not external proof for a broker, database, or register-verification claim. No such evidence record exists for a current row, and this model does not invent one.
 
 **Transitions in force.** None that change ADFR `verification`. ARCH-DEC-02 kept every row at `NOT_VERIFIED`.
 
 **Forbidden implications.** `NOT_VERIFIED` does not mean verified, externally verified, tested locally, broker-correct, or database-correct. `EVIDENCE_PENDING` does not mean the uniqueness rules were verified. `TESTS_NOT_EXECUTED` does not mean those tests passed. A green local unit test does not verify IBKR semantics, fencing, snapshot completeness, or PostgreSQL crash behavior.
 
-**Who may approve.** A later dated user decision together with the evidence record above. A source file's `DESIGN_RESOLVED` line does not approve verification. This task does not.
+**Who may approve.** ARCH-DEC-07 states the gate and does not apply it. A later dated user decision, together with an evidence record that meets that gate, is what would be required to change a row. A source file's `DESIGN_RESOLVED` line does not approve verification. This model does not.
 
 **Compatibility.** The ADFR field remains `verification`. Do not store lifecycle or priority in it.
 
@@ -199,7 +205,7 @@ No ADFR row is `externally_verified`. No row is `failed_or_blocked`. `tested_loc
 
 **In force.** `P0`, `P1`, and `P2` occur inside historical labels (`OPEN P0`, `OPEN P1`, `OPEN P2`) and in the TRD-ARCH-SYNC-01 severity column (`P0`, `P1`, `P0 topic, principle only`). The XC severity column is not the status column.
 
-**Meaning of `OPEN P0`.** It is a composite historical label in the DET-09/10 `## ADFR-CROSS` table: an unresolved marker in that table plus priority `P0`. It is not a synonym of `PROPOSED_FOR_ACCEPTANCE`. The same reading applies to `OPEN P1` and `OPEN P2` for priority `P1` and `P2`. Equating any of those cells with the ADFR `status` word or with `DESIGN_RESOLVED` is `REQUIRES_USER_DECISION` (SMQ-01).
+**Meaning of `OPEN P0`.** It is a composite historical label in the DET-09/10 `## ADFR-CROSS` table: an unresolved marker in that table plus priority `P0`. ARCH-DEC-04 says that priority is not a decision-lifecycle state. `OPEN P0` is not a synonym of `PROPOSED_FOR_ACCEPTANCE` or of `DESIGN_RESOLVED`. The same reading applies to `OPEN P1` and `OPEN P2` for priority `P1` and `P2`. The cross-source mapping stays `REQUIRES_USER_DECISION` because ARCH-DEC-04 establishes no default precedence and does not treat the words as equivalent.
 
 **Forbidden implications.** `P0` does not mean proposed, ratified, implemented, or verified. A `P0` XC row can be `NO_CONFLICT_FOUND` on a principle and still leave a predicate open (`XC-02-PRED`, `XC-03-MATRIX`, `XC-07-ROUND`, `XC-08-IBKR`, `XC-10-ACTION`).
 
@@ -230,7 +236,7 @@ The DET-09/10 table cell for `ADFR-CROSS-005` still says `OPEN P2`. That cell wa
 
 ## 10. Explicit readings required by the current records
 
-**XC-11 status words.** Population and supersession are `RESOLVED_BY_ARCH_DEC_02`. The disagreement among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED` stays open. The 2026-11-14 consolidation sentence that calls `OPEN P0` a historical cross-reference is retained as that file's wording. ARCH-DEC-02 did not adopt it as the reconciliation. This model does not pick a winner.
+**XC-11 status words.** Population and supersession are `RESOLVED_BY_ARCH_DEC_02`. ARCH-DEC-04 records that there is no winning status and no default precedence. The XC-11 status-word disagreement stays OPEN. The 2026-11-14 consolidation sentence that calls `OPEN P0` a historical cross-reference is retained as that file's wording. ARCH-DEC-02 did not adopt it as the reconciliation, and ARCH-DEC-04 does not adopt it either. The historical words are not equivalent.
 
 **ARCH-DEC-01.** The design baseline and the reconstructed provenance stand together. Q01–Q10 verification stays open. `OrderClosure` reasons and transition matrices stay unreleased.
 
@@ -244,7 +250,7 @@ The DET-09/10 table cell for `ADFR-CROSS-005` still says `OPEN P2`. That cell wa
 
 XC-01, XC-02-PRED, XC-03-MATRIX, XC-05-LOCK, XC-06, XC-07-ROUND, XC-08-IBKR, XC-09-RESET, and XC-10-ACTION stay OPEN.
 
-XC-11: the population and supersession sub-finding stays `RESOLVED_BY_ARCH_DEC_02`. The status-word sub-finding stays OPEN.
+XC-11: the population and supersession sub-finding stays `RESOLVED_BY_ARCH_DEC_02`. The status-word sub-finding stays OPEN. ARCH-DEC-04 is the decision that no precedence is established. XC-11 status-word disagreement stays OPEN.
 
 XC-04: the design-precedence sub-finding stays `RESOLVED_BY_ARCH_DEC_03`. Broker-session exclusivity, lease and heartbeat, dispatch scope, in-flight send evidence, recovery tests, and IBKR behavior stay OPEN.
 
@@ -252,4 +258,4 @@ XC-04: the design-precedence sub-finding stays `RESOLVED_BY_ARCH_DEC_03`. Broker
 
 ## 12. Who may approve, for every dimension
 
-A later dated user decision, recorded under `contracts/decisions/`, may change a dimension by naming the record, the old literal, the new literal, and the evidence. Source-file self-labels do not approve repository acceptance. Local tests do not approve verification of broker or database behavior. This document, the draft JSON, and the documentation tests do not approve.
+A later dated user decision, recorded under `contracts/decisions/`, may change a dimension by naming the record, the old literal, the new literal, and the evidence. ARCH-DEC-04 through ARCH-DEC-08 are interpretation constraints only. They do not approve a technical contract, a runtime type, or a present verification change. Source-file self-labels do not approve repository acceptance. Local tests do not approve verification of broker or database behavior. This document, the draft JSON, and the documentation tests do not approve.

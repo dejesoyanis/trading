@@ -5,7 +5,7 @@
 **Live trading:** NOT AUTHORIZED  
 **Broker uniqueness:** EVIDENCE_PENDING  
 
-Those four gates are unchanged by the [contract status model](../status-model/contract-status-model-v1.0.md). That model is not this registry and does not publish canonical schemas.
+Those four gates are unchanged by the [contract status model](../status-model/contract-status-model-v1.0.md) and by ARCH-DEC-04 through ARCH-DEC-08. Local type-shell tests do not promote broker uniqueness or ADFR verification. That model is not this registry and does not publish canonical schemas.
 
 M0-02B is split.
 

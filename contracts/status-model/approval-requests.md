@@ -2,10 +2,13 @@
 
 **Date:** 2026-11-15  
 **Task:** TRD-ARCH-03A  
-**Status of this file:** open questions. Nothing here is approved.  
+**Status of the questions below:** historical request text from TRD-ARCH-03A. Nothing here is approved.  
+**Resolution index:** dated addendum at the end of this file, 2026-11-15. The addendum records user decisions. It does not rewrite the questions.  
 **Live trading:** NOT AUTHORIZED  
 
 Do not self-approve. A decision, if the user wants one, belongs in a later dated record under `contracts/decisions/`. Until then the interpretation layer in [contract-status-model-v1.0.md](contract-status-model-v1.0.md) stays `PROPOSED_NOT_RATIFIED` where that file says so, and the historical literals stay as written.
+
+The paragraph above is the request as written. The addendum at the end is the later record of what the user decided. The questions themselves are not edited to pretend they were already approved.
 
 ARCH-DEC-01, ARCH-DEC-02, and ARCH-DEC-03 are already recorded. These questions are the points those decisions do not settle.
 
@@ -92,3 +95,17 @@ ARCH-DEC-01, ARCH-DEC-02, and ARCH-DEC-03 are already recorded. These questions 
 ## What is not asked again
 
 ARCH-DEC-01 already fixed the DET-01 and DET-02 baseline with exceptions and the reconstructed provenance. ARCH-DEC-02 already fixed the 78 IDs and the one supersession. ARCH-DEC-03 already fixed CR-B01 design precedence and refused automatic takeover. Those three are not reopened by this list.
+
+## Resolution index (2026-11-15, TRD-ARCH-03A.2)
+
+The questions SMQ-01 through SMQ-05 above are unchanged historical text, including their alternatives and the recommendation of Alternative 1. They are not rewritten as approvals. The user decided each question on 2026-11-15 by choosing Alternative 1. The decision record is [ARCH-DEC-04-bis-08-2026-11-15.md](../decisions/ARCH-DEC-04-bis-08-2026-11-15.md). This index is a map to that record. It is not a second decision, not a signature, and not an evidence URI.
+
+| Question | Decision | Outcome | Chosen alternative | User wording |
+| --- | --- | --- | --- | --- |
+| SMQ-01 | ARCH-DEC-04 | DECIDED | Alternative 1 | Keine Priorität; historische Statusbegriffe unverändert lassen |
+| SMQ-02 | ARCH-DEC-05 | DECIDED | Alternative 1 | Kein neues Enum und keine zusätzlichen Lifecycle-Zuordnungen |
+| SMQ-03 | ARCH-DEC-06 | DECIDED | Alternative 1 | Nur konkret getestete Teilkomponenten als lokal getestet behandeln |
+| SMQ-04 | ARCH-DEC-07 | DECIDED | Alternative 1 | Datierter Nutzerentscheid plus geeigneter Evidenznachweis |
+| SMQ-05 | ARCH-DEC-08 | DECIDED | Alternative 1 | Bestehende Manifestangaben beibehalten |
+
+ARCH-DEC-04 leaves the XC-11 status-word disagreement OPEN. No winning word is chosen among `OPEN P0`, `PROPOSED_FOR_ACCEPTANCE`, and `DESIGN_RESOLVED`, and those words are not treated as equivalent. ARCH-DEC-05 does not ratify the closed lifecycle enum. ARCH-DEC-06 does not promote ADFR `verification`. ARCH-DEC-07 is a procedural gate for a future change and does not promote any current row. ARCH-DEC-08 does not relabel manifest provenance. The proposed token sets in the status model stay `PROPOSED_NOT_RATIFIED`. Live trading stays NOT AUTHORIZED. No evidence record is created here.
