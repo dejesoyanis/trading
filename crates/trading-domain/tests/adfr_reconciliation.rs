@@ -2171,6 +2171,354 @@ fn sha256_hex(bytes: &[u8]) -> String {
     hex_encode(Sha256::digest(bytes))
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RiskProposalIndex {
+    document_role: String,
+    ratification: String,
+    task: String,
+    date: String,
+    not_a_schema: bool,
+    not_registry_json: bool,
+    risk_release_approved: bool,
+    economic_posting_approved: bool,
+    economic_finality_predicate_approved: bool,
+    live_trading_authorized: bool,
+    canonical_schemas_published: bool,
+    canonical_schema_published_by_this_index: bool,
+    part_b: String,
+    broker_uniqueness_evidence: String,
+    registry_status_required: String,
+    order_state_machine_implemented: bool,
+    state_transitions_implemented: bool,
+    order_closure_enum_approved: bool,
+    implementation_authorized: bool,
+    closes_xc_findings: bool,
+    omsq05_b_quarantine_remains_binding: bool,
+    omsq06_a_no_predicate_no_release_remains_binding: bool,
+    preference_is_approval: bool,
+    non_binding_preferred_approach: String,
+    xc_02_pred: String,
+    xc_03_matrix: String,
+    questions: Vec<OmsQuestionStatus>,
+    reservation_approaches: Vec<RiskApproachStatus>,
+    coverage_scenarios: Vec<RiskCoverageStatus>,
+    open_findings: Vec<String>,
+    partial_findings: Vec<OmsPartialFinding>,
+    files: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RiskApproachStatus {
+    id: String,
+    status: String,
+    recommendation_is_approval: bool,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RiskCoverageStatus {
+    id: String,
+    record_evidence: String,
+    book_economics: String,
+    release_budget: String,
+    test_oracle: String,
+}
+
+#[test]
+fn risk_reservation_proposals_stay_unratified_and_release_stays_forbidden() {
+    let root = repo_root();
+    let index_path = root.join("contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json");
+    let index_bytes = fs::read(&index_path).expect("risk proposal index");
+    assert!(
+        !index_bytes.starts_with(&[0xEF, 0xBB, 0xBF]),
+        "risk proposal index has a BOM"
+    );
+    let index: RiskProposalIndex =
+        serde_json::from_slice(&index_bytes).expect("parse risk proposal index");
+    assert_eq!(index.document_role, "NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX");
+    assert_eq!(index.ratification, "NOT_RATIFIED");
+    assert_eq!(index.task, "TRD-ARCH-03B.2");
+    assert_eq!(index.date, "2026-11-15");
+    assert!(index.not_a_schema);
+    assert!(index.not_registry_json);
+    assert!(!index.risk_release_approved);
+    assert!(!index.economic_posting_approved);
+    assert!(!index.economic_finality_predicate_approved);
+    assert!(!index.live_trading_authorized);
+    assert!(!index.canonical_schemas_published);
+    assert!(!index.canonical_schema_published_by_this_index);
+    assert_eq!(index.part_b, "NO-GO");
+    assert_eq!(index.broker_uniqueness_evidence, "EVIDENCE_PENDING");
+    assert_eq!(index.registry_status_required, "SKELETON_NOT_CANONICAL");
+    assert!(!index.order_state_machine_implemented);
+    assert!(!index.state_transitions_implemented);
+    assert!(!index.order_closure_enum_approved);
+    assert!(!index.implementation_authorized);
+    assert!(!index.closes_xc_findings);
+    assert!(index.omsq05_b_quarantine_remains_binding);
+    assert!(index.omsq06_a_no_predicate_no_release_remains_binding);
+    assert!(!index.preference_is_approval);
+    assert_eq!(
+        index.non_binding_preferred_approach,
+        "hold_until_evidenced_finality"
+    );
+    assert_eq!(index.xc_02_pred, "OPEN");
+    assert_eq!(index.xc_03_matrix, "OPEN");
+
+    let expected_questions = [
+        "RISKQ-01", "RISKQ-02", "RISKQ-03", "RISKQ-04", "RISKQ-05", "RISKQ-06", "RISKQ-07",
+        "RISKQ-08", "RISKQ-09", "RISKQ-10", "RISKQ-11", "RISKQ-12", "RISKQ-13", "RISKQ-14",
+    ];
+    assert_eq!(index.questions.len(), expected_questions.len());
+    for (question, expected) in index.questions.iter().zip(expected_questions) {
+        assert_eq!(question.id, expected);
+        assert_eq!(question.status, "USER_DECISION_PENDING");
+        assert!(!question.recommendation_is_approval);
+    }
+
+    let expected_approaches = [
+        "hold_until_evidenced_finality",
+        "reservation_to_exposure_with_residual",
+        "staged_allocation_subject_to_proofs",
+    ];
+    assert_eq!(
+        index.reservation_approaches.len(),
+        expected_approaches.len()
+    );
+    for (approach, expected) in index.reservation_approaches.iter().zip(expected_approaches) {
+        assert_eq!(approach.id, expected);
+        assert_eq!(approach.status, "COMPARISON_ONLY");
+        assert!(!approach.recommendation_is_approval);
+    }
+
+    let expected_scenarios = [
+        "initial_reserve",
+        "rejected_pre_dispatch",
+        "may_have_sent",
+        "ack_without_fills",
+        "partial_fill",
+        "complete_fill",
+        "cancel_requested",
+        "broker_cancel_observation",
+        "cancel_fill_race",
+        "disconnect_incomplete_snapshot",
+        "duplicate_fill",
+        "late_fill",
+        "bust",
+        "correction",
+        "insufficient_budget",
+        "stale_price_or_fx",
+        "cross_scope_contention",
+        "cas_conflict",
+        "restart_reconciliation",
+        "manual_adjudication",
+        "emergency_halt",
+    ];
+    assert_eq!(index.coverage_scenarios.len(), expected_scenarios.len());
+    for (scenario, expected) in index.coverage_scenarios.iter().zip(expected_scenarios) {
+        assert_eq!(scenario.id, expected);
+        assert_eq!(scenario.record_evidence, "RETAIN");
+        assert_eq!(scenario.book_economics, "PROHIBITED");
+        assert_eq!(scenario.release_budget, "PROHIBITED");
+        assert_eq!(scenario.test_oracle, "NOT_EXECUTED");
+    }
+
+    for finding in [
+        "XC-01",
+        "XC-02-PRED",
+        "XC-03-MATRIX",
+        "XC-05-LOCK",
+        "XC-06",
+        "XC-07-ROUND",
+        "XC-08-IBKR",
+        "XC-09-RESET",
+        "XC-10-ACTION",
+    ] {
+        assert!(
+            index.open_findings.iter().any(|item| item == finding),
+            "missing {finding}"
+        );
+    }
+    assert_eq!(index.partial_findings.len(), 2);
+    assert_eq!(index.partial_findings[0].finding, "XC-04");
+    assert_eq!(index.partial_findings[0].by, "RESOLVED_BY_ARCH_DEC_03");
+    assert_eq!(index.partial_findings[0].remainder, "OPEN");
+    assert_eq!(index.partial_findings[1].finding, "XC-11");
+    assert_eq!(index.partial_findings[1].by, "RESOLVED_BY_ARCH_DEC_02");
+    assert_eq!(index.partial_findings[1].remainder, "OPEN");
+
+    let approvals =
+        read_text(&root.join("contracts/design-proposals/TRD-ARCH-03B2-approval-requests.md"));
+    let semantics = read_text(
+        &root.join("contracts/design-proposals/TRD-ARCH-03B2-risk-semantics-and-invariants.md"),
+    );
+    let coverage = read_text(&root.join(
+        "contracts/design-proposals/TRD-ARCH-03B2-economic-finality-and-release-coverage-draft.md",
+    ));
+    let options = read_text(
+        &root
+            .join("contracts/design-proposals/TRD-ARCH-03B2-reservation-and-correction-options.md"),
+    );
+    let matrix = read_text(
+        &root.join("contracts/design-proposals/TRD-ARCH-03B2-dependency-and-conflict-matrix.md"),
+    );
+    for text in [&approvals, &semantics, &coverage, &options, &matrix] {
+        assert!(text.contains("NOT_RATIFIED"));
+        assert!(text.contains("NOT AUTHORIZED"));
+        assert!(text.contains("XC-02-PRED"));
+    }
+    for id in expected_questions {
+        assert!(
+            approvals.contains(&format!("## {id}")),
+            "missing heading {id}"
+        );
+        assert!(approvals.contains("USER_DECISION_PENDING"));
+    }
+    assert!(approvals.contains("CONFLICTS_WITH_BINDING_POLICY"));
+    assert!(approvals.contains("Would not authorize"));
+    assert!(approvals.contains("not an approval"));
+    assert!(semantics.contains("BINDING_EXISTING"));
+    assert!(semantics.contains("RECONSTRUCTED_BASELINE_WITH_EXCEPTIONS"));
+    assert!(semantics.contains("REFERENCE_PROPOSAL"));
+    assert!(semantics.contains("EXTERNAL_EVIDENCE_PENDING"));
+    assert!(semantics.contains("NEW_PROPOSAL"));
+    assert!(semantics.contains("USER_DECISION_PENDING"));
+    assert!(coverage.contains("NO EXECUTABLE ECONOMIC-FINALITY PREDICATE"));
+    assert!(coverage.contains("RISK RELEASE FORBIDDEN"));
+    assert!(coverage.contains("NOT_EXECUTED"));
+    assert!(coverage.contains("PROHIBITED"));
+    for id in expected_scenarios {
+        assert!(
+            coverage.contains(&format!("`{id}`")),
+            "coverage missing {id}"
+        );
+    }
+    for id in expected_approaches {
+        assert!(options.contains(&format!("`{id}`")), "options missing {id}");
+    }
+    assert!(options.contains("OMSQ-05"));
+    assert!(options.contains("OMSQ-06"));
+    assert!(matrix.contains("| XC-02-PRED | OPEN |"));
+    assert!(matrix.contains("ARCH-03B.3"));
+    assert!(matrix.contains("XC-03-MATRIX"));
+    for file in &index.files {
+        assert!(root.join(file).is_file(), "missing {file}");
+    }
+
+    let unchanged = [
+        (
+            "contracts/source-manifest.json",
+            "82b205d27172ad234d46cfa2a59f0f4785128dd7a6282dea1aab32b412fc2808",
+            17945_usize,
+        ),
+        (
+            "contracts/sources/ADFR-Consolidated-v1.0.json",
+            "272a6dabdb411701a25dd708577dbb498c7a7cd2754d83c612e85454a178a1d5",
+            29880,
+        ),
+        (
+            "contracts/sources/ADFR-Consolidated-v1.0.csv",
+            "b5577302650e3d497465b93063d149313ec1197a38ddad3a9e7a6f223757ec32",
+            13138,
+        ),
+        (
+            "contracts/registry/registry.json",
+            "7abed2af5363726403175c6524bd7a4d05d36b8735ad48442fc26941f8d98197",
+            44332,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-01-bis-03-2026-11-15.md",
+            "9f946806667a3700cb45d5033e509355aeefc60d2216262647f2dbbae034e30a",
+            9761,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-04-bis-08-2026-11-15.md",
+            "af2cd4b5c35912fe97d3a8ea36c459259aabf0a7b7d54657fdb7b7bce6149ddc",
+            13679,
+        ),
+        (
+            "contracts/decisions/ARCH-DEC-09-bis-20-2026-11-15.md",
+            "ddaffca4b9d1d69c430a3241db14460e49adf1e8d54a33ac9f0f07b5b957a7a2",
+            24820,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json",
+            "96dc34c61db04bc0d4eb0576a98f787fddb5632816b903985b1163993afc73cc",
+            3654,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B12-resolution-index.json",
+            "e4bd482d2b8b971612e241e069009e86810bfde3cf499784725e6d3b5019ca00",
+            6179,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-OMS-semantics-and-invariants.md",
+            "80148a2ad3f7100dd4c27e3245f21996eb9929806b6b18df2f3a97a4dd7b530e",
+            25741,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-transition-coverage-draft.md",
+            "8ab7185c1a066ab15271692d5876448f538ef532ef20f64be9167368525b1b9d",
+            18724,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-OrderClosure-vocabulary-options.md",
+            "efcc9e2ced885700f8cd93657a7ba2aa4158725dd9d2612c77398512353780d7",
+            16243,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-approval-requests.md",
+            "3412b82299b8d31ea6a56fe3ec1b219830690633f35d6ea9c1a3fefde5b72011",
+            36374,
+        ),
+        (
+            "contracts/design-proposals/TRD-ARCH-03B1-dependency-and-conflict-matrix.md",
+            "94be3ca9163b36f32cbe96e2c6cf7042e61633d625e8061f8c15ff0469bda706",
+            9802,
+        ),
+    ];
+    for (relative, expected_hash, expected_len) in unchanged {
+        let bytes = fs::read(root.join(relative)).expect(relative);
+        assert_eq!(bytes.len(), expected_len, "{relative}");
+        assert_eq!(sha256_hex(&bytes), expected_hash, "{relative}");
+    }
+
+    let registry: Value = serde_json::from_slice(
+        &fs::read(root.join("contracts/registry/registry.json")).expect("registry"),
+    )
+    .expect("registry JSON");
+    assert_eq!(registry["registry_status"], "SKELETON_NOT_CANONICAL");
+    assert_eq!(registry["canonical_schemas_published"], false);
+    assert_eq!(registry["live_trading_authorized"], false);
+    assert_eq!(registry["part_b"], "NO-GO");
+    assert_eq!(registry["broker_uniqueness_evidence"], "EVIDENCE_PENDING");
+
+    let adfr = load_adfr(&root);
+    assert_eq!(adfr.entries.len(), 78);
+    assert!(
+        adfr.entries
+            .iter()
+            .all(|entry| entry.verification == "NOT_VERIFIED")
+    );
+    assert_eq!(
+        adfr.entries
+            .iter()
+            .filter(|entry| entry.lifecycle == "SUPERSEDED")
+            .count(),
+        1
+    );
+
+    const {
+        assert!(!trading_domain::ORDER_STATE_MACHINE_IMPLEMENTED);
+        assert!(!trading_domain::STATE_TRANSITIONS_IMPLEMENTED);
+        assert!(!trading_domain::FINANCIAL_ROUNDING_IMPLEMENTED);
+        assert!(!trading_domain::BROKER_DISPATCH_IMPLEMENTED);
+        assert!(!trading_domain::RISK_EVALUATION_IMPLEMENTED);
+    }
+}
+
 fn hex_encode(bytes: impl AsRef<[u8]>) -> String {
     const HEX: &[u8; 16] = b"0123456789abcdef";
     let bytes = bytes.as_ref();

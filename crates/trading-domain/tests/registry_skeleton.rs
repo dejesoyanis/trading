@@ -60,6 +60,7 @@ const FORBIDDEN_DIRS: &[&str] = &[
 const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json",
     "contracts/design-proposals/TRD-ARCH-03B12-resolution-index.json",
+    "contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json",
     "contracts/registry/registry.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
@@ -342,7 +343,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, and the non-wire OMS policy resolution index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, and the unratified risk proposal index"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
@@ -387,6 +388,33 @@ fn assert_no_published_schema_tree(root: &Path) {
     assert!(!resolution.contains("\"canonical_schemas_published\": true"));
     assert!(!resolution.contains("\"order_closure_enum_approved\": true"));
     assert!(!resolution.contains("\"risk_release_approved\": true"));
+
+    let risk = fs::read_to_string(
+        root.join("contracts/design-proposals/TRD-ARCH-03B2-proposal-index.json"),
+    )
+    .expect("risk proposal index");
+    assert!(risk.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_PROPOSAL_INDEX\""));
+    assert!(risk.contains("\"ratification\": \"NOT_RATIFIED\""));
+    assert!(risk.contains("\"not_a_schema\": true"));
+    assert!(risk.contains("\"not_registry_json\": true"));
+    assert!(risk.contains("\"risk_release_approved\": false"));
+    assert!(risk.contains("\"economic_posting_approved\": false"));
+    assert!(risk.contains("\"economic_finality_predicate_approved\": false"));
+    assert!(risk.contains("\"implementation_authorized\": false"));
+    assert!(risk.contains("\"closes_xc_findings\": false"));
+    assert!(risk.contains("\"order_closure_enum_approved\": false"));
+    assert!(risk.contains("\"xc_02_pred\": \"OPEN\""));
+    assert!(risk.contains("\"xc_03_matrix\": \"OPEN\""));
+    assert!(risk.contains("\"part_b\": \"NO-GO\""));
+    assert!(risk.contains("\"registry_status_required\": \"SKELETON_NOT_CANONICAL\""));
+    assert!(risk.contains("\"live_trading_authorized\": false"));
+    assert!(risk.contains("\"canonical_schemas_published\": false"));
+    assert!(risk.contains("\"canonical_schema_published_by_this_index\": false"));
+    assert!(!risk.contains("\"live_trading_authorized\": true"));
+    assert!(!risk.contains("\"canonical_schemas_published\": true"));
+    assert!(!risk.contains("\"risk_release_approved\": true"));
+    assert!(!risk.contains("\"economic_posting_approved\": true"));
+    assert!(!risk.contains("\"economic_finality_predicate_approved\": true"));
 
     let manifest = fs::read_to_string(root.join("contracts/source-manifest.json"))
         .expect("read contracts/source-manifest.json");
