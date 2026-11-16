@@ -1,0 +1,1247 @@
+{
+  "document_role": "NON_RUNTIME_NON_WIRE_RESEARCH_INDEX",
+  "task": "TRD-ARCH-03B.5",
+  "date": "2026-11-16",
+  "baseline_head": "ac60bf932355660548bf5751963009ea956b76a5",
+  "predecessor_subject": "TRD-ARCH-03B.4.2: Ratify IBKR Verification Strategy",
+  "authority": "user_instruction_dated_2026-11-16_public_documentation_research_only",
+  "authority_is_stage_go": false,
+  "retrieval_stop": "PROTOCOL_REQUIRES_SEPARATE_STAGE_NAMED_GO",
+  "external_fetch_performed": false,
+  "obtained_source_count": 0,
+  "second_copy_count": 0,
+  "fetch_timestamp_utc": null,
+  "local_source_archive_created": false,
+  "raw_payload_store_created": false,
+  "not_a_schema": true,
+  "not_registry_json": true,
+  "not_a_wire_schema": true,
+  "not_a_canonical_identity_tuple": true,
+  "not_the_historical_plan_index": true,
+  "not_the_resolution_index": true,
+  "added_to_canonical_registry": false,
+  "implementation_authorized": false,
+  "broker_connection_authorized": false,
+  "read_only_broker_access_authorized": false,
+  "broker_testing_authorized": false,
+  "order_send_authorized": false,
+  "paper_trading_authorized": false,
+  "live_trading_authorized": false,
+  "economic_posting_approved": false,
+  "risk_release_approved": false,
+  "economic_finality_predicate_approved": false,
+  "oms_transitions_approved": false,
+  "broker_dispatch_approved": false,
+  "canonical_schemas_published": false,
+  "uniqueness_guaranteed": false,
+  "uniqueness_index_approved": false,
+  "completeness_proof_approved": false,
+  "completeness_token_ratified": false,
+  "closes_xc_findings": false,
+  "external_broker_tests_executed": false,
+  "external_broker_requests_executed": false,
+  "documentation_regression_tests_are_not_broker_evidence": true,
+  "documentation_tests_do_not_set_external_broker_tests_executed": true,
+  "public_documentation_research_authorized": true,
+  "public_documentation_research_authorized_is_stage_go": false,
+  "stage_e0": "STOP",
+  "stage_e1": "STOP",
+  "stage_e2": "STOP",
+  "stage_e3": "STOP",
+  "stage_e4": "STOP",
+  "stage_e0_authorized": false,
+  "stage_e1_authorized": false,
+  "stage_e2_authorized": false,
+  "stage_e3_authorized": false,
+  "stage_e4_authorized": false,
+  "human_checkpoint": "STOP",
+  "reads_approved": "NO_READS_APPROVED",
+  "environment_selected": false,
+  "new_arch_dec_assigned": false,
+  "next_unused_decision_id_observed": "ARCH-DEC-63",
+  "part_b": "NO-GO",
+  "broker_uniqueness_evidence": "EVIDENCE_PENDING",
+  "registry_status_required": "SKELETON_NOT_CANONICAL",
+  "xc_01": "OPEN",
+  "xc_08_ibkr": "OPEN",
+  "xc_02_pred": "OPEN",
+  "xc_03_matrix": "OPEN",
+  "xc_04_remainder": "OPEN",
+  "documentation_hosts_recorded": [],
+  "documentation_host_status": "UNRECORDED",
+  "allowed_retrieval_class": "UNAUTHENTICATED_PUBLIC_DOCUMENTATION_PAGE_ONLY",
+  "redirect_policy": "DO_NOT_FOLLOW_TO_LOGIN_ACCOUNT_SESSION_OR_API",
+  "sources": [],
+  "research_topics": [
+    {
+      "id": "T-01",
+      "question": "TWS API as its own product and interface",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-02",
+      "question": "IB Gateway as its own product and interface, distinct from TWS API",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-03",
+      "question": "Client Portal API as its own product and interface, distinct from TWS API and from IB Gateway",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-04",
+      "question": "Identity and lifecycle of orderId, including context, restart, reuse, and late appearance",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-05",
+      "question": "Identity and lifecycle of permId",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-06",
+      "question": "Identity and lifecycle of execId, including correction observations",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-07",
+      "question": "Account, client, and session context actually printed by official text",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-08",
+      "question": "Status updates, execution reports, and send attempts as separate observations",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-09",
+      "question": "Snapshot and query scope, time window, filter, paging, reconnect, and incompleteness",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-10",
+      "question": "Session and connection models, and documented limits on recovery and writer isolation",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-11",
+      "question": "Official names of paper, sandbox, and test environments, with none selected",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-12",
+      "question": "Names of later read candidates, none invoked and none approved",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-13",
+      "question": "Order, cancel, modify, and replace operations as not read-only, with no operation name invented",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "T-14",
+      "question": "Product, API client, platform, operating system, account mode, publication date, and change date",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "retrieval_status": "NOT_RETRIEVED",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED"
+    }
+  ],
+  "claims": [
+    {
+      "id": "IBKR-CLM-01",
+      "heading": "orderId namespace and placement context",
+      "research_topic": "T-04",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-02",
+      "heading": "orderId reuse across clients and sessions",
+      "research_topic": "T-04",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-03",
+      "heading": "orderId across reconnect and restart",
+      "research_topic": "T-04",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-04",
+      "heading": "permId absent, null, and zero stay distinct",
+      "research_topic": "T-05",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-05",
+      "heading": "permId assignment timing",
+      "research_topic": "T-05",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-06",
+      "heading": "permId stability, limits, and standalone non-uniqueness",
+      "research_topic": "T-05",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-07",
+      "heading": "execId namespace and duplicates",
+      "research_topic": "T-06",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-08",
+      "heading": "correction and bust references",
+      "research_topic": "T-06",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-09",
+      "heading": "out-of-order execution delivery",
+      "research_topic": "T-08",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-10",
+      "heading": "order status, execution observations, and local attempts",
+      "research_topic": "T-08",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-11",
+      "heading": "request and response scope",
+      "research_topic": "T-09",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-12",
+      "heading": "pagination and end of response",
+      "research_topic": "T-09",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-13",
+      "heading": "retention, truncation, delay, and gaps",
+      "research_topic": "T-09",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-14",
+      "heading": "empty response",
+      "research_topic": "T-09",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-15",
+      "heading": "no completeness token",
+      "research_topic": "T-09",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-16",
+      "heading": "reconnect is a new session context",
+      "research_topic": "T-10",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-17",
+      "heading": "gateway or TWS restart",
+      "research_topic": "T-01+T-02",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-18",
+      "heading": "disconnect, missing executions, partial fills, and late fills",
+      "research_topic": "T-08",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-19",
+      "heading": "cancel races and conflicting snapshots",
+      "research_topic": "T-13",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-20",
+      "heading": "unknown send before DISPATCH_STARTED",
+      "research_topic": "T-08",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-21",
+      "heading": "unknown send after DISPATCH_STARTED",
+      "research_topic": "T-08",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-22",
+      "heading": "lost acknowledgement and crash after send",
+      "research_topic": "T-08",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-23",
+      "heading": "prior writer, lease expiry, and split brain",
+      "research_topic": "T-10",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-24",
+      "heading": "session isolation is external evidence",
+      "research_topic": "T-10",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-25",
+      "heading": "WriterEpoch, adapter session epoch, acceptance, and isolation",
+      "research_topic": "T-10",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-26",
+      "heading": "version, platform, and revalidation",
+      "research_topic": "T-14",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    },
+    {
+      "id": "IBKR-CLM-27",
+      "heading": "a singleton candidate is not authorization",
+      "research_topic": "T-12",
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "hypothesis_status": "HYPOTHESIS",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "execution": "NOT_EXECUTED",
+      "empirical_upgrade": false
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "IBKR-SCN-A01",
+      "title": "Reused `orderId` in another session",
+      "family": "identity",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-02",
+        "IBKR-CLM-03"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A02",
+      "title": "Same `orderId` text seen by two clients",
+      "family": "identity",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-01",
+        "IBKR-CLM-02"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A03",
+      "title": "Same `orderId` text on two accounts",
+      "family": "identity",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-01",
+        "IBKR-CLM-02"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A04",
+      "title": "Absent `permId` is retained",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-04"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A05",
+      "title": "Null `permId` is not zero",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-04"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A06",
+      "title": "Zero `permId` is not missing",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-04",
+        "IBKR-CLM-06"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A07",
+      "title": "Late `permId` is appended",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-05",
+        "IBKR-CLM-06"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A08",
+      "title": "Duplicate `execId` with identical raw payload",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-07"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A09",
+      "title": "Duplicate `execId` with a different payload",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-07"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A10",
+      "title": "Correction or bust whose new evidence names a reference",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-08"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "CORRECTION_TEXT_IS_NOT_A_REVERSAL",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A11",
+      "title": "Correction or bust whose new evidence names no reference",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-08"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "CORRECTION_TEXT_IS_NOT_A_REVERSAL",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A12",
+      "title": "Contradictory raw payload under one apparent key",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-06",
+        "IBKR-CLM-07",
+        "IBKR-CLM-10"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A13",
+      "title": "Out-of-order execution evidence",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-09"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-A14",
+      "title": "Terminal-looking status beside an unknown local attempt",
+      "family": "identity",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-10"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "STATUS_TEXT_IS_NOT_ECONOMIC_FINALITY",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B01",
+      "title": "Empty result",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-14",
+        "IBKR-CLM-15"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B02",
+      "title": "Truncated window",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-11",
+        "IBKR-CLM-13"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B03",
+      "title": "Pagination break",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-12"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B04",
+      "title": "Dropped connection during a read",
+      "family": "snapshot",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-12",
+        "IBKR-CLM-18"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B05",
+      "title": "Delayed execution",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-13",
+        "IBKR-CLM-18"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B06",
+      "title": "Missing end marker",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-12",
+        "IBKR-CLM-15"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B07",
+      "title": "Cross-session snapshot confusion",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-11",
+        "IBKR-CLM-16"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B08",
+      "title": "Cross-account snapshot confusion",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-11"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B09",
+      "title": "Stale cache",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-11",
+        "IBKR-CLM-13"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B10",
+      "title": "Mismatched request scope",
+      "family": "snapshot",
+      "historical_action": "read-only",
+      "claims": [
+        "IBKR-CLM-11"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-B11",
+      "title": "Different API or product versions",
+      "family": "snapshot",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-26",
+        "IBKR-CLM-11"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C01",
+      "title": "Unknown send before `DISPATCH_STARTED`",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-20"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C02",
+      "title": "Unknown send after `DISPATCH_STARTED`",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-21"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C03",
+      "title": "Timeout after `DISPATCH_STARTED`",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-21"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C04",
+      "title": "Lost acknowledgement",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-22"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C05",
+      "title": "Crash after a possible send",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-21",
+        "IBKR-CLM-22"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C06",
+      "title": "Reconnect while a send is unknown",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-16",
+        "IBKR-CLM-21"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "RECONNECT_TEXT_IS_NOT_A_NEGATIVE_SEND_PROOF",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C07",
+      "title": "Gateway or TWS restart while a send is unknown",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-17",
+        "IBKR-CLM-03",
+        "IBKR-CLM-21"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "RECONNECT_TEXT_IS_NOT_A_NEGATIVE_SEND_PROOF",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C08",
+      "title": "Prior writer still possibly active",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-23",
+        "IBKR-CLM-24"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C09",
+      "title": "Expired lease",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-23",
+        "IBKR-CLM-25"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C10",
+      "title": "Split brain",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-23",
+        "IBKR-CLM-24"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C11",
+      "title": "Newer local epoch",
+      "family": "unknown send",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-25",
+        "IBKR-CLM-23"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-C12",
+      "title": "Partial fill during disconnect",
+      "family": "unknown send",
+      "historical_action": "controlled",
+      "claims": [
+        "IBKR-CLM-18",
+        "IBKR-CLM-21"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-D01",
+      "title": "Singleton candidate is not authorization",
+      "family": "negative",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-27"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-D02",
+      "title": "Local capture gap is not an IBKR sequence",
+      "family": "negative",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-12"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-D03",
+      "title": "No completeness token",
+      "family": "negative",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-15",
+        "IBKR-CLM-14"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-D04",
+      "title": "No broker-wins rule",
+      "family": "negative",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-10",
+        "IBKR-CLM-19"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-D05",
+      "title": "No economic effect and no release",
+      "family": "negative",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-08",
+        "IBKR-CLM-14",
+        "IBKR-CLM-27"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    },
+    {
+      "id": "IBKR-SCN-D06",
+      "title": "No dispatch",
+      "family": "negative",
+      "historical_action": "offline",
+      "claims": [
+        "IBKR-CLM-21",
+        "IBKR-CLM-23"
+      ],
+      "documentation_class": "UNVERIFIED_RESEARCH_TOPIC",
+      "official_source_id": "NOT_ESTABLISHED",
+      "section_anchor": "NOT_ESTABLISHED",
+      "oracle_limit": "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+      "execution": "NOT_EXECUTED",
+      "evidence": "EXTERNAL_EVIDENCE_PENDING",
+      "authorization": "NOT_AUTHORIZED"
+    }
+  ],
+  "read_candidates": [],
+  "version_tuple": {
+    "product_name": "UNRECORDED",
+    "product_version": "UNRECORDED",
+    "api_client_name": "UNRECORDED",
+    "api_client_version": "UNRECORDED",
+    "platform": "UNRECORDED",
+    "operating_system": "UNRECORDED",
+    "account_mode": "UNRECORDED",
+    "environment_class": "UNRECORDED",
+    "publication_date": "UNRECORDED",
+    "change_date": "UNRECORDED"
+  }
+}

@@ -67,6 +67,7 @@ const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/registry/registry.json",
     "contracts/verification-plans/TRD-ARCH-03B4-plan-index.json",
     "contracts/verification-plans/TRD-ARCH-03B42-resolution-index.json",
+    "contracts/verification-plans/TRD-ARCH-03B5-source-index.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
     "contracts/status-model/status-dimensions-draft-v0.json",
@@ -348,7 +349,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, the non-wire IBKR verification plan index, and the non-wire IBKR verification policy resolution index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, the non-wire IBKR verification plan index, the non-wire IBKR verification policy resolution index, and the non-wire IBKR public-research index"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),
@@ -715,6 +716,55 @@ fn assert_no_published_schema_tree(root: &Path) {
         !status_draft.contains("\"canonical_schemas_published\": true"),
         "status draft must not publish canonical schemas"
     );
+
+    let research = fs::read_to_string(
+        root.join("contracts/verification-plans/TRD-ARCH-03B5-source-index.json"),
+    )
+    .expect("IBKR public research index");
+    assert!(research.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_RESEARCH_INDEX\""));
+    assert!(!research.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_RESOLUTION_INDEX\""));
+    assert!(
+        !research.contains("\"document_role\": \"NON_RUNTIME_NON_WIRE_VERIFICATION_PLAN_INDEX\"")
+    );
+    assert!(research.contains("\"task\": \"TRD-ARCH-03B.5\""));
+    assert!(research.contains("\"not_registry_json\": true"));
+    assert!(research.contains("\"not_a_schema\": true"));
+    assert!(research.contains("\"not_a_wire_schema\": true"));
+    assert!(research.contains("\"added_to_canonical_registry\": false"));
+    assert!(research.contains("\"broker_connection_authorized\": false"));
+    assert!(research.contains("\"read_only_broker_access_authorized\": false"));
+    assert!(research.contains("\"broker_testing_authorized\": false"));
+    assert!(research.contains("\"order_send_authorized\": false"));
+    assert!(research.contains("\"paper_trading_authorized\": false"));
+    assert!(research.contains("\"live_trading_authorized\": false"));
+    assert!(research.contains("\"economic_posting_approved\": false"));
+    assert!(research.contains("\"risk_release_approved\": false"));
+    assert!(research.contains("\"oms_transitions_approved\": false"));
+    assert!(research.contains("\"canonical_schemas_published\": false"));
+    assert!(research.contains("\"uniqueness_guaranteed\": false"));
+    assert!(research.contains("\"completeness_proof_approved\": false"));
+    assert!(research.contains("\"closes_xc_findings\": false"));
+    assert!(research.contains("\"external_broker_tests_executed\": false"));
+    assert!(research.contains("\"external_fetch_performed\": false"));
+    assert!(research.contains("\"public_documentation_research_authorized\": true"));
+    assert!(research.contains("\"public_documentation_research_authorized_is_stage_go\": false"));
+    assert!(research.contains("\"stage_e0\": \"STOP\""));
+    assert!(research.contains("\"stage_e1\": \"STOP\""));
+    assert!(research.contains("\"stage_e2\": \"STOP\""));
+    assert!(research.contains("\"stage_e3\": \"STOP\""));
+    assert!(research.contains("\"stage_e4\": \"STOP\""));
+    assert!(research.contains("\"reads_approved\": \"NO_READS_APPROVED\""));
+    assert!(research.contains("\"sources\": []"));
+    assert!(!research.contains("\"live_trading_authorized\": true"));
+    assert!(!research.contains("\"broker_connection_authorized\": true"));
+    assert!(!research.contains("\"read_only_broker_access_authorized\": true"));
+    assert!(!research.contains("\"order_send_authorized\": true"));
+    assert!(!research.contains("\"stage_e0_authorized\": true"));
+    assert!(!research.contains("\"external_broker_tests_executed\": true"));
+    assert!(!research.contains("\"external_fetch_performed\": true"));
+    let registry_text =
+        fs::read_to_string(root.join("contracts/registry/registry.json")).expect("registry");
+    assert!(!registry_text.contains("TRD-ARCH-03B5"));
 }
 
 fn contract_relative(root: &Path, path: &Path) -> String {
