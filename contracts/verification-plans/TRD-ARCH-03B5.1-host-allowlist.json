@@ -1,0 +1,186 @@
+{
+  "document_role": "NON_RUNTIME_NON_WIRE_HOST_ALLOWLIST",
+  "task": "TRD-ARCH-03B.5.1",
+  "date": "2026-11-16",
+  "not_a_schema": true,
+  "not_registry_json": true,
+  "not_a_wire_schema": true,
+  "not_a_canonical_identity_tuple": true,
+  "added_to_canonical_registry": false,
+  "implementation_authorized": false,
+  "broker_connection_authorized": false,
+  "read_only_broker_access_authorized": false,
+  "broker_testing_authorized": false,
+  "order_send_authorized": false,
+  "paper_trading_authorized": false,
+  "live_trading_authorized": false,
+  "economic_posting_approved": false,
+  "risk_release_approved": false,
+  "economic_finality_predicate_approved": false,
+  "oms_transitions_approved": false,
+  "broker_dispatch_approved": false,
+  "canonical_schemas_published": false,
+  "uniqueness_guaranteed": false,
+  "completeness_proof_approved": false,
+  "closes_xc_findings": false,
+  "external_broker_tests_executed": false,
+  "external_broker_requests_executed": false,
+  "reads_approved": "NO_READS_APPROVED",
+  "stage_e0_checkpoint_for_named_action": "GO_LIMITED_PUBLIC_DOCS_ONLY",
+  "stage_e0_general": "STOP",
+  "stage_e1": "STOP",
+  "stage_e2": "STOP",
+  "stage_e3": "STOP",
+  "stage_e4": "STOP",
+  "methods_allowed": ["GET", "HEAD"],
+  "scheme_allowed": "https",
+  "cookies_allowed": false,
+  "authentication_headers_allowed": false,
+  "tls_validation_bypass_allowed": false,
+  "automatic_redirect_following_allowed": false,
+  "max_response_bytes": 8000000,
+  "timeout_seconds": 25,
+  "repository_official_url_count_at_preflight": 0,
+  "repository_url_scan": "No https URL in contracts/verification-plans, contracts/decisions, or contracts/sources at preflight. A remembered hostname is not provenance.",
+  "publisher_discovery": "A web search named www.interactivebrokers.com, interactivebrokers.github.io, and ibkrcampus.com. Only www.interactivebrokers.com was then checked. Search snippets did not authorize a fetch.",
+  "identity_probe": {
+    "performed": true,
+    "purpose": "Publisher identity only. Not an archived documentation source.",
+    "initial_url": "https://www.interactivebrokers.com/docs/",
+    "final_url": "https://www.interactivebrokers.com/docs/",
+    "redirects": [],
+    "http_status": 200,
+    "content_type": "text/html; charset=utf-8",
+    "bytes": 148042,
+    "sha256": "1c8f4e050863048a6ce0aae382c5a6cdff21232f81a53eddb8fd691ce39084e6",
+    "title": "IBKR API Home | Interactive Brokers | Documentation",
+    "body_identifies_interactive_brokers": true,
+    "tls_validation_bypassed": false,
+    "certificate": {
+      "subject": "CN=interactivebrokers.com, O=IBG LLC, L=Greenwich, S=Connecticut, C=US, SERIALNUMBER=0538978",
+      "issuer": "CN=DigiCert EV RSA CA G2, O=DigiCert Inc, C=US",
+      "not_before_utc": "2026-07-30T00:00:00.0000000Z",
+      "not_after_utc": "2027-02-13T23:59:59.0000000Z",
+      "thumbprint_sha1": "1A69CDC7F710867C2694474B2F1F00440522C65A",
+      "san_includes_www_interactivebrokers_com": true
+    },
+    "ownership": "EV certificate organization IBG LLC on CN=interactivebrokers.com, and the response title is IBKR API documentation. This verifies the host. It does not verify every name on the same certificate."
+  },
+  "hosts": [
+    {
+      "id": "H-01",
+      "scheme": "https",
+      "host": "www.interactivebrokers.com",
+      "port": 443,
+      "status": "VERIFIED_OFFICIAL_DOCUMENTATION_HOST",
+      "ownership_evidence": "DigiCert EV certificate, O=IBG LLC, CN=interactivebrokers.com, SAN includes www.interactivebrokers.com. HTTPS GET of /docs/ returned 200 text/html titled IBKR API Home | Interactive Brokers | Documentation.",
+      "path_scope": {
+        "rule": "PATH_PREFIX",
+        "prefix": "/docs/",
+        "also_exact": ["/docs", "/docs.md"]
+      },
+      "purpose": "Public IBKR API documentation pages and documentation assets under /docs only.",
+      "eligible_content": "Public documentation HTML, Markdown, and plain-text documentation indexes.",
+      "query_allowed": false,
+      "userinfo_allowed": false
+    },
+    {
+      "id": "H-02",
+      "scheme": "https",
+      "host": "ibkrcampus.com",
+      "port": 443,
+      "status": "LINKED_FROM_VERIFIED_IBKR_DOCUMENTATION_PAGE",
+      "ownership_evidence": "https://www.interactivebrokers.com/docs/ links to https://ibkrcampus.com/docs.md. TLS certificate is DV CN=ibkrcampus.com, issuer Let's Encrypt YR2, thumbprint 7B1A07F2DBD619FD29764E861821A431C2213A26, not before 2026-11-11T21:28:37Z, not after 2027-02-09T21:28:36Z. The certificate subject does not name IBG LLC. A fetched body is an official source only if it identifies Interactive Brokers or matches bytes already retrieved from H-01.",
+      "path_scope": {
+        "rule": "PATH_PREFIX",
+        "prefix": "/docs/",
+        "also_exact": ["/docs", "/docs.md"]
+      },
+      "purpose": "Second official documentation route linked from the verified IBKR documentation home. Not a broker API host.",
+      "eligible_content": "Public documentation HTML, Markdown, and plain-text documentation indexes.",
+      "query_allowed": false,
+      "userinfo_allowed": false
+    }
+  ],
+  "candidates": [
+    {
+      "host": "interactivebrokers.github.io",
+      "scheme": "https",
+      "status": "HOST_UNVERIFIED",
+      "certificate": "CN=*.github.io, Let's Encrypt. Wildcard platform certificate. Exact host was not linked from the verified /docs/ page.",
+      "discovery": "Named by web search as a deprecated TWS API documentation host. Not fetchable.",
+      "documentation_fetch_allowed": false
+    },
+    {
+      "host": "ibkrguides.com",
+      "scheme": "https",
+      "status": "HOST_UNVERIFIED",
+      "certificate": "CN=ibkrguides.com, Let's Encrypt YR2, thumbprint FF3D0A408E1D19C8269FA5694EEFA139A49D96AA. Subject does not name IBG LLC.",
+      "discovery": "The verified /docs/ HTML links to two statement-guide pages. Those pages were not fetched. The host is not an allowlisted documentation host.",
+      "documentation_fetch_allowed": false
+    }
+  ],
+  "rejected": [
+    {
+      "url": "https://ndcdyn.interactivebrokers.com/mkt/?src=apiLogIn&url=%2Fsso%2FLogin%3FRL%3D1%26locale%3Den_US",
+      "reason": "Login path. Linked from the documentation home. Not a documentation host in this allowlist. Not followed."
+    },
+    {
+      "url": "https://ndcdyn.interactivebrokers.com/mkt/?src=apiAcc&url=%2FUniversal%2FApplication",
+      "reason": "Account-application path. Not followed."
+    },
+    {
+      "url": "https://api.ibkr.com/v1/api",
+      "reason": "Named in a search snippet as a Web API request base. It is an API host, not a documentation page. Not requested."
+    },
+    {
+      "url": "https://localhost:5000/v1/api",
+      "reason": "Loopback API base named in a search snippet. Not requested."
+    },
+    {
+      "url": "https://buildwithfern.com/",
+      "reason": "Third-party documentation tooling link on the verified page. Not an IBKR documentation host. Not followed."
+    },
+    {
+      "url": "https://dashboard.buildwithfern.com/",
+      "reason": "Third-party edit dashboard. Not followed."
+    },
+    {
+      "url": "https://claude.ai/",
+      "reason": "Third-party link on the verified page. Not followed."
+    },
+    {
+      "url": "https://www.fixtrading.org/what-is-fix/",
+      "reason": "Third-party standards site linked from the documentation home. Not IBKR publisher documentation for this acquisition. Not followed."
+    },
+    {
+      "url": "https://ibkrcampus.com/docs/llms.txt",
+      "reason": "HTTP 403, body is the text error code: 1000. Not an official document. Not treated as absence of documentation. No further paths on this host were requested after the linked documentation URLs also returned 403."
+    },
+    {
+      "url": "https://ibkrcampus.com/docs.md",
+      "reason": "HTTP 403, same 17-byte error body. The verified documentation home links here. The failure is a retrieval failure, not a second copy."
+    },
+    {
+      "url": "https://ibkrcampus.com/docs/tws-api/llms.txt",
+      "reason": "HTTP 403, same 17-byte error body. Not followed to any other path."
+    }
+  ],
+  "documentation_fetch_started": true,
+  "accepted_same_host_redirects": [
+    {
+      "initial_url": "https://www.interactivebrokers.com/docs/tws-api",
+      "status": 307,
+      "location": "/docs/tws-api/doc/introduction",
+      "followed": true,
+      "reason": "Relative location resolves to the same allowlisted host and a /docs/ path. Followed only after that check."
+    },
+    {
+      "initial_url": "https://www.interactivebrokers.com/docs/web-api",
+      "status": 307,
+      "location": "/docs/web-api/introduction",
+      "followed": true,
+      "reason": "Relative location resolves to the same allowlisted host and a /docs/ path. Followed only after that check."
+    }
+  ]
+}

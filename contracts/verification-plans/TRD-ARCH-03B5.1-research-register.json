@@ -1,0 +1,1201 @@
+{
+    "document_role":  "NON_RUNTIME_NON_WIRE_RESEARCH_REGISTER",
+    "task":  "TRD-ARCH-03B.5.1",
+    "date":  "2026-11-16",
+    "not_a_schema":  true,
+    "not_registry_json":  true,
+    "not_a_wire_schema":  true,
+    "not_a_broker_raw_payload_store":  true,
+    "added_to_canonical_registry":  false,
+    "implementation_authorized":  false,
+    "broker_connection_authorized":  false,
+    "read_only_broker_access_authorized":  false,
+    "broker_testing_authorized":  false,
+    "order_send_authorized":  false,
+    "paper_trading_authorized":  false,
+    "live_trading_authorized":  false,
+    "economic_posting_approved":  false,
+    "risk_release_approved":  false,
+    "economic_finality_predicate_approved":  false,
+    "oms_transitions_approved":  false,
+    "broker_dispatch_approved":  false,
+    "canonical_schemas_published":  false,
+    "uniqueness_guaranteed":  false,
+    "completeness_proof_approved":  false,
+    "completeness_token_ratified":  false,
+    "closes_xc_findings":  false,
+    "external_broker_tests_executed":  false,
+    "external_broker_requests_executed":  false,
+    "reads_approved":  "NO_READS_APPROVED",
+    "environment_selected":  false,
+    "version_tuple":  "UNRECORDED",
+    "stage_e0_named_action":  "GO_LIMITED_PUBLIC_DOCS_ONLY",
+    "stage_e0_general":  "STOP",
+    "stage_e1":  "STOP",
+    "stage_e2":  "STOP",
+    "stage_e3":  "STOP",
+    "stage_e4":  "STOP",
+    "new_arch_dec_assigned":  false,
+    "next_unused_decision_id_observed":  "ARCH-DEC-63",
+    "arch_dec_49_satisfied":  false,
+    "xc_01":  "OPEN",
+    "xc_08_ibkr":  "OPEN",
+    "xc_02_pred":  "OPEN",
+    "xc_03_matrix":  "OPEN",
+    "xc_04_remainder":  "OPEN",
+    "api_families_not_merged":  [
+                                    "TWS_API",
+                                    "IB_GATEWAY",
+                                    "CLIENT_PORTAL_WEB_API"
+                                ],
+    "claims":  [
+                   {
+                       "id":  "IBKR-CLM-01",
+                       "heading":  "orderId namespace and placement context",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-008",
+                                          "SRC-03B51-010",
+                                          "SRC-03B51-014"
+                                      ],
+                       "section_anchor":  "OrderId; Execution.orderId; openOrder orderId",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "The Order ID is a client-managed identifier used to track, modify, and cancel orders. As a result, it must be strictly increasing.",
+                       "limitation":  "Execution.orderId says it may not be unique to an account. openOrder describes orderId as the order unique id. orderStatus describes the orderId parameter as the order client id. Those passages are not reconciled here."
+                   },
+                   {
+                       "id":  "IBKR-CLM-02",
+                       "heading":  "orderId reuse across clients and sessions",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-014",
+                                          "SRC-03B51-015",
+                                          "SRC-03B51-022"
+                                      ],
+                       "section_anchor":  "Open Orders; Master Client ID; Modifying Orders",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "the same order can have different API order IDs for different users.",
+                       "limitation":  "The sentence is about binding across TWS users. It was not observed in a broker session. It is not a uniqueness result."
+                   },
+                   {
+                       "id":  "IBKR-CLM-03",
+                       "heading":  "orderId across reconnect and restart",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-017",
+                                          "SRC-03B51-018",
+                                          "SRC-03B51-019"
+                                      ],
+                       "section_anchor":  "Establishing an API connection; Broken API socket connection; Download TWS or IB Gateway",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "callback is commonly used to indicate that the connection is completed",
+                       "limitation":  "A new connection is documented to receive a next valid order id. Survival of a previous orderId across reconnect or process restart is not stated."
+                   },
+                   {
+                       "id":  "IBKR-CLM-04",
+                       "heading":  "permId absent, null, and zero stay distinct",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-010",
+                                          "SRC-03B51-012"
+                                      ],
+                       "section_anchor":  "Execution.permId",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "The PermId can be 0 for trades originating outside IB.",
+                       "limitation":  "Zero is a documented value. Absent and null are not distinguished in the retrieved pages."
+                   },
+                   {
+                       "id":  "IBKR-CLM-05",
+                       "heading":  "permId assignment timing",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-009",
+                                          "SRC-03B51-014"
+                                      ],
+                       "section_anchor":  "Order.permId; orderBound",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "The Host order identifier.",
+                       "limitation":  "orderBound maps an API order id to what the page calls IBKR permId. When that identifier is assigned is not stated."
+                   },
+                   {
+                       "id":  "IBKR-CLM-06",
+                       "heading":  "permId stability, limits, and standalone non-uniqueness",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-022",
+                                          "SRC-03B51-010"
+                                      ],
+                       "section_anchor":  "Modifying Orders; Execution.permId",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "The permID returned in the API Order class which is assigned by TWS can be used to identify an order in an account uniquely.",
+                       "limitation":  "The sentence is scoped to an account by its own words. Zero is also documented. This is not a global uniqueness guarantee."
+                   },
+                   {
+                       "id":  "IBKR-CLM-07",
+                       "heading":  "execId namespace and duplicates",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-010",
+                                          "SRC-03B51-012"
+                                      ],
+                       "section_anchor":  "ExecID Behavior",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Each partial fill has a separate ExecId.",
+                       "limitation":  "Identical duplicate payloads for one ExecId are not discussed. Combo orders are documented as a 5-segment sequence."
+                   },
+                   {
+                       "id":  "IBKR-CLM-08",
+                       "heading":  "correction and bust references",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-012"
+                                      ],
+                       "section_anchor":  "ExecID Behavior",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "A correction is indicated by an ExecId which differs from a previous ExecId in only the digits after the final period",
+                       "limitation":  "The word bust does not appear in the retrieved pages. That absence is not proof that busts are undocumented elsewhere. No reversal or risk release is authorized."
+                   },
+                   {
+                       "id":  "IBKR-CLM-09",
+                       "heading":  "out-of-order execution delivery",
+                       "documentation_class":  "NOT_RETRIEVED",
+                       "source_ids":  [
+
+                                      ],
+                       "section_anchor":  "NOT_ESTABLISHED",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "",
+                       "limitation":  "execDetailsEnd marks the end of one response. Delivery order inside that response is not stated."
+                   },
+                   {
+                       "id":  "IBKR-CLM-10",
+                       "heading":  "order status, execution observations, and local attempts",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-013",
+                                          "SRC-03B51-012"
+                                      ],
+                       "section_anchor":  "Order Status; Execution Details",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Often there are duplicate `orderStatus` messages.",
+                       "limitation":  "orderStatus and execDetails are separate callbacks in the retrieved text. A local send attempt is not one of those callbacks."
+                   },
+                   {
+                       "id":  "IBKR-CLM-11",
+                       "heading":  "request and response scope",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-012",
+                                          "SRC-03B51-014",
+                                          "SRC-03B51-026",
+                                          "SRC-03B51-027"
+                                      ],
+                       "section_anchor":  "reqExecutions; reqAllOpenOrders; Live Orders; Trades",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Requests all current open orders in associated accounts at the current moment.",
+                       "limitation":  "TWS execution text also says since midnight, the last 24 hours, and a 7-day Trade Log setting. Those scopes disagree. Web API trades text says the current day and six previous days."
+                   },
+                   {
+                       "id":  "IBKR-CLM-12",
+                       "heading":  "pagination and end of response",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-012",
+                                          "SRC-03B51-014",
+                                          "SRC-03B51-026"
+                                      ],
+                       "section_anchor":  "execDetailsEnd; openOrderEnd; Live Orders",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Indicates the end of the Execution reception.",
+                       "limitation":  "An end callback is documented. A pagination cursor is not. Live Orders says the endpoint can contain a maximum of 1000 orders. The end of a response is not broker completeness."
+                   },
+                   {
+                       "id":  "IBKR-CLM-13",
+                       "heading":  "retention, truncation, delay, and gaps",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-012",
+                                          "SRC-03B51-026",
+                                          "SRC-03B51-027"
+                                      ],
+                       "section_anchor":  "Execution Details; Live Orders; Trades",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "The IB Gateway is limited to only executions from the current trading day since midnight.",
+                       "limitation":  "TWS text also mentions a Trade Log setting for the last 7 days. Delay of a single execution is not given a duration."
+                   },
+                   {
+                       "id":  "IBKR-CLM-14",
+                       "heading":  "empty response",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-025",
+                                          "SRC-03B51-026"
+                                      ],
+                       "section_anchor":  "Order Status; Live Orders force",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Submission will appear as a blank array.",
+                       "limitation":  "The blank array is the documented result of force=true clearing saved information. A 503 is documented when a cancelled or filled order has no cached status. Neither is broker absence."
+                   },
+                   {
+                       "id":  "IBKR-CLM-15",
+                       "heading":  "no completeness token",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-014",
+                                          "SRC-03B51-026"
+                                      ],
+                       "section_anchor":  "openOrderEnd; Live Orders",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "",
+                       "limitation":  "Retrieved pages do not present a completeness token. That silence is not proof that no such token exists on an unretrieved page. No completeness token is stored by this task."
+                   },
+                   {
+                       "id":  "IBKR-CLM-16",
+                       "heading":  "reconnect is a new session context",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-017",
+                                          "SRC-03B51-018"
+                                      ],
+                       "section_anchor":  "Establishing an API connection; Broken API socket connection",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "This function can be used to build reconnection logic or affirm a system disconnect.",
+                       "limitation":  "The page does not say that a reconnect creates a new session context. It does say a completed connection supplies account numbers, the next valid order id, and the time of connection."
+                   },
+                   {
+                       "id":  "IBKR-CLM-17",
+                       "heading":  "gateway or TWS restart",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-019",
+                                          "SRC-03B51-012"
+                                      ],
+                       "section_anchor":  "What is the IB Gateway?; Execution Details",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Both TWS and IBGW were designed to be restarted daily.",
+                       "limitation":  "The same page says that for the TWS API purposes, TWS and IB Gateway are synonymous. The execution page limits IB Gateway to the current trading day since midnight while describing a TWS Trade Log setting. The products are not collapsed here. Version 974+ is a cited autorestart threshold, not a pinned tuple."
+                   },
+                   {
+                       "id":  "IBKR-CLM-18",
+                       "heading":  "disconnect, missing executions, partial fills, and late fills",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-012",
+                                          "SRC-03B51-018"
+                                      ],
+                       "section_anchor":  "ExecID Behavior; Broken API socket connection",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Each partial fill has a separate ExecId.",
+                       "limitation":  "A partial fill is documented. Which executions are missing after a disconnect, and whether a fill can arrive late, are not stated."
+                   },
+                   {
+                       "id":  "IBKR-CLM-19",
+                       "heading":  "cancel races and conflicting snapshots",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-013"
+                                      ],
+                       "section_anchor":  "Understanding Order Status Message",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "You may still receive an execution while your cancellation request is pending.",
+                       "limitation":  "The sentence covers PendingCancel and PreCancelled. Conflicting snapshots are not given a resolution rule."
+                   },
+                   {
+                       "id":  "IBKR-CLM-20",
+                       "heading":  "unknown send before DISPATCH_STARTED",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-013"
+                                      ],
+                       "section_anchor":  "PendingSubmit",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Indicates that you have transmitted your order, but have not yet received confirmation that it has been accepted by the order destination.",
+                       "limitation":  "PendingSubmit is an official status word. It is not the local DISPATCH_STARTED window. No send was performed."
+                   },
+                   {
+                       "id":  "IBKR-CLM-21",
+                       "heading":  "unknown send after DISPATCH_STARTED",
+                       "documentation_class":  "NOT_RETRIEVED",
+                       "source_ids":  [
+
+                                      ],
+                       "section_anchor":  "NOT_ESTABLISHED",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "",
+                       "limitation":  "DISPATCH_STARTED does not appear in the retrieved pages."
+                   },
+                   {
+                       "id":  "IBKR-CLM-22",
+                       "heading":  "lost acknowledgement and crash after send",
+                       "documentation_class":  "NOT_RETRIEVED",
+                       "source_ids":  [
+
+                                      ],
+                       "section_anchor":  "NOT_ESTABLISHED",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "",
+                       "limitation":  "No retrieved page describes a lost acknowledgement or a crash after send. ARCH-DEC-57 stays in force. No fault injection was performed."
+                   },
+                   {
+                       "id":  "IBKR-CLM-23",
+                       "heading":  "prior writer, lease expiry, and split brain",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-018"
+                                      ],
+                       "section_anchor":  "Broken API socket connection",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "This exception will also occur if an API client attempts to connect with a client ID that is already in use.",
+                       "limitation":  "A client-id collision is documented. A lease, a prior writer, and split brain are not."
+                   },
+                   {
+                       "id":  "IBKR-CLM-24",
+                       "heading":  "session isolation is external evidence",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-015"
+                                      ],
+                       "section_anchor":  "ClientId 0 and the Master Client ID",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Connecting without using the Master Client ID will mean only trades on the connected Client ID will be returning from calls to the openOrder or execDetails functions.",
+                       "limitation":  "This is a documented visibility rule. It was not executed. It is not fencing evidence."
+                   },
+                   {
+                       "id":  "IBKR-CLM-25",
+                       "heading":  "WriterEpoch, adapter session epoch, acceptance, and isolation",
+                       "documentation_class":  "NOT_RETRIEVED",
+                       "source_ids":  [
+
+                                      ],
+                       "section_anchor":  "NOT_ESTABLISHED",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "",
+                       "limitation":  "Those four local labels do not appear as IBKR fields in the retrieved pages. Filling one would not fill another."
+                   },
+                   {
+                       "id":  "IBKR-CLM-26",
+                       "heading":  "version, platform, and revalidation",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-019",
+                                          "SRC-03B51-020"
+                                      ],
+                       "section_anchor":  "TWS Online or Offline Version?; Paper Trading",
+                       "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "Please use same TWS version to make sure the TWS version and TWS API version are synced.",
+                       "limitation":  "No product, API client, platform, operating system, or account-mode tuple is recorded. Paper Trading Account and Live trading environment are named and not selected. No revalidation was run."
+                   },
+                   {
+                       "id":  "IBKR-CLM-27",
+                       "heading":  "a singleton candidate is not authorization",
+                       "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                       "source_ids":  [
+                                          "SRC-03B51-014"
+                                      ],
+                       "section_anchor":  "openOrder orderId",
+                       "hypothesis_status":  "HYPOTHESIS",
+                       "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                       "execution":  "NOT_EXECUTED",
+                       "empirical_upgrade":  false,
+                       "quotation":  "The order's unique id",
+                       "limitation":  "The page uses the word unique. That word is not an authorization and not a uniqueness proof."
+                   }
+               ],
+    "scenarios":  [
+                      {
+                          "id":  "IBKR-SCN-A01",
+                          "title":  "Reused `orderId` in another session",
+                          "claims":  "IBKR-CLM-02, IBKR-CLM-03",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-022"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Different API order IDs for different users are documented. Session reuse was not observed."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A02",
+                          "title":  "Same `orderId` text seen by two clients",
+                          "claims":  "IBKR-CLM-01, IBKR-CLM-02",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-014",
+                                             "SRC-03B51-015"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Orders are documented as bound to the submitting client id. Two clients seeing the same orderId text was not observed."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A03",
+                          "title":  "Same `orderId` text on two accounts",
+                          "claims":  "IBKR-CLM-01, IBKR-CLM-02",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-010"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Execution.orderId is documented as possibly not unique to an account. That is not an observation of two accounts."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A04",
+                          "title":  "Absent `permId` is retained",
+                          "claims":  "IBKR-CLM-04",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A05",
+                          "title":  "Null `permId` is not zero",
+                          "claims":  "IBKR-CLM-04",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A06",
+                          "title":  "Zero `permId` is not missing",
+                          "claims":  "IBKR-CLM-04, IBKR-CLM-06",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-010"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "permId 0 is documented for trades originating outside IB. Absent and null remain unstated."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A07",
+                          "title":  "Late `permId` is appended",
+                          "claims":  "IBKR-CLM-05, IBKR-CLM-06",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A08",
+                          "title":  "Duplicate `execId` with identical raw payload",
+                          "claims":  "IBKR-CLM-07",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A09",
+                          "title":  "Duplicate `execId` with a different payload",
+                          "claims":  "IBKR-CLM-07",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "A correction is documented as a different ExecId. A different payload under one ExecId is not stated."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A10",
+                          "title":  "Correction or bust whose new evidence names a reference",
+                          "claims":  "IBKR-CLM-08",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "CORRECTION_TEXT_IS_NOT_A_REVERSAL",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "The correction indicator is the ExecId suffix. The word bust was not in the retrieved pages. No reversal is authorized."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A11",
+                          "title":  "Correction or bust whose new evidence names no reference",
+                          "claims":  "IBKR-CLM-08",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "CORRECTION_TEXT_IS_NOT_A_REVERSAL",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "The retrieved correction text always points at the ExecId suffix. It does not describe a correction that names no reference."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A12",
+                          "title":  "Contradictory raw payload under one apparent key",
+                          "claims":  "IBKR-CLM-06, IBKR-CLM-07, IBKR-CLM-10",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A13",
+                          "title":  "Out-of-order execution evidence",
+                          "claims":  "IBKR-CLM-09",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "IDENTITY_OBSERVATION_IS_NOT_UNIQUENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-A14",
+                          "title":  "Terminal-looking status beside an unknown local attempt",
+                          "claims":  "IBKR-CLM-10",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-013"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "STATUS_TEXT_IS_NOT_ECONOMIC_FINALITY",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Filled and PendingSubmit are documented status words. They do not classify a local attempt."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B01",
+                          "title":  "Empty result",
+                          "claims":  "IBKR-CLM-14, IBKR-CLM-15",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-026",
+                                             "SRC-03B51-025"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "A blank array and a 503 are documented. Neither was received from a broker."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B02",
+                          "title":  "Truncated window",
+                          "claims":  "IBKR-CLM-11, IBKR-CLM-13",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012",
+                                             "SRC-03B51-026"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Midnight, 24 hours, 7 days, the current trading day, and a 1000-order maximum are all written. They do not agree, and none was measured."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B03",
+                          "title":  "Pagination break",
+                          "claims":  "IBKR-CLM-12",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012",
+                                             "SRC-03B51-014"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "End callbacks are documented. A pagination break is not."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B04",
+                          "title":  "Dropped connection during a read",
+                          "claims":  "IBKR-CLM-12, IBKR-CLM-18",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-018"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "A broken socket is documented. A drop during a particular read was not described or executed."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B05",
+                          "title":  "Delayed execution",
+                          "claims":  "IBKR-CLM-13, IBKR-CLM-18",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B06",
+                          "title":  "Missing end marker",
+                          "claims":  "IBKR-CLM-12, IBKR-CLM-15",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-014"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "openOrderEnd is documented only when open orders are explicitly requested. A missing end marker is not given an effect."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B07",
+                          "title":  "Cross-session snapshot confusion",
+                          "claims":  "IBKR-CLM-11, IBKR-CLM-16",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-015"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Master Client ID changes which trades a connection returns. Cross-session confusion was not observed."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B08",
+                          "title":  "Cross-account snapshot confusion",
+                          "claims":  "IBKR-CLM-11",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-025"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Web API order status text says a multi-account structure must switch account first or a 503 is expected."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B09",
+                          "title":  "Stale cache",
+                          "claims":  "IBKR-CLM-11, IBKR-CLM-13",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-025",
+                                             "SRC-03B51-026"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Cached order status and force=true cache clearing are documented. No cache was read."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B10",
+                          "title":  "Mismatched request scope",
+                          "claims":  "IBKR-CLM-11",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "The execution page states since midnight, the last 24 hours, and a 7-day setting. The mismatch is in the text."
+                      },
+                      {
+                          "id":  "IBKR-SCN-B11",
+                          "title":  "Different API or product versions",
+                          "claims":  "IBKR-CLM-26, IBKR-CLM-11",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-019"
+                                         ],
+                          "hypothesis_status":  "DOCUMENTED_CLAIM_NOT_EMPIRICALLY_VERIFIED",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "The download page says to keep the TWS version and the TWS API version synced. No tuple was pinned."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C01",
+                          "title":  "Unknown send before `DISPATCH_STARTED`",
+                          "claims":  "IBKR-CLM-20",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-013"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "PendingSubmit is documented. It is not DISPATCH_STARTED and no send occurred."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C02",
+                          "title":  "Unknown send after `DISPATCH_STARTED`",
+                          "claims":  "IBKR-CLM-21",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C03",
+                          "title":  "Timeout after `DISPATCH_STARTED`",
+                          "claims":  "IBKR-CLM-21",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C04",
+                          "title":  "Lost acknowledgement",
+                          "claims":  "IBKR-CLM-22",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C05",
+                          "title":  "Crash after a possible send",
+                          "claims":  "IBKR-CLM-21, IBKR-CLM-22",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C06",
+                          "title":  "Reconnect while a send is unknown",
+                          "claims":  "IBKR-CLM-16, IBKR-CLM-21",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-018"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "RECONNECT_TEXT_IS_NOT_A_NEGATIVE_SEND_PROOF",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "connectionClosed may be used to build reconnection logic. It is not proof a send did not happen."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C07",
+                          "title":  "Gateway or TWS restart while a send is unknown",
+                          "claims":  "IBKR-CLM-17, IBKR-CLM-03, IBKR-CLM-21",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-019"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "RECONNECT_TEXT_IS_NOT_A_NEGATIVE_SEND_PROOF",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Daily restart and version 974+ autorestart are documented. They do not decide an unknown send."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C08",
+                          "title":  "Prior writer still possibly active",
+                          "claims":  "IBKR-CLM-23, IBKR-CLM-24",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-018"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "A client ID already in use breaks the new connection. That is not a prior-writer proof."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C09",
+                          "title":  "Expired lease",
+                          "claims":  "IBKR-CLM-23, IBKR-CLM-25",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C10",
+                          "title":  "Split brain",
+                          "claims":  "IBKR-CLM-23, IBKR-CLM-24",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C11",
+                          "title":  "Newer local epoch",
+                          "claims":  "IBKR-CLM-25, IBKR-CLM-23",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "ISOLATION_TEXT_IS_NOT_FENCING_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-C12",
+                          "title":  "Partial fill during disconnect",
+                          "claims":  "IBKR-CLM-18, IBKR-CLM-21",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SEND_TEXT_IS_NOT_OUTCOME_OR_TAKEOVER",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "Partial fills have separate ExecIds. A partial fill during disconnect was not described as a tested case."
+                      },
+                      {
+                          "id":  "IBKR-SCN-D01",
+                          "title":  "Singleton candidate is not authorization",
+                          "claims":  "IBKR-CLM-27",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-014"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "The word unique appears. It is not authorization."
+                      },
+                      {
+                          "id":  "IBKR-SCN-D02",
+                          "title":  "Local capture gap is not an IBKR sequence",
+                          "claims":  "IBKR-CLM-12",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      },
+                      {
+                          "id":  "IBKR-SCN-D03",
+                          "title":  "No completeness token",
+                          "claims":  "IBKR-CLM-15, IBKR-CLM-14",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-026"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "SNAPSHOT_TEXT_IS_NOT_BROKER_COMPLETENESS",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "A 1000-order maximum is documented beside language that the list contains orders for the day. No completeness token is recorded. Silence is not proof that no token exists."
+                      },
+                      {
+                          "id":  "IBKR-SCN-D04",
+                          "title":  "No broker-wins rule",
+                          "claims":  "IBKR-CLM-10, IBKR-CLM-19",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-013"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "An execution may still arrive during PendingCancel. No broker-wins rule is stated."
+                      },
+                      {
+                          "id":  "IBKR-SCN-D05",
+                          "title":  "No economic effect and no release",
+                          "claims":  "IBKR-CLM-08, IBKR-CLM-14, IBKR-CLM-27",
+                          "documentation_class":  "OFFICIAL_DOCUMENTATION_OBTAINED",
+                          "source_ids":  [
+                                             "SRC-03B51-012"
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "A correction ExecId is not a risk release and not an economic posting."
+                      },
+                      {
+                          "id":  "IBKR-SCN-D06",
+                          "title":  "No dispatch",
+                          "claims":  "IBKR-CLM-21, IBKR-CLM-23",
+                          "documentation_class":  "NOT_RETRIEVED",
+                          "source_ids":  [
+
+                                         ],
+                          "hypothesis_status":  "HYPOTHESIS",
+                          "oracle_limit":  "NEGATIVE_TEXT_IS_NOT_AUTHORIZATION",
+                          "execution":  "NOT_EXECUTED",
+                          "evidence":  "EXTERNAL_EVIDENCE_PENDING",
+                          "note":  "No retrieved passage states this scenario. Absence from the retrieved pages is not a negative finding."
+                      }
+                  ],
+    "read_candidates":  [
+                            {
+                                "name":  "EClient.reqIds",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-008",
+                                "section":  "# OrderId",
+                                "side_effects":  "Returns the next valid order id through nextValidId. Other effects are not stated.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.reqExecutions",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-012",
+                                "section":  "Request Execution Details",
+                                "side_effects":  "Requests executions matching a filter. The page limits the default window and disagrees about midnight, 24 hours, and 7 days.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.reqAllOpenOrders",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-014",
+                                "section":  "Request All Open Orders",
+                                "side_effects":  "Documented as returning open orders once and not initiating a subscription. Not called.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.reqOpenOrders",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-014",
+                                "section":  "Request API Client Orders",
+                                "side_effects":  "For client ID 0 this binds manual TWS orders and can change the order ID. The page says it is rejected when API Read-Only Mode is enabled. Not a read.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.reqAutoOpenOrders",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-014",
+                                "section":  "Request Manually Submitted TWS Orders",
+                                "side_effects":  "autoBind true assigns API order IDs to future manual orders. Not a read.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.cancelOrder",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-021",
+                                "section":  "Cancel Individual Order",
+                                "side_effects":  "Cancels an order. Not a read.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.reqGlobalCancel",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-021",
+                                "section":  "Cancel All Open Orders",
+                                "side_effects":  "Cancels all open orders. Not a read.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "EClient.placeOrder",
+                                "family":  "TWS_API",
+                                "source":  "SRC-03B51-022",
+                                "section":  "Modifying Orders",
+                                "side_effects":  "The modify page says placeOrder with the same order id modifies an open order. Not a read.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "GET /iserver/account/order/status/{orderId}",
+                                "family":  "CLIENT_PORTAL_WEB_API",
+                                "source":  "SRC-03B51-025",
+                                "section":  "Order Status",
+                                "side_effects":  "Documented GET for one order while it remains active. A 503 is documented when no cached status exists. Requires an authenticated brokerage session, which is not authorized.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "GET /iserver/account/orders",
+                                "family":  "CLIENT_PORTAL_WEB_API",
+                                "source":  "SRC-03B51-026",
+                                "section":  "Live Orders",
+                                "side_effects":  "The page says filtering prevents websocket sor updates, and force=true clears saved information and yields a blank array. Not a read-only operation. Maximum 1000 orders is documented.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "GET /iserver/account/trades",
+                                "family":  "CLIENT_PORTAL_WEB_API",
+                                "source":  "SRC-03B51-027",
+                                "section":  "Trades",
+                                "side_effects":  "Documented as the current day and six previous days for the selected account. Not called.",
+                                "read_only":  false,
+                                "approved":  false
+                            },
+                            {
+                                "name":  "POST or account switch /iserver/account",
+                                "family":  "CLIENT_PORTAL_WEB_API",
+                                "source":  "SRC-03B51-025",
+                                "section":  "Order Status important notes",
+                                "side_effects":  "The order-status page says the caller must switch the affiliated account before requesting status. Switching the selected account is not a read.",
+                                "read_only":  false,
+                                "approved":  false
+                            }
+                        ]
+}

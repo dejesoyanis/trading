@@ -68,6 +68,9 @@ const ALLOWED_CONTRACT_JSON: &[&str] = &[
     "contracts/verification-plans/TRD-ARCH-03B4-plan-index.json",
     "contracts/verification-plans/TRD-ARCH-03B42-resolution-index.json",
     "contracts/verification-plans/TRD-ARCH-03B5-source-index.json",
+    "contracts/verification-plans/TRD-ARCH-03B5.1-acquisition-register.json",
+    "contracts/verification-plans/TRD-ARCH-03B5.1-host-allowlist.json",
+    "contracts/verification-plans/TRD-ARCH-03B5.1-research-register.json",
     "contracts/source-manifest.json",
     "contracts/sources/ADFR-Consolidated-v1.0.json",
     "contracts/status-model/status-dimensions-draft-v0.json",
@@ -349,7 +352,7 @@ fn assert_no_published_schema_tree(root: &Path) {
     allowed.sort();
     assert_eq!(
         relative, allowed,
-        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, the non-wire IBKR verification plan index, the non-wire IBKR verification policy resolution index, and the non-wire IBKR public-research index"
+        "contracts JSON is limited to the registry skeleton, provenance, the ADFR extract, the non-wire status draft, the unratified OMS proposal index, the non-wire OMS policy resolution index, the unratified risk proposal index, the non-wire risk policy resolution index, the unratified broker proposal index, the non-wire broker policy resolution index, the non-wire IBKR verification plan index, the non-wire IBKR verification policy resolution index, the non-wire IBKR public-research index, and the non-wire TRD-ARCH-03B.5.1 documentation registers"
     );
     let proposal = fs::read_to_string(
         root.join("contracts/design-proposals/TRD-ARCH-03B1-proposal-index.json"),

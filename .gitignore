@@ -16,3 +16,6 @@ Thumbs.db
 
 # Rustfmt backups
 **/*.rs.bk
+
+# Local public-documentation archive. Provenance hashes are committed. Document bytes are not.
+/research-archive/
